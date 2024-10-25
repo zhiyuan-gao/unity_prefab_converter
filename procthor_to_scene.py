@@ -17,6 +17,7 @@ from multiverse_parser import MjcfExporter, UrdfExporter
 from pxr import Usd, UsdGeom, UsdShade
 import random
 import argparse
+import numpy as np
 
 source_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -134,9 +135,18 @@ class ProcthorImporter(Factory):
 
         walls = house["walls"]
         doors = house["doors"]
+        windows = house["windows"]
+
+        # for obj in windows:
+        #     self.import_object(house_name, obj)
+        # for obj in doors:
+        #     self.import_object(house_name, obj)
+
         walls_with_door = {}
         for door_id, door in enumerate(doors):
-            self.import_door(door, door_id, walls, walls_with_door)
+            self.import_door_new(door, door_id, walls, walls_with_door)
+
+        # for window_id, window in enumerate(windows):
 
         for wall_id, wall in enumerate(walls):
             wall_id_str = ' '.join(wall["id"].split('|')[-4:])
@@ -164,7 +174,7 @@ class ProcthorImporter(Factory):
                                             [0, 1, 0]])
         
         asset_id = obj["assetId"]
-        asset_id = re.sub(r'(\d+)x(\d+)', r'\1_X_\2', asset_id)
+        # asset_id = re.sub(r'(\d+)x(\d+)', r'\1_X_\2', asset_id)
 
         position_vec = numpy.dot(x_90_rotation_matrix, position_vec)
         rotation_quat = Rotation.from_matrix(
@@ -334,8 +344,70 @@ class ProcthorImporter(Factory):
                                                      geom_property=geom_property)
                 geom_builder.add_mesh(mesh_name=f"SM_{body_name}_{idx}", mesh_property=mesh_property)
 
+
+    def import_door_new(self, door: Dict[str, Any],door_id: int, walls: List[Dict[str, Any]],walls_with_door: Dict) -> None:
+
+        wall0_id = door['wall0']
+        wall1_id = door['wall1']
+        # for wall in walls:
+        #     if wall["id"] == wall0_id:
+        #         poly_wall0 = wall
+        #         break
+
+        for wall in walls:
+            if wall["id"] == wall1_id:
+                walls_with_door[wall1_id] = door
+                break
+        else:
+            raise ValueError(f"Wall {wall1_id} not found")
+
+        for wall in walls:
+            if wall["id"] == wall0_id:
+                walls_with_door[wall0_id] = door
+                poly_wall0 = wall
+                break
+        else:
+            raise ValueError(f"Wall {wall0_id} not found")
+
+
+        wall0 = polygon_wall_to_simple_wall(poly_wall0, door)
+
+        p1 = np.array([wall0['p1']['x'], wall0['p1']['y'], wall0['p1']['z']])
+        p0 = np.array([wall0['p0']['x'], wall0['p0']['y'], wall0['p0']['z']])
+        p0p1 = p1 - p0
+        p0p1_norm = p0p1 / np.linalg.norm(p0p1)
+
+        position_vec = p0 + (p0p1_norm * (door['assetPosition']['x'])) + np.array([0, 1, 0])* door['assetPosition']['y']
+
+        theta = -np.sign(p0p1_norm[2]) * np.arccos(np.dot(p0p1_norm, np.array([1, 0, 0])))
+        rotY = np.degrees(theta)
+        quat = Rotation.from_euler('y', rotY, degrees=True).as_quat()
+
+
+        # rotation = obj.get("rotation", {"x": 0, "y": 0, "z": 0})
+        rotation_mat = Rotation.from_euler("xyz", [0, rotY, 0],
+                                           degrees=True)
+
+        x_90_rotation_matrix = numpy.array([[1, 0, 0],
+                                            [0, 0, -1],
+                                            [0, 1, 0]])
+        body_name = f"Door_{door_id}"
+        body_builder = self._world_builder.add_body(body_name=body_name, parent_body_name=house_name)
+
+        position_vec = numpy.dot(x_90_rotation_matrix, position_vec)
+        rotation_quat = Rotation.from_matrix(
+            numpy.dot(x_90_rotation_matrix, numpy.dot(rotation_mat.as_matrix(), x_90_rotation_matrix.T))).as_quat()
+
+        body_builder.set_transform(pos=position_vec, quat=rotation_quat)
+
+
+        asset_name = door["assetId"]
+        self.import_asset_new(body_builder, asset_name)
+
+
     def import_door(self, door: Dict[str, Any], door_id: int, walls: List[Dict[str, Any]],
                     walls_with_door: Dict) -> None:
+        
         body_name = f"Door_{door_id}"
         body_builder = self._world_builder.add_body(body_name=body_name, parent_body_name=house_name)
 
@@ -383,12 +455,12 @@ class ProcthorImporter(Factory):
             return None
 
         asset_name = door["assetId"]
-        asset_name = re.sub(r'(\d+)x(\d+)', r'\1_X_\2', asset_name)
-        asset_name = snake_to_camel(asset_name)
-        asset_name = asset_name.replace("Doorframe", "Doorway")
+        # asset_name = re.sub(r'(\d+)x(\d+)', r'\1_X_\2', asset_name)
+        # asset_name = snake_to_camel(asset_name)
+        # asset_name = asset_name.replace("Doorframe", "Doorway")
         if not any([door_name in asset_name for door_name in include_doors]):
             return None
-        self.import_asset(body_builder, asset_name)
+        self.import_asset_new(body_builder, asset_name)
 
     def import_asset_new(self, body_builder: BodyBuilder, asset_name: str) -> None:
         # asset_paths = get_asset_paths(asset_name)
@@ -397,6 +469,7 @@ class ProcthorImporter(Factory):
         prefab_info = self.all_prefab_details[asset_name]
 
         folder_path = os.path.join(asset_paths, asset_name)
+        asset_name = re.sub(r'(\d+)x(\d+)', r'\1_X_\2', asset_name)
         
 
         obj_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith('.obj')]
@@ -497,6 +570,30 @@ class ProcthorImporter(Factory):
                                                                  geom_property=geom_property)
                             geom_builder.add_mesh(mesh_name=mesh_name, mesh_property=mesh_property)
                             mesh_idx += 1
+
+
+
+
+def polygon_wall_to_simple_wall(wall, holes):
+
+    polygons = sorted(wall['polygon'], key=lambda p: p['y'])
+    max_y = max(p['y'] for p in wall['polygon'])
+    
+    hole = holes.get(wall['id'], None)
+    
+    p0 = polygons[0]
+    
+    return {
+        'id': wall['id'],
+        'p0': polygons[0],
+        'p1': polygons[1],
+        'height': max_y - p0['y'],
+        'material': wall['material'],
+        'roomId': wall['roomId'],
+
+    }
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Auto semantic tagging based on object names")

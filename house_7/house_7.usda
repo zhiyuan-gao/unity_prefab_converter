@@ -1,0 +1,898 @@
+#usda 1.0
+(
+    defaultPrim = "house_7"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "house_7"
+{
+    def Xform "Bed_2_0_0"
+    {
+        matrix4d xformOp:transform = ( (-4.440892098500626e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, -4.440892098500626e-16, 0, 0), (0, 0, 1, 0), (9.060633848190307, -1.526103170014596, 0.45509809255599976, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Bed_2_0_0_Bed_1_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/BedMattress_1.usda@</BedMattress_1>
+        )
+        {
+            rel material:binding = </house_7/Bed_2_0_0/SM_Bed_2_0_0_Bed_1_0/Materials/M_BedMattress_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_BedMattress_1_0" (
+                    prepend references = @./house_7/materials/usd/M_BedMattress_1_0.usda@</M_BedMattress_1_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Bed_2_0_0_Bed_1_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Bed_1.usda@</Bed_1>
+        )
+        {
+            rel material:binding = </house_7/Bed_2_0_0/SM_Bed_2_0_0_Bed_1_1/Materials/M_Bed_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Bed_1_0" (
+                    prepend references = @./house_7/materials/usd/M_Bed_1_0.usda@</M_Bed_1_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Bed_2_0_0_Bed_1_2" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/BedsheetUnmade_1.usda@</BedsheetUnmade_1>
+        )
+        {
+            rel material:binding = </house_7/Bed_2_0_0/SM_Bed_2_0_0_Bed_1_2/Materials/M_BedsheetUnmade_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_BedsheetUnmade_1_0" (
+                    prepend references = @./house_7/materials/usd/M_BedsheetUnmade_1_0.usda@</M_BedsheetUnmade_1_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Pillow_2_0_1"
+    {
+        matrix4d xformOp:transform = ( (-4.440892098500626e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, -4.440892098500626e-16, 0, 0), (0, 0, 1, 0), (9.72747633087635, -1.5261031700145962, 0.9710858725011349, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Pillow_2_0_1_pillow_13_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Pillow_13.usda@</Pillow_13>
+        )
+        {
+            rel material:binding = </house_7/Pillow_2_0_1/SM_Pillow_2_0_1_pillow_13_0/Materials/M_Pillow_13_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Pillow_13_0" (
+                    prepend references = @./house_7/materials/usd/M_Pillow_13_0.usda@</M_Pillow_13_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Dresser_2_1"
+    {
+        matrix4d xformOp:transform = ( (-4.440892098500626e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, -4.440892098500626e-16, 0, 0), (0, 0, 1, 0), (9.899331013441085, -9.496475348949431, 0.35076457262039185, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Dresser_2_1_Dresser_229_1_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DresserDrawer_229__2.usda@</DresserDrawer_229__2>
+        )
+        {
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_0/Materials/M_DresserDrawer_229__2_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DresserDrawer_229__2_0" (
+                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229__2_0.usda@</M_DresserDrawer_229__2_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Dresser_2_1_Dresser_229_1_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Dresser_229.usda@</Dresser_229>
+        )
+        {
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_1/Materials/M_Dresser_229_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Dresser_229_0" (
+                    prepend references = @./house_7/materials/usd/M_Dresser_229_0.usda@</M_Dresser_229_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Dresser_2_1_Dresser_229_1_2" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DresserDrawer_229__4.usda@</DresserDrawer_229__4>
+        )
+        {
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_2/Materials/M_DresserDrawer_229__4_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DresserDrawer_229__4_0" (
+                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229__4_0.usda@</M_DresserDrawer_229__4_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Dresser_2_1_Dresser_229_1_3" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DresserDrawer_229__1.usda@</DresserDrawer_229__1>
+        )
+        {
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_3/Materials/M_DresserDrawer_229__1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DresserDrawer_229__1_0" (
+                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229__1_0.usda@</M_DresserDrawer_229__1_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Dresser_2_1_Dresser_229_1_4" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DresserDrawer_229__3.usda@</DresserDrawer_229__3>
+        )
+        {
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_4/Materials/M_DresserDrawer_229__3_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DresserDrawer_229__3_0" (
+                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229__3_0.usda@</M_DresserDrawer_229__3_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Statue_2_1"
+    {
+        matrix4d xformOp:transform = ( (0.999999999999913, -4.172324587717069e-7, 0, 0), (4.172324587717069e-7, 0.999999999999913, 0, 0), (0, 0, 1, 0), (9.898834228515625, -9.34598445892334, 0.9235716938972474, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Statue_2_1_Fertility_Statue_2_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/FertilityStatue.usda@</FertilityStatue>
+        )
+        {
+            rel material:binding = </house_7/Statue_2_1/SM_Statue_2_1_Fertility_Statue_2_0/Materials/M_FertilityStatue_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_FertilityStatue_0" (
+                    prepend references = @./house_7/materials/usd/M_FertilityStatue_0.usda@</M_FertilityStatue_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "AlarmClock_2_3"
+    {
+        matrix4d xformOp:transform = ( (-4.440892098500626e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, -4.440892098500626e-16, 0, 0), (0, 0, 1, 0), (9.785916328430176, -9.654369354248047, 0.17360451817512512, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/AlarmClockButton_11.usda@</AlarmClockButton_11>
+        )
+        {
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_0/Materials/M_AlarmClockButton_11_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_AlarmClockButton_11_0" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_0.usda@</M_AlarmClockButton_11_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/AlarmClockHandHour_11.usda@</AlarmClockHandHour_11>
+        )
+        {
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_1/Materials/M_AlarmClockHandHour_11_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_AlarmClockHandHour_11_0" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClockHandHour_11_0.usda@</M_AlarmClockHandHour_11_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_2" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/AlarmClockHandMinute_11.usda@</AlarmClockHandMinute_11>
+        )
+        {
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_2/Materials/M_AlarmClockHandMinute_11_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_AlarmClockHandMinute_11_0" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClockHandMinute_11_0.usda@</M_AlarmClockHandMinute_11_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_3" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/AlarmClock_11.usda@</AlarmClock_11>
+        )
+        {
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_3/Materials/M_AlarmClock_11_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_AlarmClock_11_0" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClock_11_0.usda@</M_AlarmClock_11_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "ArmChair_2_2_0"
+    {
+        matrix4d xformOp:transform = ( (-4.440892098500626e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, -4.440892098500626e-16, 0, 0), (0, 0, 1, 0), (9.65250204014778, -3.133908659328308, 0.4085939824581146, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_ArmChair_2_2_0_Armchair_208_3_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Armchair_208.usda@</Armchair_208>
+        )
+        {
+            rel material:binding = </house_7/ArmChair_2_2_0/SM_ArmChair_2_2_0_Armchair_208_3_0/Materials/M_Armchair_208_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Armchair_208_0" (
+                    prepend references = @./house_7/materials/usd/M_Armchair_208_0.usda@</M_Armchair_208_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "FloorLamp_2_2_1"
+    {
+        matrix4d xformOp:transform = ( (0.5373563883647421, 0.8433552702649106, 0, 0), (-0.8433552702649106, 0.5373563883647421, 0, 0), (0, 0, 1, 0), (9.65250204014778, -4.102329168314989, 0.8828924894332886, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_FloorLamp_2_2_1_Floor_Lamp_19_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/FloorLamp_19.usda@</FloorLamp_19>
+        )
+        {
+            rel material:binding = </house_7/FloorLamp_2_2_1/SM_FloorLamp_2_2_1_Floor_Lamp_19_0/Materials/M_FloorLamp_19_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_FloorLamp_19_0" (
+                    prepend references = @./house_7/materials/usd/M_FloorLamp_19_0.usda@</M_FloorLamp_19_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "DiningTable_2_3_0"
+    {
+        matrix4d xformOp:transform = ( (-4.440892098500626e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, -4.440892098500626e-16, 0, 0), (0, 0, 1, 0), (7.119243945176458, -4.837872461077097, 0.39023110270500183, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_DiningTable_2_3_0_Dining_Table_208_1_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DiningTable_208.usda@</DiningTable_208>
+        )
+        {
+            rel material:binding = </house_7/DiningTable_2_3_0/SM_DiningTable_2_3_0_Dining_Table_208_1_0/Materials/M_DiningTable_208_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DiningTable_208_0" (
+                    prepend references = @./house_7/materials/usd/M_DiningTable_208_0.usda@</M_DiningTable_208_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Vase_2_0"
+    {
+        matrix4d xformOp:transform = ( (-4.440892098500626e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, -4.440892098500626e-16, 0, 0), (0, 0, 1, 0), (7.490043640136719, -4.837872505187988, 0.9797314882278443, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Vase_2_0_Vase_Tall_4_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/VaseTall.usda@</VaseTall>
+        )
+        {
+            rel material:binding = </house_7/Vase_2_0/SM_Vase_2_0_Vase_Tall_4_0/Materials/M_VaseTall_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_VaseTall_0" (
+                    prepend references = @./house_7/materials/usd/M_VaseTall_0.usda@</M_VaseTall_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "CD_2_2"
+    {
+        matrix4d xformOp:transform = ( (-4.440892098500626e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, -4.440892098500626e-16, 0, 0), (0, 0, 1, 0), (7.2428436279296875, -4.172109603881836, 0.7872632145881653, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Chair_2_3_1"
+    {
+        matrix4d xformOp:transform = ( (-0.3797641096518549, 0.9250833589576315, 0, 0), (-0.9250833589576315, -0.3797641096518549, 0, 0), (0, 0, 1, 0), (6.5253925219129085, -4.837872461077097, 0.4184993803501129, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Chair_2_3_1_Chair_204_1_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Chair_204.usda@</Chair_204>
+        )
+        {
+            rel material:binding = </house_7/Chair_2_3_1/SM_Chair_2_3_1_Chair_204_1_0/Materials/M_Chair_204_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Chair_204_0" (
+                    prepend references = @./house_7/materials/usd/M_Chair_204_0.usda@</M_Chair_204_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Chair_2_3_2"
+    {
+        matrix4d xformOp:transform = ( (0.9995740095998421, 0.029185601458506863, 0, 0), (-0.029185601458506863, 0.9995740095998421, 0, 0), (0, 0, 1, 0), (7.119243945176459, -3.788311344381693, 0.4184993803501129, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Chair_2_3_2_Chair_204_1_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Chair_204.usda@</Chair_204>
+        )
+        {
+            rel material:binding = </house_7/Chair_2_3_2/SM_Chair_2_3_2_Chair_204_1_0/Materials/M_Chair_204_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Chair_204_0" (
+                    prepend references = @./house_7/materials/usd/M_Chair_204_0.usda@</M_Chair_204_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Chair_2_3_3"
+    {
+        matrix4d xformOp:transform = ( (-0.292422386727448, -0.9562892594506242, 0, 0), (0.9562892594506242, -0.292422386727448, 0, 0), (0, 0, 1, 0), (7.713095368440008, -4.837872461077097, 0.4184993803501129, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Chair_2_3_3_Chair_204_1_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Chair_204.usda@</Chair_204>
+        )
+        {
+            rel material:binding = </house_7/Chair_2_3_3/SM_Chair_2_3_3_Chair_204_1_0/Materials/M_Chair_204_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Chair_204_0" (
+                    prepend references = @./house_7/materials/usd/M_Chair_204_0.usda@</M_Chair_204_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Toilet_3_0"
+    {
+        matrix4d xformOp:transform = ( (2.220446049250313e-16, 1.0000000000000002, 0, 0), (-1.0000000000000002, 2.220446049250313e-16, 0, 0), (0, 0, 1, 0), (2.5364336252212523, -7.808257953405381, 0.5189565420150757, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Toilet_3_0_Toilet_1_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Fp_401__Toiletbody.usda@</Fp_401__Toiletbody>
+        )
+        {
+            rel material:binding = </house_7/Toilet_3_0/SM_Toilet_3_0_Toilet_1_0/Materials/M_Fp_401__Toiletbody_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Fp_401__Toiletbody_0" (
+                    prepend references = @./house_7/materials/usd/M_Fp_401__Toiletbody_0.usda@</M_Fp_401__Toiletbody_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Toilet_3_0_Toilet_1_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Fp_401__Toiletlid.usda@</Fp_401__Toiletlid>
+        )
+        {
+            rel material:binding = </house_7/Toilet_3_0/SM_Toilet_3_0_Toilet_1_1/Materials/M_Fp_401__Toiletlid_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Fp_401__Toiletlid_0" (
+                    prepend references = @./house_7/materials/usd/M_Fp_401__Toiletlid_0.usda@</M_Fp_401__Toiletlid_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "ToiletPaper_3_4"
+    {
+        matrix4d xformOp:transform = ( (-0.0000027963191446822577, 0.9999999999960903, 0, 0), (-0.9999999999960903, -0.0000027963191446822577, 0, 0), (0, 0, 1, 0), (2.199458599090576, -7.608257293701172, 1.1051270961761475, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Roll.usda@</Roll>
+        )
+        {
+            rel material:binding = </house_7/ToiletPaper_3_4/SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_0/Materials/M_Roll_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Roll_0" (
+                    prepend references = @./house_7/materials/usd/M_Roll_0.usda@</M_Roll_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Toiletpaper.usda@</Toiletpaper>
+        )
+        {
+            rel material:binding = </house_7/ToiletPaper_3_4/SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_1/Materials/M_Toiletpaper_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Toiletpaper_0" (
+                    prepend references = @./house_7/materials/usd/M_Toiletpaper_0.usda@</M_Toiletpaper_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Sink_3_1_0"
+    {
+        matrix4d xformOp:transform = ( (2.220446049250313e-16, 1.0000000000000002, 0, 0), (-1.0000000000000002, 2.220446049250313e-16, 0, 0), (0, 0, 1, 0), (0.3387441873550415, -5.682020043373107, 0.5097440481185913, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Sink_3_1_0_Sink_15_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Sink_15.usda@</Sink_15>
+        )
+        {
+            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_0/Materials/M_Sink_15_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Sink_15_0" (
+                    prepend references = @./house_7/materials/usd/M_Sink_15_0.usda@</M_Sink_15_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Sink_3_1_0_Sink_15_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/PsSinkbasin_15.usda@</PsSinkbasin_15>
+        )
+        {
+            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_1/Materials/M_PsSinkbasin_15_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_PsSinkbasin_15_0" (
+                    prepend references = @./house_7/materials/usd/M_PsSinkbasin_15_0.usda@</M_PsSinkbasin_15_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Faucet_3_1_1"
+    {
+        matrix4d xformOp:transform = ( (2.220446049250313e-16, 1.0000000000000002, 0, 0), (-1.0000000000000002, 2.220446049250313e-16, 0, 0), (0, 0, 1, 0), (0.13770799964666358, -5.682020043373107, 1.1218344196677208, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Faucet_3_1_1_Bathroom_Faucet_27_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/SinkFaucet_19.usda@</SinkFaucet_19>
+        )
+        {
+            rel material:binding = </house_7/Faucet_3_1_1/SM_Faucet_3_1_1_Bathroom_Faucet_27_0/Materials/M_SinkFaucet_19_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_SinkFaucet_19_0" (
+                    prepend references = @./house_7/materials/usd/M_SinkFaucet_19_0.usda@</M_SinkFaucet_19_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Faucet_3_1_1_Bathroom_Faucet_27_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/SinkFaucetKnob_19.usda@</SinkFaucetKnob_19>
+        )
+        {
+            rel material:binding = </house_7/Faucet_3_1_1/SM_Faucet_3_1_1_Bathroom_Faucet_27_1/Materials/M_SinkFaucetKnob_19_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_SinkFaucetKnob_19_0" (
+                    prepend references = @./house_7/materials/usd/M_SinkFaucetKnob_19_0.usda@</M_SinkFaucetKnob_19_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Plunger_3_2"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0.0991485059261322, -0.09900321960449218, 0.2696691155433655, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Plunger_3_2_Plunger_3_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Plunger.usda@</Plunger>
+        )
+        {
+            rel material:binding = </house_7/Plunger_3_2/SM_Plunger_3_2_Plunger_3_0/Materials/M_Plunger_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_Plunger_0" (
+                    prepend references = @./house_7/materials/usd/M_Plunger_0.usda@</M_Plunger_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Door_0"
+    {
+        matrix4d xformOp:transform = ( (2.220446049250313e-16, -1.0000000000000002, 0, 0), (1.0000000000000002, 2.220446049250313e-16, 0, 0), (0, 0, 1, 0), (4.049, -2.242056729709356, 1.037670373916626, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Door_0_Doorway_Double_9_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DoorwayHandle_9.usda@</DoorwayHandle_9>
+        )
+        {
+            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_0/Materials/M_DoorwayHandle_9_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayHandle_9_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayHandle_9_0.usda@</M_DoorwayHandle_9_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_0_Doorway_Double_9_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DoorwayDoor_9.usda@</DoorwayDoor_9>
+        )
+        {
+            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_1/Materials/M_DoorwayDoor_9_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDoor_9_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDoor_9_0.usda@</M_DoorwayDoor_9_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_0_Doorway_Double_9_2" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DoorwayDouble_9.usda@</DoorwayDouble_9>
+        )
+        {
+            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_2/Materials/M_DoorwayDouble_9_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDouble_9_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDouble_9_0.usda@</M_DoorwayDouble_9_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Door_1"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (8.636131362367818, 0, 1.0651136636734009, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Door_1_Doorway_Double_1_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DoorwayDoor_1.usda@</DoorwayDoor_1>
+        )
+        {
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_0/Materials/M_DoorwayDoor_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDoor_1_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDoor_1_0.usda@</M_DoorwayDoor_1_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_1_Doorway_Double_1_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DoorwayDouble_1.usda@</DoorwayDouble_1>
+        )
+        {
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_1/Materials/M_DoorwayDouble_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDouble_1_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDouble_1_0.usda@</M_DoorwayDouble_1_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_1_Doorway_Double_1_2" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/DoorwayHandle_1.usda@</DoorwayHandle_1>
+        )
+        {
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_2/Materials/M_DoorwayHandle_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayHandle_1_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayHandle_1_0.usda@</M_DoorwayHandle_1_0>
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "Wall_0"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_0_0" (
+            prepend references = @./house_7/meshes/usd/Wall_0_0.usda@</SM_Wall_0_0>
+        )
+        {
+        }
+
+        def Mesh "Wall_0_1" (
+            prepend references = @./house_7/meshes/usd/Wall_0_1.usda@</SM_Wall_0_1>
+        )
+        {
+        }
+
+        def Mesh "Wall_0_2" (
+            prepend references = @./house_7/meshes/usd/Wall_0_2.usda@</SM_Wall_0_2>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_1"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_1" (
+            prepend references = @./house_7/meshes/usd/Wall_1.usda@</SM_Wall_1>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_2"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_2" (
+            prepend references = @./house_7/meshes/usd/Wall_2.usda@</SM_Wall_2>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_3"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_3" (
+            prepend references = @./house_7/meshes/usd/Wall_3.usda@</SM_Wall_3>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_4"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_4" (
+            prepend references = @./house_7/meshes/usd/Wall_4.usda@</SM_Wall_4>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_5"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_5_0" (
+            prepend references = @./house_7/meshes/usd/Wall_5_0.usda@</SM_Wall_5_0>
+        )
+        {
+        }
+
+        def Mesh "Wall_5_1" (
+            prepend references = @./house_7/meshes/usd/Wall_5_1.usda@</SM_Wall_5_1>
+        )
+        {
+        }
+
+        def Mesh "Wall_5_2" (
+            prepend references = @./house_7/meshes/usd/Wall_5_2.usda@</SM_Wall_5_2>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_6"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_6" (
+            prepend references = @./house_7/meshes/usd/Wall_6.usda@</SM_Wall_6>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_7"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_7" (
+            prepend references = @./house_7/meshes/usd/Wall_7.usda@</SM_Wall_7>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_8"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_8" (
+            prepend references = @./house_7/meshes/usd/Wall_8.usda@</SM_Wall_8>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_10"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_10" (
+            prepend references = @./house_7/meshes/usd/Wall_10.usda@</SM_Wall_10>
+        )
+        {
+        }
+    }
+
+    def Xform "Wall_11"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_11" (
+            prepend references = @./house_7/meshes/usd/Wall_11.usda@</SM_Wall_11>
+        )
+        {
+        }
+    }
+}
+

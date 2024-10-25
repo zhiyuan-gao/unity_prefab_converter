@@ -17,3 +17,11 @@ In case I forget this
 
 How to use ParseAllPrefabs.cs? 
 Put it in ai2thor/unity/Assets/Editor folder, then we can find the Parse All Prefab in Assets option in the Tools drop-down menu at the top of the Unity interface.
+
+
+## Update
+Some errors in the code:
+The sub-object face indexes are in the wrong order.
+Some door meshes are overwritten due to duplicate names.
+Position of holes are not correct.
+Paintings and windows need to be added.
