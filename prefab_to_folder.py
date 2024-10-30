@@ -12,7 +12,7 @@ import shutil
 
 
 source_dir = os.path.dirname(os.path.realpath(__file__))
-assets_output_dir = os.path.join(source_dir, 'procthor_assets_center_shifted')
+assets_output_dir = os.path.join(source_dir, 'procthor_assets')
 
 def find_asset_path_by_guid(unity_asset_path, guid):
     """
@@ -142,6 +142,15 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
             bpy.ops.import_scene.fbx(filepath=mesh_path, bake_space_transform = True)
             # Deselect all objects first
             bpy.ops.object.select_all(action='DESELECT')
+
+            for _obj in bpy.context.scene.objects:
+                if _obj.name != mesh_name:
+                    _obj.select_set(True)
+                else:
+                    _obj.select_set(False)
+            # delete the other objects
+            bpy.ops.object.delete()
+
             obj = bpy.data.objects.get(mesh_name)
 
         elif mesh_file_extension == ".obj":
@@ -161,7 +170,6 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
         # Find and select the specified Mesh object
 
         if obj:
-            # print(f"Mesh {mesh_name} found in {mesh_path}")
 
             obj.hide_set(False) 
             obj.hide_viewport = False  
@@ -298,6 +306,15 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
             # Export the selected object to an .stl file
             bpy.ops.wm.stl_export(filepath=stl_file_path, export_selected_objects=True, forward_axis='Y', up_axis='Z')# blender 4.x
             # bpy.ops.export_mesh.stl(filepath=stl_file_path, use_selection=True, axis_forward='Y', axis_up='Z')# blender 2.x
+
+            usd_file_path = os.path.join(asset_dir, f"{obj.name}.usda")
+            bpy.ops.wm.usd_export(
+                filepath=usd_file_path,
+                selected_objects_only=True, 
+                export_animation=False,       
+                export_materials=True 
+            )
+
         else:
             print(f"Mesh {mesh_name} not found in {mesh_path}")
 
@@ -530,7 +547,6 @@ def copy_file_and_get_relative_path(source_file, destination_folder):
     return combined_path
 
 
-
 def add_texture(asset_id,prefab_info,root_path):
     for sub_obj in prefab_info:
         mesh_name = prefab_info[sub_obj]['MeshName']
@@ -541,9 +557,10 @@ def add_texture(asset_id,prefab_info,root_path):
         elif mesh_file_extension == ".obj":
             obj_name = snake_to_camel(asset_id)
 
-        mtl_filepath = f'/home/zgao/ProcTHOR_Converter/procthor_assets_center_shifted/{asset_id}/{obj_name}.mtl'
+        source_dir = os.path.dirname(os.path.realpath(__file__))
+        mtl_filepath = os.path.join(source_dir, 'procthor_assets',f"{asset_id}", f"{obj_name}.mtl")
+        texture_folder = os.path.join(source_dir, 'procthor_assets',f"{asset_id}", "textures")
 
-        texture_folder = f'/home/zgao/ProcTHOR_Converter/procthor_assets_center_shifted/{asset_id}/textures'
         if not os.path.exists(texture_folder):
             os.makedirs(texture_folder)
         
@@ -605,21 +622,21 @@ if __name__=="__main__":
     #             add_texture(asset_id,prefab_info,root_path)
 
     #         else:
-                # print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
+    #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
 
-    with open('/home/zgao/ProcTHOR_Converter/house_7.json', 'r') as file:
-        test_house = json.load(file)
-    for obj in test_house['objects']:
-        asset_id = obj['assetId']
-        prefab_info = all_prefab_details[asset_id]
-        convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
-        add_texture(asset_id,prefab_info,root_path)
-        if "children" in obj:
-            for child in obj["children"]:
-                asset_id = child['assetId']
-                prefab_info = all_prefab_details[asset_id]
-                convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
-                add_texture(asset_id,prefab_info,root_path)
+    # with open('/home/zgao/ProcTHOR_Converter/house_7.json', 'r') as file:
+    #     test_house = json.load(file)
+    # for obj in test_house['objects']:
+    #     asset_id = obj['assetId']
+    #     prefab_info = all_prefab_details[asset_id]
+    #     convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
+    #     add_texture(asset_id,prefab_info,root_path)
+    #     if "children" in obj:
+    #         for child in obj["children"]:
+    #             asset_id = child['assetId']
+    #             prefab_info = all_prefab_details[asset_id]
+    #             convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
+    #             add_texture(asset_id,prefab_info,root_path)
 
 
     # Test the conversion for a single prefab  
@@ -632,8 +649,8 @@ if __name__=="__main__":
     # # asset_id = 'Toilet_Paper_Used_Up'
     # # asset_id = 'Toilet_Paper'
     # # asset_id = 'Bathroom_Faucet_27'
-    # asset_id = 'Bed_1'
+    asset_id = 'Bed_1'
 
-    # prefab_info = all_prefab_details[asset_id]
-    # convert_prefab(asset_id, prefab_info,root_path,shift_center=True)
-    # add_texture(asset_id,prefab_info,root_path)
+    prefab_info = all_prefab_details[asset_id]
+    convert_prefab(asset_id, prefab_info,root_path,shift_center=True)
+    add_texture(asset_id,prefab_info,root_path)
