@@ -21,7 +21,13 @@ Put it in ai2thor/unity/Assets/Editor folder, then we can find the Parse All Pre
 
 ## Update
 Some errors in the code:
-The sub-object face indexes are in the wrong order.
-Some door meshes are overwritten due to duplicate names.
+The sub-object face indexes are in the wrong order.   Done
+
+Some door meshes are overwritten due to duplicate names.  Done
+
+Rewrite mesh names and files hierarchy?  Done
+
+TODO: Texure look different after spliting. Figure out why
+
 Position of holes are not correct.
 Paintings and windows need to be added.

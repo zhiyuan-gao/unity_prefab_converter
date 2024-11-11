@@ -258,7 +258,7 @@ public class ParseAllPrefabs : EditorWindow
         }
 
 
-
+        int meshCount = 0;
         foreach (MeshFilter mf in prefab.GetComponentsInChildren<MeshFilter>())
         {
             Transform objTransform = mf.transform;
@@ -293,20 +293,21 @@ public class ParseAllPrefabs : EditorWindow
 
 
                         // test
-                        if (prefab.name == "Toilet_1")
+                        if (prefab.name == "Doorway_Double_1")
+                        // Doorframe_Double_1  Toilet_1
                         {
                             Debug.Log($"Mesh: {mesh.name}, Position: {originalTransform.position}, Rotation: {originalTransform.rotation.eulerAngles}, Scale: {originalTransform.localScale}");
 
                         }
 
-                        // test
-                        if (prefab.name == "Plunger_3")
-                        {
-                            Debug.Log("Plunger here");
-                            Debug.Log($"Position: {fbxPrefab.transform.position}, Rotation: {fbxPrefab.transform.rotation.eulerAngles}, Scale: {fbxPrefab.transform.localScale}");
+                        // // test
+                        // if (prefab.name == "Plunger_3")
+                        // {
+                        //     Debug.Log("Plunger here");
+                        //     Debug.Log($"Position: {fbxPrefab.transform.position}, Rotation: {fbxPrefab.transform.rotation.eulerAngles}, Scale: {fbxPrefab.transform.localScale}");
 
 
-                        }
+                        // }
 
 
 
@@ -476,8 +477,10 @@ public class ParseAllPrefabs : EditorWindow
             }
 
         //     // add to the prefabDetails dictionary with the child object's name as the key
-            string meshKey = $"{mf.gameObject.name}{mesh.name}";
+            string meshKey = $"{mf.gameObject.name}_{mesh.name}_{meshCount}";
+
             prefabDetails[meshKey] = meshFilterDetails;
+            meshCount++;
         }
 
 

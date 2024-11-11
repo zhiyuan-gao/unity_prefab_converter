@@ -1,19 +1,19 @@
 from pxr import Usd, UsdGeom, UsdShade, Sdf, UsdUtils
-
-usd_file_path = '/home/zgao/ProcTHOR_Converter/procthor_assets_center_shifted/Floor_Lamp_19/FloorLamp_19.usda'
+import os
+import re
 
 def split_usd(usd_file_path):
     
-    # 打开原始 USD 文件
     stage = Usd.Stage.Open(usd_file_path)
+    usd_file_name = os.path.splitext(usd_file_path)[0]
+    usd_file_local_name = os.path.splitext(os.path.basename(usd_file_path))[0]
+    out_put_path_list = []
+    default_prim = stage.GetDefaultPrim()
+    xform_prim = [prim for prim in default_prim.GetChildren() if UsdGeom.Xform(prim)][0]
+    
+    mesh_prim = xform_prim.GetChildren()[0]
 
-    # Path to the parent mesh
-    mesh_path = '/root/FloorLamp_19/FloorLamp_19'
-
-    # 获取 Mesh Prim
-    mesh_prim = stage.GetPrimAtPath(mesh_path)
     geom_mesh = UsdGeom.Mesh(mesh_prim)
-
     # 获取该 mesh 的所有 GeomSubset
     geom_subsets = UsdGeom.Subset.GetAllGeomSubsets(geom_mesh)
 
@@ -24,6 +24,7 @@ def split_usd(usd_file_path):
     original_face_vertex_indices = geom_mesh.GetFaceVertexIndicesAttr().Get()
     # print('original_face_vertex_indices',original_face_vertex_indices)
     face_start_index = 0  # 当前面在 faceVertexIndices 中的起始索引
+
     # 遍历每个 GeomSubset
     for i, subset in enumerate(geom_subsets):
         subset_name = subset.GetPrim().GetName()  # 获取 GeomSubset 的名字
@@ -35,7 +36,7 @@ def split_usd(usd_file_path):
             continue
 
         # 创建一个新的 Prim，作为新的 Mesh
-        new_prim_path = f'/GeomSubset_{i}_Prim'
+        new_prim_path = f'/{usd_file_local_name}_GeomSubset_{i}'
         new_prim = stage.DefinePrim(new_prim_path, 'Mesh')
         new_geom_mesh = UsdGeom.Mesh(new_prim)
 
@@ -60,7 +61,6 @@ def split_usd(usd_file_path):
             # 更新起始索引到下一个面的位置
             face_start_index += vertex_count
 
-
         # 创建新的顶点和法线属性
         subset_points = original_points
         subset_normals = original_normals
@@ -79,10 +79,33 @@ def split_usd(usd_file_path):
         if material_prim:
             material_binding_api = UsdShade.MaterialBindingAPI(new_geom_mesh)
             material_binding_api.Bind(UsdShade.Material(material_prim))
+        
+        # output_usd_path = os.path.join(usd_file_name, f"{subset_name}.usda")
+        output_usd_path = f'{usd_file_name}_GeomSubset_{i}.usda'
+        out_put_path_list.append(output_usd_path)
+        # output_usd_path = os.path.join(source_dir, 'procthor_assets', asset_id, f"{subset_name}.usda")
 
-    # 保存为新的 USD 文件
-    new_usd_path = '/home/zgao/ProcTHOR_Converter/procthor_assets_center_shifted/Floor_Lamp_19/new_file.usda'
-    stage.GetRootLayer().Export(new_usd_path)
+        # 创建一个新的 USD 文件 Stage
+        new_stage = Usd.Stage.CreateNew(output_usd_path)
+        new_stage.SetMetadata("upAxis", "Z")
+        
+        # 使用 Sdf.CopySpec 复制 new_prim 到新文件的根层
+        Sdf.CopySpec(stage.GetRootLayer(), new_prim.GetPath(), new_stage.GetRootLayer(), new_prim.GetPath())
+        
+        # 保存新文件
+        new_stage.GetRootLayer().Save()
+    
+    return out_put_path_list
 
-    print(f"New USD file saved as {new_usd_path}")
+
+if __name__=="__main__":
+
+
+    source_dir = os.path.dirname(os.path.realpath(__file__))
+    assets_output_dir = os.path.join(source_dir, 'procthor_assets')
+
+    usd_file_path = '/home/zgao/unity_preafab_converter/procthor_assets/Floor_Lamp_19/FloorLamp_19.usda'
+    # mesh_path = '/root/FloorLamp_19/FloorLamp_19'
+    out_put_path_list = split_usd(usd_file_path)
+    print(out_put_path_list)
 
