@@ -859,19 +859,19 @@ if __name__=="__main__":
     #         else:
     #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
 
-    # with open('/home/zgao/ProcTHOR_Converter/house_7.json', 'r') as file:
-    #     test_house = json.load(file)
-    # for obj in test_house['objects']:
-    #     asset_id = obj['assetId']
-    #     prefab_info = all_prefab_details[asset_id]
-    #     convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
-    #     add_texture(asset_id,prefab_info,root_path)
-    #     if "children" in obj:
-    #         for child in obj["children"]:
-    #             asset_id = child['assetId']
-    #             prefab_info = all_prefab_details[asset_id]
-    #             convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
-    #             add_texture(asset_id,prefab_info,root_path)
+    with open('/home/zgao/ProcTHOR_Converter/house_7.json', 'r') as file:
+        test_house = json.load(file)
+    for obj in test_house['objects']:
+        asset_id = obj['assetId']
+        prefab_info = all_prefab_details[asset_id]
+        convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
+        add_texture(asset_id,prefab_info,root_path)
+        if "children" in obj:
+            for child in obj["children"]:
+                asset_id = child['assetId']
+                prefab_info = all_prefab_details[asset_id]
+                convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
+                add_texture(asset_id,prefab_info,root_path)
 
 
     # Test the conversion for a single prefab  
@@ -884,9 +884,9 @@ if __name__=="__main__":
     # # asset_id = 'Toilet_Paper_Used_Up'
     # # asset_id = 'Toilet_Paper'
     # # asset_id = 'Bathroom_Faucet_27'
-    asset_id = 'Floor_Lamp_19'
+    # asset_id = 'Floor_Lamp_19'
 
-    prefab_info = all_prefab_details[asset_id]
+    # prefab_info = all_prefab_details[asset_id]
     # convert_prefab(asset_id, prefab_info,root_path,shift_center=True)
-    process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
+    # process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
     # add_texture(asset_id,prefab_info,root_path)

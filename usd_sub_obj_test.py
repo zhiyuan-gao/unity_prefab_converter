@@ -44,11 +44,14 @@ def split_usd(usd_file_path):
         double_sided_value = double_sided_attr.Get()
 
 
-    ori_vertex_indices = []
+    face_vertex_list = []
     start_index = 0
 
-    for i, vertex_count in enumerate(original_face_vertex_counts):
-        ori_vertex_indices.append(original_face_vertex_indices[start_index:start_index + vertex_count])
+    for vertex_count in original_face_vertex_counts:
+        face_info_dict = {}
+        face_info_dict['vertex_index_in_points'] = original_face_vertex_indices[start_index:start_index + vertex_count]
+        face_info_dict['vertex_index_in_face_vertex'] = list(range(start_index, start_index + vertex_count))
+        face_vertex_list.append(face_info_dict)
         start_index += vertex_count
 
     # get GeomSubsets
@@ -84,13 +87,18 @@ def split_usd(usd_file_path):
         subset_face_vertex_counts = []
         geom_vertex_indices = []
 
+        # note the difference here
+        # faceVertexIndices/original_face_vertex_indices are the indices of points
+        # indices_of_faceVertexIndices are indices of indices
+        indices_of_faceVertexIndices = []
+
         for face_id in indices:
             vertex_count = original_face_vertex_counts[face_id]
             subset_face_vertex_counts.append(vertex_count)
-            face_indices = ori_vertex_indices[face_id]
-            geom_vertex_indices.extend(face_indices)
+            vertex_indice_one_face = face_vertex_list[face_id]['vertex_index_in_points']
+            geom_vertex_indices.extend(vertex_indice_one_face)
+            indices_of_faceVertexIndices.extend(face_vertex_list[face_id]['vertex_index_in_face_vertex'])
 
-  
         # set new geometry data
         new_geom_mesh.CreatePointsAttr(original_points)
         new_geom_mesh.CreateFaceVertexIndicesAttr(geom_vertex_indices)
@@ -99,7 +107,8 @@ def split_usd(usd_file_path):
         # set new normal attribute
         normals_attr = new_geom_mesh.CreateNormalsAttr()
 
-        new_normals = [original_normals[vertex_id] for vertex_id in geom_vertex_indices]
+        new_normals = [original_normals[vertex_id] for vertex_id in indices_of_faceVertexIndices]
+
         normals_attr.Set(new_normals)  
         normals_attr.SetMetadata("interpolation", normal_interpolation)
 
@@ -116,10 +125,9 @@ def split_usd(usd_file_path):
 
         new_geom_mesh.GetDoubleSidedAttr().Set(double_sided_value)
 
-
         # set new UV data
         if uv_values:
-            sub_uv_values = [uv_values[vertex_id] for vertex_id in geom_vertex_indices]
+            sub_uv_values = [uv_values[vertex_id] for vertex_id in indices_of_faceVertexIndices]
             uv_primvar = primvars_api.CreatePrimvar("UVMap", Sdf.ValueTypeNames.TexCoord2fArray, interpolation)
             uv_primvar.Set(sub_uv_values)
 
