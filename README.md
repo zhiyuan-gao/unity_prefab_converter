@@ -31,3 +31,10 @@ TODO: Texure look different after spliting. Figure out why
 
 Position of holes are not correct.
 Paintings and windows need to be added.
+
+
+## Convert Pipelin
+1. Prefab to  .obj file(s)
+2. convert every .obj to .usda
+3. split .usda according to texture
+4. convert splited .usda to .obj

@@ -108,10 +108,14 @@ def select_object_with_children(obj, reset_origin=True):
         select_object_with_children(child)
 
 def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', shift_center=False):
+    """
+    Convert a Unity prefab to an OBJ file and export it to the specified directory.
+    Prefab-->[obj1,...]-->[[subobj1,...],[],...]
+    """
 
-# if asset_id in all_prefab_details:
-    # prefab_info = all_prefab_details[asset_id]
     asset_dir = os.path.join(assets_output_dir, asset_id)
+
+    obj_file_paths = []
 
     if not os.path.exists(asset_dir):
         os.makedirs(asset_dir)
@@ -136,7 +140,6 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
         mesh_path = os.path.join(root_path, prefab_info[sub_obj]['MeshPath'])
 
         mesh_name = prefab_info[sub_obj]['MeshName']
-        # print('mesh_name:', mesh_name)
 
         mesh_file_extension = os.path.splitext(mesh_path)[1]
         if mesh_file_extension == ".fbx":
@@ -203,12 +206,7 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                 rotation_blender.to_matrix().to_4x4() @
                 Matrix.Diagonal(scale_blender).to_4x4()
             )
-            # print('position_blender',position_blender)
-            # print('rotation_blender',rotation_blender)
-            # print('scale_blender',scale_blender)            
 
-            # if obj.location == (0, 0, 0): 
-            # if obj.matrix_world.translation  == (0, 0, 0):
             epsilon = 1e-6
             global_location = obj.matrix_world.translation
             # consider this as no pivot found
@@ -292,10 +290,6 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                 else:  
                     new_material = bpy.data.materials.new(name=f"M_{obj.name}_{index}")
                     obj.data.materials[index] = new_material
-                        
-            material_slots = prefab_info[sub_obj]['Materials']
-            # if more than one material, split the mesh
-
 
             # Define the output file path
             obj_file_path = os.path.join(asset_dir, f"{obj.name}.obj")
@@ -311,12 +305,14 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
             bpy.ops.wm.stl_export(filepath=stl_file_path, export_selected_objects=True, forward_axis='Y', up_axis='Z')# blender 4.x
             # bpy.ops.export_mesh.stl(filepath=stl_file_path, use_selection=True, axis_forward='Y', axis_up='Z')# blender 2.x
             # bpy.ops.wm.quit_blender()
-            return obj_file_path
+            obj_file_paths.append(obj_file_path)
 
-        
-    else:
-        print(f"Mesh {mesh_name} not found in {mesh_path}")
-        return None
+        else:
+            print(f"Mesh {mesh_name} not found in {mesh_path}")
+
+    return obj_file_paths
+
+
 
 
 def convert_usd_to_obj(usda_file_path):
@@ -341,160 +337,51 @@ def convert_obj_to_usd(obj_file_path,usda_file_path):
 
     bpy.ops.wm.usd_export(filepath=usda_file_path, selected_objects_only=False)
 
-def process_pipeline(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity',shift_center=False):
+def process_pipeline(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity',shift_center=True):
 
 
-    obj_file_path = convert_prefab(asset_id, prefab_info, root_path, shift_center)
-
+    obj_file_paths = convert_prefab(asset_id, prefab_info, root_path, shift_center)
     add_texture(asset_id,prefab_info,root_path)
 
-    obj_file_name = os.path.splitext(obj_file_path)[0]
-    usda_file_path = f'{obj_file_name}.usda'
+    for obj_file_path in obj_file_paths:
+        print('processing:', obj_file_path)
+        print('list', obj_file_paths)
+        obj_file_name = os.path.splitext(obj_file_path)[0]
 
-    convert_obj_to_usd(obj_file_path,usda_file_path)
-    convert_usd_to_obj(usda_file_path)
+        # if the obj use multiple materials, it will be splited into multiple usd files
+        has_multiple_mat = multiple_mat_check(obj_file_path)
+        if has_multiple_mat:
 
-    # split usd
-    code = f"""
+            usda_file_path = f'{obj_file_name}.usda'
+            convert_obj_to_usd(obj_file_path,usda_file_path)
+
+            # split the usd file
+            code = f"""
 from usd_sub_obj_test import split_usd
 import json
 result = split_usd('{usda_file_path}')
 print(json.dumps(result))
-    """
-    python_path = "/home/zgao/.virtualenvs/multiverse/bin/python"
-    result = subprocess.run([python_path, "-c", code], capture_output=True, text=True)
+            """
+            python_path = "/home/zgao/.virtualenvs/multiverse/bin/python"
+            result = subprocess.run([python_path, "-c", code], capture_output=True, text=True)
 
-    if result.returncode == 0:
+            if result.returncode == 0:
 
-        try:
-            out_put_path_list = json.loads(result.stdout)
+                try:
+                    out_put_path_list = json.loads(result.stdout)
 
-        except json.JSONDecodeError:
-            print("Error: cannot decode the output")
-    else:
-        print("Error:", result.stderr)
+                except json.JSONDecodeError:
+                    print("Error: cannot decode the output")
+            else:
+                print("Error:", result.stderr)
 
-    # convert the splited usd file to obj file and export to same folder
-    print('hi')
-    for i, sub_usda_file_path in enumerate(out_put_path_list):
-        convert_usd_to_obj(sub_usda_file_path)
+            # convert the splited usd file to obj file and export to same folder
+            for i, sub_usda_file_path in enumerate(out_put_path_list):
+                convert_usd_to_obj(sub_usda_file_path)
+            
+            # TODO: remove the original unsplited obj file
+            os.remove(obj_file_path)
 
-    
-
-#             usda_file_path = os.path.join(asset_dir, f"{obj.name}.usda")
-
-#             def convert_obj_to_usd(obj_file_path,usda_file_path):
-#                 bpy.ops.wm.read_factory_settings(use_empty=True)
-#                 bpy.ops.wm.obj_import(filepath=obj_file_path, up_axis='Z', forward_axis='Y')
-
-#                 bpy.ops.wm.usd_export(filepath=usda_file_path, selected_objects_only=False)
-#                 bpy.ops.wm.quit_blender()
-
-#             convert_obj_to_usd(obj_file_path,usda_file_path)
-#             if len(material_slots) > 1:
-
-#                 # change the mtl.
-                
-#                 # usda_file_path = os.path.join(asset_dir, f"{obj.name}.usda")
-
-#                 # convert obj to usd file
-# #                 code = f"""
-# # import bpy
-# import os
-
-# def convert_obj_to_usd(obj_file_path,usda_file_path):
-#     bpy.ops.wm.read_factory_settings(use_empty=True)
-
-#     bpy.ops.import_scene.obj(filepath=obj_file_path)
-
-#     bpy.ops.wm.usd_export(filepath=usda_file_path, selected_objects_only=False)
-
-# convert_obj_to_usd(r"{obj_file_path}")
-#                 """
-#                 process = subprocess.Popen(
-#                     ["blender", "--background", "--python-expr", code],
-#                     stdout=subprocess.PIPE,
-#                     stderr=subprocess.PIPE,
-#                     text=True,
-#                     bufsize=1 
-#                 )
-#                 process.wait()
-
-                # # export the complete mesh to usd file
-                # usda_file_path = os.path.join(asset_dir, f"{obj.name}.usda")
-                # bpy.ops.wm.usd_export(
-                #     filepath=usda_file_path,
-                #     selected_objects_only=True, 
-#                 #     export_animation=False,       
-#                 #     export_materials=True 
-#                 # )
-
-#                 # python executable path
-#                 python_path = "/home/zgao/.virtualenvs/multiverse/bin/python"
-
-#                 # split the usd file
-#                 code = f"""
-# from usd_sub_obj_test import split_usd
-# import json
-# result = split_usd('{usda_file_path}')
-# print(json.dumps(result))
-#                 """
-#                 result = subprocess.run([python_path, "-c", code], capture_output=True, text=True)
-
-#                 if result.returncode == 0:
-
-#                     try:
-#                         out_put_path_list = json.loads(result.stdout)
-
-#                     except json.JSONDecodeError:
-#                         print("Error: cannot decode the output")
-#                 else:
-#                     print("Error:", result.stderr)
-
-#                 # convert the splited usd file to obj file and export to same folder
-#                 for i, sub_usda_file_path in enumerate(out_put_path_list):
-#                     # material.name = f"M_{obj.name}_{i}"
-#                     code = f"""
-# import bpy
-# import os
-
-# def convert_usd_to_obj(usda_file_path):
-
-#     bpy.ops.wm.read_factory_settings(use_empty=True)
-#     bpy.ops.wm.usd_import(filepath=usda_file_path)
-#     obj = bpy.context.selected_objects[0]  
-#     if obj.type == 'MESH':
-#         # mat = bpy.data.materials.new(name=f'M_{{obj.name}}_{i}')
-#         mat = bpy.data.materials.new(name=f'M_{{obj.name}}')
-#         obj.data.materials.append(mat)
-
-#     usd_file_name = os.path.splitext(usda_file_path)[0]
-#     obj_path = f'{{usd_file_name}}.obj'
-#     bpy.ops.wm.obj_export(filepath=obj_path, export_selected_objects=True, forward_axis='Y', up_axis='Z')
-#     print("OBJ file exported successfully:", obj_path)
-
-# convert_usd_to_obj(r"{sub_usda_file_path}")
-#                     """
-
-#                     process = subprocess.Popen(
-#                         ["blender", "--background", "--python-expr", code],
-#                         stdout=subprocess.PIPE,
-#                         stderr=subprocess.PIPE,
-#                         text=True,
-#                         bufsize=1 
-#                     )
-#                     process.wait()
-
-
-
-
-
-            # confer the splited usd file to obj file
-
-
-
-    # else:
-    #     print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
 
 def convert_unity_rotation_to_blender(unity_quat):
     """
@@ -721,70 +608,12 @@ def copy_file_and_get_relative_path(source_file, destination_folder):
     return combined_path
 
 
-# def add_texture(asset_id,prefab_info,root_path):
-#     for sub_obj in prefab_info:
-#         mesh_name = prefab_info[sub_obj]['MeshName']
-#         mesh_path = prefab_info[sub_obj]['MeshPath']
-#         mesh_file_extension = os.path.splitext(mesh_path)[1]
-#         if mesh_file_extension == ".fbx":
-#             obj_name = snake_to_camel(mesh_name)
-#         elif mesh_file_extension == ".obj":
-#             obj_name = snake_to_camel(asset_id)
-
-#         source_dir = os.path.dirname(os.path.realpath(__file__))
-#         texture_folder = os.path.join(source_dir, 'procthor_assets',f"{asset_id}", "textures")
-#         if not os.path.exists(texture_folder):
-#             os.makedirs(texture_folder)
-
-#         material_slots = prefab_info[sub_obj]['Materials']
-#         if len(material_slots) > 1:
-#             # rewrite mtl file path
-#             for i in range(len(material_slots)):
-#                 mtl_filepath = os.path.join(source_dir, 'procthor_assets',f"{asset_id}", f"{obj_name}_GeomSubset_{i}.mtl")
-#                 material_name = f"M_{obj_name}_GeomSubset_{i}"
-#                 mat_filepath = os.path.join(root_path, prefab_info[sub_obj]['Materials'][i]['MaterialPath'])
-            
-#                 mat_file_extension = os.path.splitext(mat_filepath)[1]
- 
-#                 if mat_file_extension == ".mat":
-#                     mat_data = load_mat_file(mat_filepath)
-#                     single_mat = modify_mtl_file(material_name, mat_data, texture_folder, root_path)
-
-#                 with open(mtl_filepath, 'w') as file:
-#                     file.write(single_mat)
-
-#         else:
-#             mtl_filepath = os.path.join(source_dir, 'procthor_assets',f"{asset_id}", f"{obj_name}.mtl")
-
-#             mat_list = []
-#             material_name = f"M_{obj_name}"
-#             mat_filepath = os.path.join(root_path, prefab_info[sub_obj]['Materials'][0]['MaterialPath'])
-
-            
-#             mat_file_extension = os.path.splitext(mat_filepath)[1]
-
-#             if mat_file_extension == ".mat":
-#                 mat_data = load_mat_file(mat_filepath)
-#                 single_mat = modify_mtl_file(material_name, mat_data, texture_folder, root_path)
-#                 # mat_list.append(single_mat)
-
-#             # for i,mat_dict in enumerate(prefab_info[sub_obj]['Materials']):
-
-#             #     material_name = f"M_{obj_name}_{i}"
-#             #     mat_filepath = os.path.join(root_path, prefab_info[sub_obj]['Materials'][i]['MaterialPath'])
-#             #     mat_file_extension = os.path.splitext(mat_filepath)[1]
-
-#             #     if mat_file_extension == ".mat":
-#             #         mat_data = load_mat_file(mat_filepath)
-#             #         single_mat = modify_mtl_file(material_name, mat_data, texture_folder, root_path)
-#             #         mat_list.append(single_mat)
-
-#             # mat_content = "\n\n".join(mat_list)
-#             with open(mtl_filepath, 'w') as file:
-#                 file.write(single_mat)
-
-
 def add_texture(asset_id,prefab_info,root_path):
+
+    """
+    Add textures for the unsplited obj file
+    """
+
     for sub_obj in prefab_info:
         mesh_name = prefab_info[sub_obj]['MeshName']
         mesh_path = prefab_info[sub_obj]['MeshPath']
@@ -817,6 +646,38 @@ def add_texture(asset_id,prefab_info,root_path):
         mat_content = "\n\n".join(mat_list)
         with open(mtl_filepath, 'w') as file:
             file.write(mat_content)
+
+
+def multiple_mat_check(obj_file_path):
+    """
+    Checks if the OBJ file contains multiple `usemtl` definitions.
+
+    Args:
+        obj_file_path (str): Path to the OBJ file.
+
+    Returns:
+        bool: True if there are multiple `usemtl` definitions, False otherwise.
+    """
+    materials = set()
+    
+    with open(obj_file_path, 'r') as obj_file:
+        for line in obj_file:
+            if line.startswith('usemtl'):
+                material_name = line.split()[1]
+                materials.add(material_name)
+                if len(materials) > 1:
+                    return True  # Early exit if more than one material is found
+    
+    return False
+
+
+
+
+
+
+
+
+
 
 if __name__=="__main__":
     import json
@@ -858,20 +719,20 @@ if __name__=="__main__":
 
     #         else:
     #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
-
+    from itertools import chain
     with open('/home/zgao/ProcTHOR_Converter/house_7.json', 'r') as file:
         test_house = json.load(file)
-    for obj in test_house['objects']:
+    for obj in chain(test_house['objects'],test_house['doors'],test_house['windows']):
         asset_id = obj['assetId']
         prefab_info = all_prefab_details[asset_id]
-        convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
-        add_texture(asset_id,prefab_info,root_path)
+        process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
         if "children" in obj:
             for child in obj["children"]:
                 asset_id = child['assetId']
                 prefab_info = all_prefab_details[asset_id]
-                convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
-                add_texture(asset_id,prefab_info,root_path)
+                process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
+                # convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
+                # add_texture(asset_id,prefab_info,root_path)
 
 
     # Test the conversion for a single prefab  

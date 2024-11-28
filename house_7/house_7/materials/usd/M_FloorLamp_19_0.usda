@@ -11,7 +11,7 @@ def Material "M_FloorLamp_19_0"
     def Shader "PBRShader"
     {
         uniform token info:id = "UsdPreviewSurface"
-        color3f inputs:diffuseColor = (0.6764706, 0.45143774, 0.2785467)
+        color3f inputs:diffuseColor = (0.676471, 0.451438, 0.278547)
         float inputs:opacity = 1
         int inputs:useSpecularWorkflow = 1
         token outputs:surface

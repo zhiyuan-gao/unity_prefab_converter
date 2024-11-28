@@ -85,6 +85,18 @@
     <visual name="SM_Statue_2_1_Fertility_Statue_2_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
+        <mesh filename="file://house_7/meshes/obj/FertilityStatue_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Statue_2_1_Fertility_Statue_2_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/FertilityStatue_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Statue_2_1_Fertility_Statue_2_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
         <mesh filename="file://house_7/meshes/obj/FertilityStatue.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
@@ -98,22 +110,82 @@
     <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file://house_7/meshes/obj/AlarmClockButton_11.obj" scale="1.0 1.0 1.0"/>
+        <mesh filename="file://house_7/meshes/obj/AlarmClockButton_11_GeomSubset_2.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
     <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_1">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file://house_7/meshes/obj/AlarmClockHandHour_11.obj" scale="1.0 1.0 1.0"/>
+        <mesh filename="file://house_7/meshes/obj/AlarmClockButton_11_GeomSubset_3.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
     <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_2">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file://house_7/meshes/obj/AlarmClockHandMinute_11.obj" scale="1.0 1.0 1.0"/>
+        <mesh filename="file://house_7/meshes/obj/AlarmClock_11_GeomSubset_2.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
     <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_3">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClockButton_11_GeomSubset_4.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_4">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClockButton_11.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_5">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClockButton_11_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_6">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClockButton_11_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_7">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClockHandHour_11.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_8">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClock_11_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_9">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClock_11_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_10">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClock_11_GeomSubset_4.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_11">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClockHandMinute_11.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_12">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/AlarmClock_11_GeomSubset_3.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_AlarmClock_2_3_Alarm_Clock_11_13">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="file://house_7/meshes/obj/AlarmClock_11.obj" scale="1.0 1.0 1.0"/>
@@ -129,7 +201,25 @@
     <visual name="SM_ArmChair_2_2_0_Armchair_208_3_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
+        <mesh filename="file://house_7/meshes/obj/Armchair_208_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_ArmChair_2_2_0_Armchair_208_3_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Armchair_208_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_ArmChair_2_2_0_Armchair_208_3_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
         <mesh filename="file://house_7/meshes/obj/Armchair_208.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_ArmChair_2_2_0_Armchair_208_3_3">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Armchair_208_GeomSubset_2.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -142,7 +232,31 @@
     <visual name="SM_FloorLamp_2_2_1_Floor_Lamp_19_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
+        <mesh filename="file://house_7/meshes/obj/FloorLamp_19_GeomSubset_3.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_FloorLamp_2_2_1_Floor_Lamp_19_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/FloorLamp_19_GeomSubset_2.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_FloorLamp_2_2_1_Floor_Lamp_19_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/FloorLamp_19_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_FloorLamp_2_2_1_Floor_Lamp_19_3">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
         <mesh filename="file://house_7/meshes/obj/FloorLamp_19.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_FloorLamp_2_2_1_Floor_Lamp_19_4">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/FloorLamp_19_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -155,7 +269,19 @@
     <visual name="SM_DiningTable_2_3_0_Dining_Table_208_1_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
+        <mesh filename="file://house_7/meshes/obj/DiningTable_208_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_DiningTable_2_3_0_Dining_Table_208_1_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
         <mesh filename="file://house_7/meshes/obj/DiningTable_208.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_DiningTable_2_3_0_Dining_Table_208_1_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/DiningTable_208_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -187,6 +313,18 @@
     <visual name="SM_Chair_2_3_1_Chair_204_1_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
+        <mesh filename="file://house_7/meshes/obj/Chair_204_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Chair_2_3_1_Chair_204_1_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Chair_204_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Chair_2_3_1_Chair_204_1_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
         <mesh filename="file://house_7/meshes/obj/Chair_204.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
@@ -200,6 +338,18 @@
     <visual name="SM_Chair_2_3_2_Chair_204_1_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
+        <mesh filename="file://house_7/meshes/obj/Chair_204_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Chair_2_3_2_Chair_204_1_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Chair_204_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Chair_2_3_2_Chair_204_1_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
         <mesh filename="file://house_7/meshes/obj/Chair_204.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
@@ -211,6 +361,18 @@
   </joint>
   <link name="Chair_2_3_3">
     <visual name="SM_Chair_2_3_3_Chair_204_1_0">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Chair_204_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Chair_2_3_3_Chair_204_1_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Chair_204_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Chair_2_3_3_Chair_204_1_2">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="file://house_7/meshes/obj/Chair_204.obj" scale="1.0 1.0 1.0"/>
@@ -264,13 +426,31 @@
     <visual name="SM_Sink_3_1_0_Sink_15_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file://house_7/meshes/obj/Sink_15.obj" scale="1.0 1.0 1.0"/>
+        <mesh filename="file://house_7/meshes/obj/Sink_15_GeomSubset_2.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
     <visual name="SM_Sink_3_1_0_Sink_15_1">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
+        <mesh filename="file://house_7/meshes/obj/Sink_15.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Sink_3_1_0_Sink_15_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Sink_15_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Sink_3_1_0_Sink_15_3">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
         <mesh filename="file://house_7/meshes/obj/PsSinkbasin_15.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Sink_3_1_0_Sink_15_4">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Sink_15_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -302,7 +482,19 @@
     <visual name="SM_Plunger_3_2_Plunger_3_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
+        <mesh filename="file://house_7/meshes/obj/Plunger_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Plunger_3_2_Plunger_3_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
         <mesh filename="file://house_7/meshes/obj/Plunger.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Plunger_3_2_Plunger_3_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/Plunger_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -321,10 +513,22 @@
     <visual name="SM_Door_0_Doorway_Double_9_1">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file://house_7/meshes/obj/DoorwayDoor_9.obj" scale="1.0 1.0 1.0"/>
+        <mesh filename="file://house_7/meshes/obj/DoorwayDoor_9_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
     <visual name="SM_Door_0_Doorway_Double_9_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/DoorwayDoor_9.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Door_0_Doorway_Double_9_3">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/DoorwayDoor_9_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Door_0_Doorway_Double_9_4">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="file://house_7/meshes/obj/DoorwayDouble_9.obj" scale="1.0 1.0 1.0"/>
@@ -346,10 +550,22 @@
     <visual name="SM_Door_1_Doorway_Double_1_1">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file://house_7/meshes/obj/DoorwayDouble_1.obj" scale="1.0 1.0 1.0"/>
+        <mesh filename="file://house_7/meshes/obj/DoorwayDoor_1_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
     <visual name="SM_Door_1_Doorway_Double_1_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/DoorwayDouble_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Door_1_Doorway_Double_1_3">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/DoorwayDoor_1_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Door_1_Doorway_Double_1_4">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="file://house_7/meshes/obj/DoorwayHandle_1.obj" scale="1.0 1.0 1.0"/>

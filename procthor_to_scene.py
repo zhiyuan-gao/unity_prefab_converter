@@ -464,8 +464,7 @@ class ProcthorImporter(Factory):
 
     def import_asset_new(self, body_builder: BodyBuilder, asset_name: str) -> None:
         # asset_paths = get_asset_paths(asset_name)
-        asset_paths = '/home/zgao/ProcTHOR_Converter/procthor_assets_center_shifted'
-
+        asset_paths = '/home/zgao/unity_preafab_converter/procthor_assets'
         prefab_info = self.all_prefab_details[asset_name]
 
         folder_path = os.path.join(asset_paths, asset_name)
@@ -473,6 +472,8 @@ class ProcthorImporter(Factory):
         
 
         obj_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith('.obj')]
+        print(obj_files)
+        # TODO: change here
         
         mesh_idx = 0
 
