@@ -27,7 +27,7 @@ Some door meshes are overwritten due to duplicate names.  Done
 
 Rewrite mesh names and files hierarchy?  Done
 
-TODO: Texure look different after spliting. Figure out why
+Fix the uvmap bugs. Done
 
 Position of holes are not correct.
 Paintings and windows need to be added.

@@ -472,8 +472,6 @@ class ProcthorImporter(Factory):
         
 
         obj_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith('.obj')]
-        print(obj_files)
-        # TODO: change here
         
         mesh_idx = 0
 

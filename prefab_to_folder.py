@@ -89,7 +89,8 @@ def snake_to_camel(snake_str):
     # Capitalize the first letter of each component except those that are purely numeric
     camel_str = ''.join(comp.title() if not comp.isdigit() else comp for comp in components)
 
-    camel_str = re.sub(r'(\d+)', r'_\1_', camel_str)
+    # camel_str = re.sub(r'(\d+)', r'_\1_', camel_str)
+    camel_str = re.sub(r'(?<!_) (\d+) (?!_)', r'_\1_', camel_str)
 
     camel_str = camel_str.strip('_').replace('.', '_').replace(' ', '_').replace('__', '_').replace(':', '_')
     
@@ -121,6 +122,7 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
         os.makedirs(asset_dir)
 
     for sub_obj in prefab_info:
+    # for sub_obj_index, sub_obj in enumerate(prefab_info):
         data = bpy.data
         for armature in data.armatures:
             data.armatures.remove(armature)
@@ -137,8 +139,8 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
         for image in data.images:
             data.images.remove(image)
 
+        sub_obj_name = snake_to_camel(sub_obj)
         mesh_path = os.path.join(root_path, prefab_info[sub_obj]['MeshPath'])
-
         mesh_name = prefab_info[sub_obj]['MeshName']
 
         mesh_file_extension = os.path.splitext(mesh_path)[1]
@@ -170,7 +172,7 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
             print(f"Unsupported mesh file extension {mesh_file_extension}")
             continue
 
-        print('processing:', obj.name)
+        # print('processing:', obj.name)
         # Find and select the specified Mesh object
 
         if obj:
@@ -292,7 +294,7 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                     obj.data.materials[index] = new_material
 
             # Define the output file path
-            obj_file_path = os.path.join(asset_dir, f"{obj.name}.obj")
+            obj_file_path = os.path.join(asset_dir, f"{sub_obj_name}.obj")
             
             # Export the selected object to an .obj file
             # blender 4.x
@@ -300,7 +302,7 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
             # blender 2.x
             # bpy.ops.export_scene.obj(filepath=obj_file_path, use_selection=True, axis_forward='Y', axis_up='Z')
 
-            stl_file_path = os.path.join(asset_dir, f"{obj.name}.stl")
+            stl_file_path = os.path.join(asset_dir, f"{sub_obj_name}.stl")
             # Export the selected object to an .stl file
             bpy.ops.wm.stl_export(filepath=stl_file_path, export_selected_objects=True, forward_axis='Y', up_axis='Z')# blender 4.x
             # bpy.ops.export_mesh.stl(filepath=stl_file_path, use_selection=True, axis_forward='Y', axis_up='Z')# blender 2.x
@@ -344,8 +346,6 @@ def process_pipeline(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity'
     add_texture(asset_id,prefab_info,root_path)
 
     for obj_file_path in obj_file_paths:
-        print('processing:', obj_file_path)
-        print('list', obj_file_paths)
         obj_file_name = os.path.splitext(obj_file_path)[0]
 
         # if the obj use multiple materials, it will be splited into multiple usd files
@@ -379,8 +379,10 @@ print(json.dumps(result))
             for i, sub_usda_file_path in enumerate(out_put_path_list):
                 convert_usd_to_obj(sub_usda_file_path)
             
-            # TODO: remove the original unsplited obj file
+            # remove the original unsplited obj file and its mtl file
             os.remove(obj_file_path)
+            ori_matl_path = f'{os.path.splitext(obj_file_path)[0]}.mtl'
+            os.remove(ori_matl_path)
 
 
 def convert_unity_rotation_to_blender(unity_quat):
@@ -624,7 +626,9 @@ def add_texture(asset_id,prefab_info,root_path):
             obj_name = snake_to_camel(asset_id)
 
         source_dir = os.path.dirname(os.path.realpath(__file__))
-        mtl_filepath = os.path.join(source_dir, 'procthor_assets',f"{asset_id}", f"{obj_name}.mtl")
+        sub_obj_name = snake_to_camel(sub_obj)
+
+        mtl_filepath = os.path.join(source_dir, 'procthor_assets',f"{asset_id}", f"{sub_obj_name}.mtl")
         texture_folder = os.path.join(source_dir, 'procthor_assets',f"{asset_id}", "textures")
 
         if not os.path.exists(texture_folder):
@@ -719,6 +723,7 @@ if __name__=="__main__":
 
     #         else:
     #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
+
     from itertools import chain
     with open('/home/zgao/ProcTHOR_Converter/house_7.json', 'r') as file:
         test_house = json.load(file)
@@ -731,23 +736,25 @@ if __name__=="__main__":
                 asset_id = child['assetId']
                 prefab_info = all_prefab_details[asset_id]
                 process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
-                # convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
-                # add_texture(asset_id,prefab_info,root_path)
+
+
+    # sub_obj = 'mesh_floor_lamp_19_0'
+    # sub_obj_name = snake_to_camel(sub_obj)
+    # print(sub_obj_name)
 
 
     # Test the conversion for a single prefab  
     # asset_id= 'Teddy_Bear_1'
     # asset_id = 'Vase_Tall_4'
-    # asset_id = 'Toilet_1'
+    # # asset_id = 'Toilet_1'
+    # # asset_id = 'Doorway_Double_9'
     # asset_id = 'Armchair_208_3'
-    # Armchair_208_3
-    # # asset_id = 'Plunger_3'
-    # # asset_id = 'Toilet_Paper_Used_Up'
-    # # asset_id = 'Toilet_Paper'
-    # # asset_id = 'Bathroom_Faucet_27'
-    # asset_id = 'Floor_Lamp_19'
+    # # # # asset_id = 'Plunger_3'
+    # # # # asset_id = 'Toilet_Paper_Used_Up'
+    # # # # asset_id = 'Toilet_Paper'
+    # # # # asset_id = 'Bathroom_Faucet_27'
+    # # # asset_id = 'Floor_Lamp_19'
 
     # prefab_info = all_prefab_details[asset_id]
-    # convert_prefab(asset_id, prefab_info,root_path,shift_center=True)
     # process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
-    # add_texture(asset_id,prefab_info,root_path)
+

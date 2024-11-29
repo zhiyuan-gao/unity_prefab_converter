@@ -11,7 +11,7 @@ def Material "M_Chair_204_0"
     def Shader "PBRShader"
     {
         uniform token info:id = "UsdPreviewSurface"
-        color3f inputs:diffuseColor = (0.6102941, 0.2915244, 0.26027247)
+        color3f inputs:diffuseColor = (0.610294, 0.291524, 0.260272)
         float inputs:opacity = 1
         int inputs:useSpecularWorkflow = 1
         token outputs:surface

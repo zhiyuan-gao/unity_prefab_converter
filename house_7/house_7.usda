@@ -14,27 +14,10 @@ def Xform "house_7"
 
         def Mesh "SM_Bed_2_0_0_Bed_1_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/BedMattress_1.usda@</BedMattress_1>
+            prepend references = @./house_7/meshes/usd/MeshBed_1_0.usda@</Bed_1>
         )
         {
-            rel material:binding = </house_7/Bed_2_0_0/SM_Bed_2_0_0_Bed_1_0/Materials/M_BedMattress_1_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_BedMattress_1_0" (
-                    prepend references = @./house_7/materials/usd/M_BedMattress_1_0.usda@</M_BedMattress_1_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_Bed_2_0_0_Bed_1_1" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Bed_1.usda@</Bed_1>
-        )
-        {
-            rel material:binding = </house_7/Bed_2_0_0/SM_Bed_2_0_0_Bed_1_1/Materials/M_Bed_1_0>
+            rel material:binding = </house_7/Bed_2_0_0/SM_Bed_2_0_0_Bed_1_0/Materials/M_Bed_1_0>
 
             def Scope "Materials"
             {
@@ -46,9 +29,26 @@ def Xform "house_7"
             }
         }
 
+        def Mesh "SM_Bed_2_0_0_Bed_1_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/BedMattress_1_BedMattress_1_1.usda@</BedMattress_1>
+        )
+        {
+            rel material:binding = </house_7/Bed_2_0_0/SM_Bed_2_0_0_Bed_1_1/Materials/M_BedMattress_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_BedMattress_1_0" (
+                    prepend references = @./house_7/materials/usd/M_BedMattress_1_0.usda@</M_BedMattress_1_0>
+                )
+                {
+                }
+            }
+        }
+
         def Mesh "SM_Bed_2_0_0_Bed_1_2" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/BedsheetUnmade_1.usda@</BedsheetUnmade_1>
+            prepend references = @./house_7/meshes/usd/BedsheetUnmade_1_BedsheetUnmade_1_2.usda@</BedsheetUnmade_1>
         )
         {
             rel material:binding = </house_7/Bed_2_0_0/SM_Bed_2_0_0_Bed_1_2/Materials/M_BedsheetUnmade_1_0>
@@ -71,7 +71,7 @@ def Xform "house_7"
 
         def Mesh "SM_Pillow_2_0_1_pillow_13_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Pillow_13.usda@</Pillow_13>
+            prepend references = @./house_7/meshes/usd/MeshPillow_13_0.usda@</Pillow_13>
         )
         {
             rel material:binding = </house_7/Pillow_2_0_1/SM_Pillow_2_0_1_pillow_13_0/Materials/M_Pillow_13_0>
@@ -94,15 +94,15 @@ def Xform "house_7"
 
         def Mesh "SM_Dresser_2_1_Dresser_229_1_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DresserDrawer_229__2.usda@</DresserDrawer_229__2>
+            prepend references = @./house_7/meshes/usd/DrawermeshDresserDrawer_229_1_1.usda@</DresserDrawer_229_1>
         )
         {
-            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_0/Materials/M_DresserDrawer_229__2_0>
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_0/Materials/M_DresserDrawer_229_1_0>
 
             def Scope "Materials"
             {
-                def Material "M_DresserDrawer_229__2_0" (
-                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229__2_0.usda@</M_DresserDrawer_229__2_0>
+                def Material "M_DresserDrawer_229_1_0" (
+                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229_1_0.usda@</M_DresserDrawer_229_1_0>
                 )
                 {
                 }
@@ -111,7 +111,7 @@ def Xform "house_7"
 
         def Mesh "SM_Dresser_2_1_Dresser_229_1_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Dresser_229.usda@</Dresser_229>
+            prepend references = @./house_7/meshes/usd/MeshDresser_229_0.usda@</Dresser_229>
         )
         {
             rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_1/Materials/M_Dresser_229_0>
@@ -128,15 +128,15 @@ def Xform "house_7"
 
         def Mesh "SM_Dresser_2_1_Dresser_229_1_2" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DresserDrawer_229__4.usda@</DresserDrawer_229__4>
+            prepend references = @./house_7/meshes/usd/DrawermeshDresserDrawer_229_3_3.usda@</DresserDrawer_229_3>
         )
         {
-            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_2/Materials/M_DresserDrawer_229__4_0>
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_2/Materials/M_DresserDrawer_229_3_0>
 
             def Scope "Materials"
             {
-                def Material "M_DresserDrawer_229__4_0" (
-                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229__4_0.usda@</M_DresserDrawer_229__4_0>
+                def Material "M_DresserDrawer_229_3_0" (
+                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229_3_0.usda@</M_DresserDrawer_229_3_0>
                 )
                 {
                 }
@@ -145,15 +145,15 @@ def Xform "house_7"
 
         def Mesh "SM_Dresser_2_1_Dresser_229_1_3" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DresserDrawer_229__1.usda@</DresserDrawer_229__1>
+            prepend references = @./house_7/meshes/usd/DrawermeshDresserDrawer_229_4_4.usda@</DresserDrawer_229_4>
         )
         {
-            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_3/Materials/M_DresserDrawer_229__1_0>
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_3/Materials/M_DresserDrawer_229_4_0>
 
             def Scope "Materials"
             {
-                def Material "M_DresserDrawer_229__1_0" (
-                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229__1_0.usda@</M_DresserDrawer_229__1_0>
+                def Material "M_DresserDrawer_229_4_0" (
+                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229_4_0.usda@</M_DresserDrawer_229_4_0>
                 )
                 {
                 }
@@ -162,15 +162,15 @@ def Xform "house_7"
 
         def Mesh "SM_Dresser_2_1_Dresser_229_1_4" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DresserDrawer_229__3.usda@</DresserDrawer_229__3>
+            prepend references = @./house_7/meshes/usd/DrawermeshDresserDrawer_229_2_2.usda@</DresserDrawer_229_2>
         )
         {
-            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_4/Materials/M_DresserDrawer_229__3_0>
+            rel material:binding = </house_7/Dresser_2_1/SM_Dresser_2_1_Dresser_229_1_4/Materials/M_DresserDrawer_229_2_0>
 
             def Scope "Materials"
             {
-                def Material "M_DresserDrawer_229__3_0" (
-                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229__3_0.usda@</M_DresserDrawer_229__3_0>
+                def Material "M_DresserDrawer_229_2_0" (
+                    prepend references = @./house_7/materials/usd/M_DresserDrawer_229_2_0.usda@</M_DresserDrawer_229_2_0>
                 )
                 {
                 }
@@ -185,7 +185,7 @@ def Xform "house_7"
 
         def Mesh "SM_Statue_2_1_Fertility_Statue_2_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/FertilityStatue_GeomSubset_0.usda@</FertilityStatue_GeomSubset_0>
+            prepend references = @./house_7/meshes/usd/MeshFertilityStatue_0_GeomSubset_0.usda@</MeshFertilityStatue_0_GeomSubset_0>
         )
         {
             rel material:binding = </house_7/Statue_2_1/SM_Statue_2_1_Fertility_Statue_2_0/Materials/M_FertilityStatue_0>
@@ -202,7 +202,7 @@ def Xform "house_7"
 
         def Mesh "SM_Statue_2_1_Fertility_Statue_2_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/FertilityStatue_GeomSubset_1.usda@</FertilityStatue_GeomSubset_1>
+            prepend references = @./house_7/meshes/usd/MeshFertilityStatue_0_GeomSubset_1.usda@</MeshFertilityStatue_0_GeomSubset_1>
         )
         {
             rel material:binding = </house_7/Statue_2_1/SM_Statue_2_1_Fertility_Statue_2_1/Materials/M_FertilityStatue_1>
@@ -211,23 +211,6 @@ def Xform "house_7"
             {
                 def Material "M_FertilityStatue_1" (
                     prepend references = @./house_7/materials/usd/M_FertilityStatue_1.usda@</M_FertilityStatue_1>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_Statue_2_1_Fertility_Statue_2_2" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/FertilityStatue.usda@</FertilityStatue>
-        )
-        {
-            rel material:binding = </house_7/Statue_2_1/SM_Statue_2_1_Fertility_Statue_2_2/Materials/M_FertilityStatue_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_FertilityStatue_0" (
-                    prepend references = @./house_7/materials/usd/M_FertilityStatue_0.usda@</M_FertilityStatue_0>
                 )
                 {
                 }
@@ -242,15 +225,15 @@ def Xform "house_7"
 
         def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_GeomSubset_2.usda@</AlarmClockButton_11_GeomSubset_2>
+            prepend references = @./house_7/meshes/usd/AlarmClock_11_AlarmClock_11_0_GeomSubset_3.usda@</AlarmClock_11_AlarmClock_11_0_GeomSubset_3>
         )
         {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_0/Materials/M_AlarmClockButton_11_2>
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_0/Materials/M_AlarmClock_11_3>
 
             def Scope "Materials"
             {
-                def Material "M_AlarmClockButton_11_2" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_2.usda@</M_AlarmClockButton_11_2>
+                def Material "M_AlarmClock_11_3" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClock_11_3.usda@</M_AlarmClock_11_3>
                 )
                 {
                 }
@@ -259,15 +242,15 @@ def Xform "house_7"
 
         def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_GeomSubset_3.usda@</AlarmClockButton_11_GeomSubset_3>
+            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_1.usda@</AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_1/Materials/M_AlarmClockButton_11_3>
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_1/Materials/M_AlarmClockButton_11_1>
 
             def Scope "Materials"
             {
-                def Material "M_AlarmClockButton_11_3" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_3.usda@</M_AlarmClockButton_11_3>
+                def Material "M_AlarmClockButton_11_1" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_1.usda@</M_AlarmClockButton_11_1>
                 )
                 {
                 }
@@ -276,7 +259,7 @@ def Xform "house_7"
 
         def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_2" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClock_11_GeomSubset_2.usda@</AlarmClock_11_GeomSubset_2>
+            prepend references = @./house_7/meshes/usd/AlarmClock_11_AlarmClock_11_0_GeomSubset_2.usda@</AlarmClock_11_AlarmClock_11_0_GeomSubset_2>
         )
         {
             rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_2/Materials/M_AlarmClock_11_2>
@@ -293,78 +276,10 @@ def Xform "house_7"
 
         def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_3" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_GeomSubset_4.usda@</AlarmClockButton_11_GeomSubset_4>
+            prepend references = @./house_7/meshes/usd/AlarmClockHandHour_11_AlarmClockHandHour_11_2.usda@</AlarmClockHandHour_11>
         )
         {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_3/Materials/M_AlarmClockButton_11_4>
-
-            def Scope "Materials"
-            {
-                def Material "M_AlarmClockButton_11_4" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_4.usda@</M_AlarmClockButton_11_4>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_4" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClockButton_11.usda@</AlarmClockButton_11>
-        )
-        {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_4/Materials/M_AlarmClockButton_11_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_AlarmClockButton_11_0" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_0.usda@</M_AlarmClockButton_11_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_5" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_GeomSubset_0.usda@</AlarmClockButton_11_GeomSubset_0>
-        )
-        {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_5/Materials/M_AlarmClockButton_11_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_AlarmClockButton_11_0" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_0.usda@</M_AlarmClockButton_11_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_6" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_GeomSubset_1.usda@</AlarmClockButton_11_GeomSubset_1>
-        )
-        {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_6/Materials/M_AlarmClockButton_11_1>
-
-            def Scope "Materials"
-            {
-                def Material "M_AlarmClockButton_11_1" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_1.usda@</M_AlarmClockButton_11_1>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_7" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClockHandHour_11.usda@</AlarmClockHandHour_11>
-        )
-        {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_7/Materials/M_AlarmClockHandHour_11_0>
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_3/Materials/M_AlarmClockHandHour_11_0>
 
             def Scope "Materials"
             {
@@ -376,12 +291,12 @@ def Xform "house_7"
             }
         }
 
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_8" (
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_4" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClock_11_GeomSubset_1.usda@</AlarmClock_11_GeomSubset_1>
+            prepend references = @./house_7/meshes/usd/AlarmClock_11_AlarmClock_11_0_GeomSubset_1.usda@</AlarmClock_11_AlarmClock_11_0_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_8/Materials/M_AlarmClock_11_1>
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_4/Materials/M_AlarmClock_11_1>
 
             def Scope "Materials"
             {
@@ -393,29 +308,63 @@ def Xform "house_7"
             }
         }
 
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_9" (
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_5" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClock_11_GeomSubset_0.usda@</AlarmClock_11_GeomSubset_0>
+            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_3.usda@</AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_3>
         )
         {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_9/Materials/M_AlarmClock_11_0>
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_5/Materials/M_AlarmClockButton_11_3>
 
             def Scope "Materials"
             {
-                def Material "M_AlarmClock_11_0" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClock_11_0.usda@</M_AlarmClock_11_0>
+                def Material "M_AlarmClockButton_11_3" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_3.usda@</M_AlarmClockButton_11_3>
                 )
                 {
                 }
             }
         }
 
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_10" (
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_6" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClock_11_GeomSubset_4.usda@</AlarmClock_11_GeomSubset_4>
+            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_4.usda@</AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_4>
         )
         {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_10/Materials/M_AlarmClock_11_4>
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_6/Materials/M_AlarmClockButton_11_4>
+
+            def Scope "Materials"
+            {
+                def Material "M_AlarmClockButton_11_4" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_4.usda@</M_AlarmClockButton_11_4>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_7" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_0.usda@</AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_0>
+        )
+        {
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_7/Materials/M_AlarmClockButton_11_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_AlarmClockButton_11_0" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_0.usda@</M_AlarmClockButton_11_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_8" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/AlarmClock_11_AlarmClock_11_0_GeomSubset_4.usda@</AlarmClock_11_AlarmClock_11_0_GeomSubset_4>
+        )
+        {
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_8/Materials/M_AlarmClock_11_4>
 
             def Scope "Materials"
             {
@@ -427,9 +376,43 @@ def Xform "house_7"
             }
         }
 
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_9" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_2.usda@</AlarmClockButton_11_AlarmClockButton_11_1_GeomSubset_2>
+        )
+        {
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_9/Materials/M_AlarmClockButton_11_2>
+
+            def Scope "Materials"
+            {
+                def Material "M_AlarmClockButton_11_2" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClockButton_11_2.usda@</M_AlarmClockButton_11_2>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_10" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/AlarmClock_11_AlarmClock_11_0_GeomSubset_0.usda@</AlarmClock_11_AlarmClock_11_0_GeomSubset_0>
+        )
+        {
+            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_10/Materials/M_AlarmClock_11_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_AlarmClock_11_0" (
+                    prepend references = @./house_7/materials/usd/M_AlarmClock_11_0.usda@</M_AlarmClock_11_0>
+                )
+                {
+                }
+            }
+        }
+
         def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_11" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClockHandMinute_11.usda@</AlarmClockHandMinute_11>
+            prepend references = @./house_7/meshes/usd/AlarmClockHandMinute_11_AlarmClockHandMinute_11_3.usda@</AlarmClockHandMinute_11>
         )
         {
             rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_11/Materials/M_AlarmClockHandMinute_11_0>
@@ -438,40 +421,6 @@ def Xform "house_7"
             {
                 def Material "M_AlarmClockHandMinute_11_0" (
                     prepend references = @./house_7/materials/usd/M_AlarmClockHandMinute_11_0.usda@</M_AlarmClockHandMinute_11_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_12" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClock_11_GeomSubset_3.usda@</AlarmClock_11_GeomSubset_3>
-        )
-        {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_12/Materials/M_AlarmClock_11_3>
-
-            def Scope "Materials"
-            {
-                def Material "M_AlarmClock_11_3" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClock_11_3.usda@</M_AlarmClock_11_3>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_AlarmClock_2_3_Alarm_Clock_11_13" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/AlarmClock_11.usda@</AlarmClock_11>
-        )
-        {
-            rel material:binding = </house_7/AlarmClock_2_3/SM_AlarmClock_2_3_Alarm_Clock_11_13/Materials/M_AlarmClock_11_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_AlarmClock_11_0" (
-                    prepend references = @./house_7/materials/usd/M_AlarmClock_11_0.usda@</M_AlarmClock_11_0>
                 )
                 {
                 }
@@ -486,10 +435,27 @@ def Xform "house_7"
 
         def Mesh "SM_ArmChair_2_2_0_Armchair_208_3_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Armchair_208_GeomSubset_1.usda@</Armchair_208_GeomSubset_1>
+            prepend references = @./house_7/meshes/usd/Fp208_Armchair3Armchair_208_0_GeomSubset_2.usda@</Fp208_Armchair3Armchair_208_0_GeomSubset_2>
         )
         {
-            rel material:binding = </house_7/ArmChair_2_2_0/SM_ArmChair_2_2_0_Armchair_208_3_0/Materials/M_Armchair_208_1>
+            rel material:binding = </house_7/ArmChair_2_2_0/SM_ArmChair_2_2_0_Armchair_208_3_0/Materials/M_Armchair_208_2>
+
+            def Scope "Materials"
+            {
+                def Material "M_Armchair_208_2" (
+                    prepend references = @./house_7/materials/usd/M_Armchair_208_2.usda@</M_Armchair_208_2>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_ArmChair_2_2_0_Armchair_208_3_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/Fp208_Armchair3Armchair_208_0_GeomSubset_1.usda@</Fp208_Armchair3Armchair_208_0_GeomSubset_1>
+        )
+        {
+            rel material:binding = </house_7/ArmChair_2_2_0/SM_ArmChair_2_2_0_Armchair_208_3_1/Materials/M_Armchair_208_1>
 
             def Scope "Materials"
             {
@@ -501,26 +467,9 @@ def Xform "house_7"
             }
         }
 
-        def Mesh "SM_ArmChair_2_2_0_Armchair_208_3_1" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Armchair_208_GeomSubset_0.usda@</Armchair_208_GeomSubset_0>
-        )
-        {
-            rel material:binding = </house_7/ArmChair_2_2_0/SM_ArmChair_2_2_0_Armchair_208_3_1/Materials/M_Armchair_208_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_Armchair_208_0" (
-                    prepend references = @./house_7/materials/usd/M_Armchair_208_0.usda@</M_Armchair_208_0>
-                )
-                {
-                }
-            }
-        }
-
         def Mesh "SM_ArmChair_2_2_0_Armchair_208_3_2" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Armchair_208.usda@</Armchair_208>
+            prepend references = @./house_7/meshes/usd/Fp208_Armchair3Armchair_208_0_GeomSubset_0.usda@</Fp208_Armchair3Armchair_208_0_GeomSubset_0>
         )
         {
             rel material:binding = </house_7/ArmChair_2_2_0/SM_ArmChair_2_2_0_Armchair_208_3_2/Materials/M_Armchair_208_0>
@@ -529,23 +478,6 @@ def Xform "house_7"
             {
                 def Material "M_Armchair_208_0" (
                     prepend references = @./house_7/materials/usd/M_Armchair_208_0.usda@</M_Armchair_208_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_ArmChair_2_2_0_Armchair_208_3_3" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Armchair_208_GeomSubset_2.usda@</Armchair_208_GeomSubset_2>
-        )
-        {
-            rel material:binding = </house_7/ArmChair_2_2_0/SM_ArmChair_2_2_0_Armchair_208_3_3/Materials/M_Armchair_208_2>
-
-            def Scope "Materials"
-            {
-                def Material "M_Armchair_208_2" (
-                    prepend references = @./house_7/materials/usd/M_Armchair_208_2.usda@</M_Armchair_208_2>
                 )
                 {
                 }
@@ -560,7 +492,7 @@ def Xform "house_7"
 
         def Mesh "SM_FloorLamp_2_2_1_Floor_Lamp_19_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/FloorLamp_19_GeomSubset_3.usda@</FloorLamp_19_GeomSubset_3>
+            prepend references = @./house_7/meshes/usd/MeshFloorLamp_19_0_GeomSubset_3.usda@</MeshFloorLamp_19_0_GeomSubset_3>
         )
         {
             rel material:binding = </house_7/FloorLamp_2_2_1/SM_FloorLamp_2_2_1_Floor_Lamp_19_0/Materials/M_FloorLamp_19_3>
@@ -577,7 +509,7 @@ def Xform "house_7"
 
         def Mesh "SM_FloorLamp_2_2_1_Floor_Lamp_19_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/FloorLamp_19_GeomSubset_2.usda@</FloorLamp_19_GeomSubset_2>
+            prepend references = @./house_7/meshes/usd/MeshFloorLamp_19_0_GeomSubset_2.usda@</MeshFloorLamp_19_0_GeomSubset_2>
         )
         {
             rel material:binding = </house_7/FloorLamp_2_2_1/SM_FloorLamp_2_2_1_Floor_Lamp_19_1/Materials/M_FloorLamp_19_2>
@@ -594,7 +526,7 @@ def Xform "house_7"
 
         def Mesh "SM_FloorLamp_2_2_1_Floor_Lamp_19_2" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/FloorLamp_19_GeomSubset_1.usda@</FloorLamp_19_GeomSubset_1>
+            prepend references = @./house_7/meshes/usd/MeshFloorLamp_19_0_GeomSubset_1.usda@</MeshFloorLamp_19_0_GeomSubset_1>
         )
         {
             rel material:binding = </house_7/FloorLamp_2_2_1/SM_FloorLamp_2_2_1_Floor_Lamp_19_2/Materials/M_FloorLamp_19_1>
@@ -611,27 +543,10 @@ def Xform "house_7"
 
         def Mesh "SM_FloorLamp_2_2_1_Floor_Lamp_19_3" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/FloorLamp_19.usda@</FloorLamp_19>
+            prepend references = @./house_7/meshes/usd/MeshFloorLamp_19_0_GeomSubset_0.usda@</MeshFloorLamp_19_0_GeomSubset_0>
         )
         {
             rel material:binding = </house_7/FloorLamp_2_2_1/SM_FloorLamp_2_2_1_Floor_Lamp_19_3/Materials/M_FloorLamp_19_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_FloorLamp_19_0" (
-                    prepend references = @./house_7/materials/usd/M_FloorLamp_19_0.usda@</M_FloorLamp_19_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_FloorLamp_2_2_1_Floor_Lamp_19_4" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/FloorLamp_19_GeomSubset_0.usda@</FloorLamp_19_GeomSubset_0>
-        )
-        {
-            rel material:binding = </house_7/FloorLamp_2_2_1/SM_FloorLamp_2_2_1_Floor_Lamp_19_4/Materials/M_FloorLamp_19_0>
 
             def Scope "Materials"
             {
@@ -651,15 +566,15 @@ def Xform "house_7"
 
         def Mesh "SM_DiningTable_2_3_0_Dining_Table_208_1_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DiningTable_208_GeomSubset_0.usda@</DiningTable_208_GeomSubset_0>
+            prepend references = @./house_7/meshes/usd/TablemeshDiningTable_208_0_GeomSubset_1.usda@</TablemeshDiningTable_208_0_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/DiningTable_2_3_0/SM_DiningTable_2_3_0_Dining_Table_208_1_0/Materials/M_DiningTable_208_0>
+            rel material:binding = </house_7/DiningTable_2_3_0/SM_DiningTable_2_3_0_Dining_Table_208_1_0/Materials/M_DiningTable_208_1>
 
             def Scope "Materials"
             {
-                def Material "M_DiningTable_208_0" (
-                    prepend references = @./house_7/materials/usd/M_DiningTable_208_0.usda@</M_DiningTable_208_0>
+                def Material "M_DiningTable_208_1" (
+                    prepend references = @./house_7/materials/usd/M_DiningTable_208_1.usda@</M_DiningTable_208_1>
                 )
                 {
                 }
@@ -668,7 +583,7 @@ def Xform "house_7"
 
         def Mesh "SM_DiningTable_2_3_0_Dining_Table_208_1_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DiningTable_208.usda@</DiningTable_208>
+            prepend references = @./house_7/meshes/usd/TablemeshDiningTable_208_0_GeomSubset_0.usda@</TablemeshDiningTable_208_0_GeomSubset_0>
         )
         {
             rel material:binding = </house_7/DiningTable_2_3_0/SM_DiningTable_2_3_0_Dining_Table_208_1_1/Materials/M_DiningTable_208_0>
@@ -677,23 +592,6 @@ def Xform "house_7"
             {
                 def Material "M_DiningTable_208_0" (
                     prepend references = @./house_7/materials/usd/M_DiningTable_208_0.usda@</M_DiningTable_208_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_DiningTable_2_3_0_Dining_Table_208_1_2" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DiningTable_208_GeomSubset_1.usda@</DiningTable_208_GeomSubset_1>
-        )
-        {
-            rel material:binding = </house_7/DiningTable_2_3_0/SM_DiningTable_2_3_0_Dining_Table_208_1_2/Materials/M_DiningTable_208_1>
-
-            def Scope "Materials"
-            {
-                def Material "M_DiningTable_208_1" (
-                    prepend references = @./house_7/materials/usd/M_DiningTable_208_1.usda@</M_DiningTable_208_1>
                 )
                 {
                 }
@@ -708,7 +606,7 @@ def Xform "house_7"
 
         def Mesh "SM_Vase_2_0_Vase_Tall_4_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/VaseTall.usda@</VaseTall>
+            prepend references = @./house_7/meshes/usd/MeshVaseTall_0.usda@</VaseTall>
         )
         {
             rel material:binding = </house_7/Vase_2_0/SM_Vase_2_0_Vase_Tall_4_0/Materials/M_VaseTall_0>
@@ -737,27 +635,10 @@ def Xform "house_7"
 
         def Mesh "SM_Chair_2_3_1_Chair_204_1_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204_GeomSubset_0.usda@</Chair_204_GeomSubset_0>
+            prepend references = @./house_7/meshes/usd/ChairmeshChair_204_0_GeomSubset_1.usda@</ChairmeshChair_204_0_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/Chair_2_3_1/SM_Chair_2_3_1_Chair_204_1_0/Materials/M_Chair_204_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_Chair_204_0" (
-                    prepend references = @./house_7/materials/usd/M_Chair_204_0.usda@</M_Chair_204_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_Chair_2_3_1_Chair_204_1_1" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204_GeomSubset_1.usda@</Chair_204_GeomSubset_1>
-        )
-        {
-            rel material:binding = </house_7/Chair_2_3_1/SM_Chair_2_3_1_Chair_204_1_1/Materials/M_Chair_204_1>
+            rel material:binding = </house_7/Chair_2_3_1/SM_Chair_2_3_1_Chair_204_1_0/Materials/M_Chair_204_1>
 
             def Scope "Materials"
             {
@@ -769,12 +650,12 @@ def Xform "house_7"
             }
         }
 
-        def Mesh "SM_Chair_2_3_1_Chair_204_1_2" (
+        def Mesh "SM_Chair_2_3_1_Chair_204_1_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204.usda@</Chair_204>
+            prepend references = @./house_7/meshes/usd/ChairmeshChair_204_0_GeomSubset_0.usda@</ChairmeshChair_204_0_GeomSubset_0>
         )
         {
-            rel material:binding = </house_7/Chair_2_3_1/SM_Chair_2_3_1_Chair_204_1_2/Materials/M_Chair_204_0>
+            rel material:binding = </house_7/Chair_2_3_1/SM_Chair_2_3_1_Chair_204_1_1/Materials/M_Chair_204_0>
 
             def Scope "Materials"
             {
@@ -794,27 +675,10 @@ def Xform "house_7"
 
         def Mesh "SM_Chair_2_3_2_Chair_204_1_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204_GeomSubset_0.usda@</Chair_204_GeomSubset_0>
+            prepend references = @./house_7/meshes/usd/ChairmeshChair_204_0_GeomSubset_1.usda@</ChairmeshChair_204_0_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/Chair_2_3_2/SM_Chair_2_3_2_Chair_204_1_0/Materials/M_Chair_204_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_Chair_204_0" (
-                    prepend references = @./house_7/materials/usd/M_Chair_204_0.usda@</M_Chair_204_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_Chair_2_3_2_Chair_204_1_1" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204_GeomSubset_1.usda@</Chair_204_GeomSubset_1>
-        )
-        {
-            rel material:binding = </house_7/Chair_2_3_2/SM_Chair_2_3_2_Chair_204_1_1/Materials/M_Chair_204_1>
+            rel material:binding = </house_7/Chair_2_3_2/SM_Chair_2_3_2_Chair_204_1_0/Materials/M_Chair_204_1>
 
             def Scope "Materials"
             {
@@ -826,12 +690,12 @@ def Xform "house_7"
             }
         }
 
-        def Mesh "SM_Chair_2_3_2_Chair_204_1_2" (
+        def Mesh "SM_Chair_2_3_2_Chair_204_1_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204.usda@</Chair_204>
+            prepend references = @./house_7/meshes/usd/ChairmeshChair_204_0_GeomSubset_0.usda@</ChairmeshChair_204_0_GeomSubset_0>
         )
         {
-            rel material:binding = </house_7/Chair_2_3_2/SM_Chair_2_3_2_Chair_204_1_2/Materials/M_Chair_204_0>
+            rel material:binding = </house_7/Chair_2_3_2/SM_Chair_2_3_2_Chair_204_1_1/Materials/M_Chair_204_0>
 
             def Scope "Materials"
             {
@@ -851,27 +715,10 @@ def Xform "house_7"
 
         def Mesh "SM_Chair_2_3_3_Chair_204_1_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204_GeomSubset_0.usda@</Chair_204_GeomSubset_0>
+            prepend references = @./house_7/meshes/usd/ChairmeshChair_204_0_GeomSubset_1.usda@</ChairmeshChair_204_0_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/Chair_2_3_3/SM_Chair_2_3_3_Chair_204_1_0/Materials/M_Chair_204_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_Chair_204_0" (
-                    prepend references = @./house_7/materials/usd/M_Chair_204_0.usda@</M_Chair_204_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_Chair_2_3_3_Chair_204_1_1" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204_GeomSubset_1.usda@</Chair_204_GeomSubset_1>
-        )
-        {
-            rel material:binding = </house_7/Chair_2_3_3/SM_Chair_2_3_3_Chair_204_1_1/Materials/M_Chair_204_1>
+            rel material:binding = </house_7/Chair_2_3_3/SM_Chair_2_3_3_Chair_204_1_0/Materials/M_Chair_204_1>
 
             def Scope "Materials"
             {
@@ -883,12 +730,12 @@ def Xform "house_7"
             }
         }
 
-        def Mesh "SM_Chair_2_3_3_Chair_204_1_2" (
+        def Mesh "SM_Chair_2_3_3_Chair_204_1_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Chair_204.usda@</Chair_204>
+            prepend references = @./house_7/meshes/usd/ChairmeshChair_204_0_GeomSubset_0.usda@</ChairmeshChair_204_0_GeomSubset_0>
         )
         {
-            rel material:binding = </house_7/Chair_2_3_3/SM_Chair_2_3_3_Chair_204_1_2/Materials/M_Chair_204_0>
+            rel material:binding = </house_7/Chair_2_3_3/SM_Chair_2_3_3_Chair_204_1_1/Materials/M_Chair_204_0>
 
             def Scope "Materials"
             {
@@ -908,15 +755,15 @@ def Xform "house_7"
 
         def Mesh "SM_Toilet_3_0_Toilet_1_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Fp_401__Toiletbody.usda@</Fp_401__Toiletbody>
+            prepend references = @./house_7/meshes/usd/Fp401_ToiletlidmeshFp401_Toiletlid_2.usda@</Fp401_Toiletlid>
         )
         {
-            rel material:binding = </house_7/Toilet_3_0/SM_Toilet_3_0_Toilet_1_0/Materials/M_Fp_401__Toiletbody_0>
+            rel material:binding = </house_7/Toilet_3_0/SM_Toilet_3_0_Toilet_1_0/Materials/M_Fp401_Toiletlid_0>
 
             def Scope "Materials"
             {
-                def Material "M_Fp_401__Toiletbody_0" (
-                    prepend references = @./house_7/materials/usd/M_Fp_401__Toiletbody_0.usda@</M_Fp_401__Toiletbody_0>
+                def Material "M_Fp401_Toiletlid_0" (
+                    prepend references = @./house_7/materials/usd/M_Fp401_Toiletlid_0.usda@</M_Fp401_Toiletlid_0>
                 )
                 {
                 }
@@ -925,15 +772,15 @@ def Xform "house_7"
 
         def Mesh "SM_Toilet_3_0_Toilet_1_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Fp_401__Toiletlid.usda@</Fp_401__Toiletlid>
+            prepend references = @./house_7/meshes/usd/MeshFp401_Toiletbody_0.usda@</Fp401_Toiletbody>
         )
         {
-            rel material:binding = </house_7/Toilet_3_0/SM_Toilet_3_0_Toilet_1_1/Materials/M_Fp_401__Toiletlid_0>
+            rel material:binding = </house_7/Toilet_3_0/SM_Toilet_3_0_Toilet_1_1/Materials/M_Fp401_Toiletbody_0>
 
             def Scope "Materials"
             {
-                def Material "M_Fp_401__Toiletlid_0" (
-                    prepend references = @./house_7/materials/usd/M_Fp_401__Toiletlid_0.usda@</M_Fp_401__Toiletlid_0>
+                def Material "M_Fp401_Toiletbody_0" (
+                    prepend references = @./house_7/materials/usd/M_Fp401_Toiletbody_0.usda@</M_Fp401_Toiletbody_0>
                 )
                 {
                 }
@@ -948,15 +795,15 @@ def Xform "house_7"
 
         def Mesh "SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Roll.usda@</Roll>
+            prepend references = @./house_7/meshes/usd/PaperToiletpaper_1.usda@</Toiletpaper>
         )
         {
-            rel material:binding = </house_7/ToiletPaper_3_4/SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_0/Materials/M_Roll_0>
+            rel material:binding = </house_7/ToiletPaper_3_4/SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_0/Materials/M_Toiletpaper_0>
 
             def Scope "Materials"
             {
-                def Material "M_Roll_0" (
-                    prepend references = @./house_7/materials/usd/M_Roll_0.usda@</M_Roll_0>
+                def Material "M_Toiletpaper_0" (
+                    prepend references = @./house_7/materials/usd/M_Toiletpaper_0.usda@</M_Toiletpaper_0>
                 )
                 {
                 }
@@ -965,15 +812,15 @@ def Xform "house_7"
 
         def Mesh "SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Toiletpaper.usda@</Toiletpaper>
+            prepend references = @./house_7/meshes/usd/RollRoll_0.usda@</Roll>
         )
         {
-            rel material:binding = </house_7/ToiletPaper_3_4/SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_1/Materials/M_Toiletpaper_0>
+            rel material:binding = </house_7/ToiletPaper_3_4/SM_ToiletPaper_3_4_Toilet_Paper_Used_Up_1/Materials/M_Roll_0>
 
             def Scope "Materials"
             {
-                def Material "M_Toiletpaper_0" (
-                    prepend references = @./house_7/materials/usd/M_Toiletpaper_0.usda@</M_Toiletpaper_0>
+                def Material "M_Roll_0" (
+                    prepend references = @./house_7/materials/usd/M_Roll_0.usda@</M_Roll_0>
                 )
                 {
                 }
@@ -988,15 +835,15 @@ def Xform "house_7"
 
         def Mesh "SM_Sink_3_1_0_Sink_15_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Sink_15_GeomSubset_2.usda@</Sink_15_GeomSubset_2>
+            prepend references = @./house_7/meshes/usd/MeshPsSinkbasin_15_1.usda@</PsSinkbasin_15>
         )
         {
-            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_0/Materials/M_Sink_15_2>
+            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_0/Materials/M_PsSinkbasin_15_0>
 
             def Scope "Materials"
             {
-                def Material "M_Sink_15_2" (
-                    prepend references = @./house_7/materials/usd/M_Sink_15_2.usda@</M_Sink_15_2>
+                def Material "M_PsSinkbasin_15_0" (
+                    prepend references = @./house_7/materials/usd/M_PsSinkbasin_15_0.usda@</M_PsSinkbasin_15_0>
                 )
                 {
                 }
@@ -1005,15 +852,15 @@ def Xform "house_7"
 
         def Mesh "SM_Sink_3_1_0_Sink_15_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Sink_15.usda@</Sink_15>
+            prepend references = @./house_7/meshes/usd/Sink_15_Sink_15_0_GeomSubset_1.usda@</Sink_15_Sink_15_0_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_1/Materials/M_Sink_15_0>
+            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_1/Materials/M_Sink_15_1>
 
             def Scope "Materials"
             {
-                def Material "M_Sink_15_0" (
-                    prepend references = @./house_7/materials/usd/M_Sink_15_0.usda@</M_Sink_15_0>
+                def Material "M_Sink_15_1" (
+                    prepend references = @./house_7/materials/usd/M_Sink_15_1.usda@</M_Sink_15_1>
                 )
                 {
                 }
@@ -1022,7 +869,7 @@ def Xform "house_7"
 
         def Mesh "SM_Sink_3_1_0_Sink_15_2" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Sink_15_GeomSubset_0.usda@</Sink_15_GeomSubset_0>
+            prepend references = @./house_7/meshes/usd/Sink_15_Sink_15_0_GeomSubset_0.usda@</Sink_15_Sink_15_0_GeomSubset_0>
         )
         {
             rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_2/Materials/M_Sink_15_0>
@@ -1039,32 +886,15 @@ def Xform "house_7"
 
         def Mesh "SM_Sink_3_1_0_Sink_15_3" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/PsSinkbasin_15.usda@</PsSinkbasin_15>
+            prepend references = @./house_7/meshes/usd/Sink_15_Sink_15_0_GeomSubset_2.usda@</Sink_15_Sink_15_0_GeomSubset_2>
         )
         {
-            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_3/Materials/M_PsSinkbasin_15_0>
+            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_3/Materials/M_Sink_15_2>
 
             def Scope "Materials"
             {
-                def Material "M_PsSinkbasin_15_0" (
-                    prepend references = @./house_7/materials/usd/M_PsSinkbasin_15_0.usda@</M_PsSinkbasin_15_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_Sink_3_1_0_Sink_15_4" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Sink_15_GeomSubset_1.usda@</Sink_15_GeomSubset_1>
-        )
-        {
-            rel material:binding = </house_7/Sink_3_1_0/SM_Sink_3_1_0_Sink_15_4/Materials/M_Sink_15_1>
-
-            def Scope "Materials"
-            {
-                def Material "M_Sink_15_1" (
-                    prepend references = @./house_7/materials/usd/M_Sink_15_1.usda@</M_Sink_15_1>
+                def Material "M_Sink_15_2" (
+                    prepend references = @./house_7/materials/usd/M_Sink_15_2.usda@</M_Sink_15_2>
                 )
                 {
                 }
@@ -1079,15 +909,15 @@ def Xform "house_7"
 
         def Mesh "SM_Faucet_3_1_1_Bathroom_Faucet_27_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/SinkFaucet_19.usda@</SinkFaucet_19>
+            prepend references = @./house_7/meshes/usd/SinkFaucetKnob_19_SinkFaucetKnob_19_1.usda@</SinkFaucetKnob_19>
         )
         {
-            rel material:binding = </house_7/Faucet_3_1_1/SM_Faucet_3_1_1_Bathroom_Faucet_27_0/Materials/M_SinkFaucet_19_0>
+            rel material:binding = </house_7/Faucet_3_1_1/SM_Faucet_3_1_1_Bathroom_Faucet_27_0/Materials/M_SinkFaucetKnob_19_0>
 
             def Scope "Materials"
             {
-                def Material "M_SinkFaucet_19_0" (
-                    prepend references = @./house_7/materials/usd/M_SinkFaucet_19_0.usda@</M_SinkFaucet_19_0>
+                def Material "M_SinkFaucetKnob_19_0" (
+                    prepend references = @./house_7/materials/usd/M_SinkFaucetKnob_19_0.usda@</M_SinkFaucetKnob_19_0>
                 )
                 {
                 }
@@ -1096,15 +926,15 @@ def Xform "house_7"
 
         def Mesh "SM_Faucet_3_1_1_Bathroom_Faucet_27_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/SinkFaucetKnob_19.usda@</SinkFaucetKnob_19>
+            prepend references = @./house_7/meshes/usd/MeshSinkFaucet_19_0.usda@</SinkFaucet_19>
         )
         {
-            rel material:binding = </house_7/Faucet_3_1_1/SM_Faucet_3_1_1_Bathroom_Faucet_27_1/Materials/M_SinkFaucetKnob_19_0>
+            rel material:binding = </house_7/Faucet_3_1_1/SM_Faucet_3_1_1_Bathroom_Faucet_27_1/Materials/M_SinkFaucet_19_0>
 
             def Scope "Materials"
             {
-                def Material "M_SinkFaucetKnob_19_0" (
-                    prepend references = @./house_7/materials/usd/M_SinkFaucetKnob_19_0.usda@</M_SinkFaucetKnob_19_0>
+                def Material "M_SinkFaucet_19_0" (
+                    prepend references = @./house_7/materials/usd/M_SinkFaucet_19_0.usda@</M_SinkFaucet_19_0>
                 )
                 {
                 }
@@ -1119,15 +949,15 @@ def Xform "house_7"
 
         def Mesh "SM_Plunger_3_2_Plunger_3_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Plunger_GeomSubset_1.usda@</Plunger_GeomSubset_1>
+            prepend references = @./house_7/meshes/usd/MeshPlunger_0_GeomSubset_0.usda@</MeshPlunger_0_GeomSubset_0>
         )
         {
-            rel material:binding = </house_7/Plunger_3_2/SM_Plunger_3_2_Plunger_3_0/Materials/M_Plunger_1>
+            rel material:binding = </house_7/Plunger_3_2/SM_Plunger_3_2_Plunger_3_0/Materials/M_Plunger_0>
 
             def Scope "Materials"
             {
-                def Material "M_Plunger_1" (
-                    prepend references = @./house_7/materials/usd/M_Plunger_1.usda@</M_Plunger_1>
+                def Material "M_Plunger_0" (
+                    prepend references = @./house_7/materials/usd/M_Plunger_0.usda@</M_Plunger_0>
                 )
                 {
                 }
@@ -1136,32 +966,15 @@ def Xform "house_7"
 
         def Mesh "SM_Plunger_3_2_Plunger_3_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Plunger.usda@</Plunger>
+            prepend references = @./house_7/meshes/usd/MeshPlunger_0_GeomSubset_1.usda@</MeshPlunger_0_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/Plunger_3_2/SM_Plunger_3_2_Plunger_3_1/Materials/M_Plunger_0>
+            rel material:binding = </house_7/Plunger_3_2/SM_Plunger_3_2_Plunger_3_1/Materials/M_Plunger_1>
 
             def Scope "Materials"
             {
-                def Material "M_Plunger_0" (
-                    prepend references = @./house_7/materials/usd/M_Plunger_0.usda@</M_Plunger_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_Plunger_3_2_Plunger_3_2" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/Plunger_GeomSubset_0.usda@</Plunger_GeomSubset_0>
-        )
-        {
-            rel material:binding = </house_7/Plunger_3_2/SM_Plunger_3_2_Plunger_3_2/Materials/M_Plunger_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_Plunger_0" (
-                    prepend references = @./house_7/materials/usd/M_Plunger_0.usda@</M_Plunger_0>
+                def Material "M_Plunger_1" (
+                    prepend references = @./house_7/materials/usd/M_Plunger_1.usda@</M_Plunger_1>
                 )
                 {
                 }
@@ -1176,10 +989,27 @@ def Xform "house_7"
 
         def Mesh "SM_Door_0_Doorway_Double_9_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayHandle_9.usda@</DoorwayHandle_9>
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDouble_9_4.usda@</DoorwayDouble_9>
         )
         {
-            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_0/Materials/M_DoorwayHandle_9_0>
+            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_0/Materials/M_DoorwayDouble_9_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDouble_9_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDouble_9_0.usda@</M_DoorwayDouble_9_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_0_Doorway_Double_9_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/MeshDoorwayHandle_9_1.usda@</DoorwayHandle_9>
+        )
+        {
+            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_1/Materials/M_DoorwayHandle_9_0>
 
             def Scope "Materials"
             {
@@ -1191,26 +1021,9 @@ def Xform "house_7"
             }
         }
 
-        def Mesh "SM_Door_0_Doorway_Double_9_1" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayDoor_9_GeomSubset_0.usda@</DoorwayDoor_9_GeomSubset_0>
-        )
-        {
-            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_1/Materials/M_DoorwayDoor_9_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_DoorwayDoor_9_0" (
-                    prepend references = @./house_7/materials/usd/M_DoorwayDoor_9_0.usda@</M_DoorwayDoor_9_0>
-                )
-                {
-                }
-            }
-        }
-
         def Mesh "SM_Door_0_Doorway_Double_9_2" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayDoor_9.usda@</DoorwayDoor_9>
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDoor_9_2_GeomSubset_0.usda@</MeshDoorwayDoor_9_2_GeomSubset_0>
         )
         {
             rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_2/Materials/M_DoorwayDoor_9_0>
@@ -1227,7 +1040,7 @@ def Xform "house_7"
 
         def Mesh "SM_Door_0_Doorway_Double_9_3" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayDoor_9_GeomSubset_1.usda@</DoorwayDoor_9_GeomSubset_1>
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDoor_9_2_GeomSubset_1.usda@</MeshDoorwayDoor_9_2_GeomSubset_1>
         )
         {
             rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_3/Materials/M_DoorwayDoor_9_1>
@@ -1244,15 +1057,49 @@ def Xform "house_7"
 
         def Mesh "SM_Door_0_Doorway_Double_9_4" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayDouble_9.usda@</DoorwayDouble_9>
+            prepend references = @./house_7/meshes/usd/MeshDoorwayHandle_9_3.usda@</DoorwayHandle_9>
         )
         {
-            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_4/Materials/M_DoorwayDouble_9_0>
+            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_4/Materials/M_DoorwayHandle_9_0>
 
             def Scope "Materials"
             {
-                def Material "M_DoorwayDouble_9_0" (
-                    prepend references = @./house_7/materials/usd/M_DoorwayDouble_9_0.usda@</M_DoorwayDouble_9_0>
+                def Material "M_DoorwayHandle_9_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayHandle_9_0.usda@</M_DoorwayHandle_9_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_0_Doorway_Double_9_5" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDoor_9_0_GeomSubset_0.usda@</MeshDoorwayDoor_9_0_GeomSubset_0>
+        )
+        {
+            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_5/Materials/M_DoorwayDoor_9_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDoor_9_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDoor_9_0.usda@</M_DoorwayDoor_9_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_0_Doorway_Double_9_6" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDoor_9_0_GeomSubset_1.usda@</MeshDoorwayDoor_9_0_GeomSubset_1>
+        )
+        {
+            rel material:binding = </house_7/Door_0/SM_Door_0_Doorway_Double_9_6/Materials/M_DoorwayDoor_9_1>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDoor_9_1" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDoor_9_1.usda@</M_DoorwayDoor_9_1>
                 )
                 {
                 }
@@ -1267,27 +1114,10 @@ def Xform "house_7"
 
         def Mesh "SM_Door_1_Doorway_Double_1_0" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayDoor_1.usda@</DoorwayDoor_1>
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDoor_1_1_GeomSubset_1.usda@</MeshDoorwayDoor_1_1_GeomSubset_1>
         )
         {
-            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_0/Materials/M_DoorwayDoor_1_0>
-
-            def Scope "Materials"
-            {
-                def Material "M_DoorwayDoor_1_0" (
-                    prepend references = @./house_7/materials/usd/M_DoorwayDoor_1_0.usda@</M_DoorwayDoor_1_0>
-                )
-                {
-                }
-            }
-        }
-
-        def Mesh "SM_Door_1_Doorway_Double_1_1" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayDoor_1_GeomSubset_1.usda@</DoorwayDoor_1_GeomSubset_1>
-        )
-        {
-            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_1/Materials/M_DoorwayDoor_1_1>
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_0/Materials/M_DoorwayDoor_1_1>
 
             def Scope "Materials"
             {
@@ -1299,29 +1129,29 @@ def Xform "house_7"
             }
         }
 
-        def Mesh "SM_Door_1_Doorway_Double_1_2" (
+        def Mesh "SM_Door_1_Doorway_Double_1_1" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayDouble_1.usda@</DoorwayDouble_1>
+            prepend references = @./house_7/meshes/usd/MeshDoorwayHandle_1_0.usda@</DoorwayHandle_1>
         )
         {
-            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_2/Materials/M_DoorwayDouble_1_0>
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_1/Materials/M_DoorwayHandle_1_0>
 
             def Scope "Materials"
             {
-                def Material "M_DoorwayDouble_1_0" (
-                    prepend references = @./house_7/materials/usd/M_DoorwayDouble_1_0.usda@</M_DoorwayDouble_1_0>
+                def Material "M_DoorwayHandle_1_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayHandle_1_0.usda@</M_DoorwayHandle_1_0>
                 )
                 {
                 }
             }
         }
 
-        def Mesh "SM_Door_1_Doorway_Double_1_3" (
+        def Mesh "SM_Door_1_Doorway_Double_1_2" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayDoor_1_GeomSubset_0.usda@</DoorwayDoor_1_GeomSubset_0>
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDoor_1_1_GeomSubset_0.usda@</MeshDoorwayDoor_1_1_GeomSubset_0>
         )
         {
-            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_3/Materials/M_DoorwayDoor_1_0>
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_2/Materials/M_DoorwayDoor_1_0>
 
             def Scope "Materials"
             {
@@ -1333,9 +1163,26 @@ def Xform "house_7"
             }
         }
 
+        def Mesh "SM_Door_1_Doorway_Double_1_3" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDouble_1_4.usda@</DoorwayDouble_1>
+        )
+        {
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_3/Materials/M_DoorwayDouble_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDouble_1_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDouble_1_0.usda@</M_DoorwayDouble_1_0>
+                )
+                {
+                }
+            }
+        }
+
         def Mesh "SM_Door_1_Doorway_Double_1_4" (
             prepend apiSchemas = ["MaterialBindingAPI"]
-            prepend references = @./house_7/meshes/usd/DoorwayHandle_1.usda@</DoorwayHandle_1>
+            prepend references = @./house_7/meshes/usd/MeshDoorwayHandle_1_2.usda@</DoorwayHandle_1>
         )
         {
             rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_4/Materials/M_DoorwayHandle_1_0>
@@ -1344,6 +1191,40 @@ def Xform "house_7"
             {
                 def Material "M_DoorwayHandle_1_0" (
                     prepend references = @./house_7/materials/usd/M_DoorwayHandle_1_0.usda@</M_DoorwayHandle_1_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_1_Doorway_Double_1_5" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDoor_1_3_GeomSubset_1.usda@</MeshDoorwayDoor_1_3_GeomSubset_1>
+        )
+        {
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_5/Materials/M_DoorwayDoor_1_1>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDoor_1_1" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDoor_1_1.usda@</M_DoorwayDoor_1_1>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Door_1_Doorway_Double_1_6" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_7/meshes/usd/MeshDoorwayDoor_1_3_GeomSubset_0.usda@</MeshDoorwayDoor_1_3_GeomSubset_0>
+        )
+        {
+            rel material:binding = </house_7/Door_1/SM_Door_1_Doorway_Double_1_6/Materials/M_DoorwayDoor_1_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_DoorwayDoor_1_0" (
+                    prepend references = @./house_7/materials/usd/M_DoorwayDoor_1_0.usda@</M_DoorwayDoor_1_0>
                 )
                 {
                 }
