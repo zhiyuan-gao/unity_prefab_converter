@@ -1,0 +1,55 @@
+#usda 1.0
+(
+    defaultPrim = "MeshTelevision_14_0_GeomSubset_4"
+    doc = "Blender v4.1.1"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "MeshTelevision_14_0_GeomSubset_4"
+{
+    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+    uniform token[] xformOpOrder = ["xformOp:transform"]
+
+    def Mesh "MeshTelevision_14_0_GeomSubset_4" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform bool doubleSided = 1
+        float3[] extent = [(-0.000874, 0.080626, -0.023943), (0.000874, 0.082374, -0.023943)]
+        int[] faceVertexCounts = [3, 3]
+        int[] faceVertexIndices = [1, 2, 0, 1, 3, 2]
+        rel material:binding = </_materials/M_Television_14_4>
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-0.000874, 0.080626, -0.023943), (0.000874, 0.080626, -0.023943), (-0.000874, 0.082374, -0.023943), (0.000874, 0.082374, -0.023943)]
+        texCoord2f[] primvars:UVMap = [(-7.626364, -17.591677), (-7.627138, -17.590902), (-7.627138, -17.591677), (-7.626364, -17.591677), (-7.626364, -17.590902), (-7.627138, -17.590902)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+    }
+}
+
+def Scope "_materials"
+{
+    def Material "M_Television_14_4"
+    {
+        token outputs:surface.connect = </_materials/M_Television_14_4/Principled_BSDF.outputs:surface>
+
+        def Shader "Principled_BSDF"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            float inputs:clearcoatRoughness = 0.03
+            color3f inputs:diffuseColor = (0.8, 0.8, 0.8)
+            float inputs:ior = 1.5
+            float inputs:metallic = 0
+            float inputs:opacity = 1
+            float inputs:roughness = 1
+            float inputs:specular = 0.5
+            token outputs:surface
+        }
+    }
+}
+

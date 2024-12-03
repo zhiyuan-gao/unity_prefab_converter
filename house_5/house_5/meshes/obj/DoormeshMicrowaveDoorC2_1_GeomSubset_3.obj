@@ -1,0 +1,17 @@
+# Blender 4.1.1
+# www.blender.org
+mtllib DoormeshMicrowaveDoorC2_1_GeomSubset_3.mtl
+o DoormeshMicrowaveDoorC2_1_GeomSubset_3
+v -0.000041 -0.008155 -0.187187
+v -0.000031 -0.008155 -0.187187
+v -0.000041 -0.008145 -0.187187
+v -0.000031 -0.008145 -0.187187
+vn -0.0000 -0.0000 1.0000
+vt 1.000000 0.000000
+vt 0.000000 1.000000
+vt 0.000000 0.000000
+vt 1.000000 1.000000
+s 1
+usemtl M_MicrowaveDoorC2_3
+f 2/1/1 3/2/1 1/3/1
+f 2/1/1 4/4/1 3/2/1

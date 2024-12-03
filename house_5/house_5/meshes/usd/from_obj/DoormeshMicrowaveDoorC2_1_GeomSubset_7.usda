@@ -1,0 +1,85 @@
+#usda 1.0
+(
+    defaultPrim = "DoormeshMicrowaveDoorC2_1_GeomSubset_7"
+    doc = "Blender v4.1.1"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "DoormeshMicrowaveDoorC2_1_GeomSubset_7"
+{
+    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+    uniform token[] xformOpOrder = ["xformOp:transform"]
+
+    def Mesh "DoormeshMicrowaveDoorC2_1_GeomSubset_7" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform bool doubleSided = 1
+        float3[] extent = [(-0.255492, -0.163419, -0.071277), (0.169154, -0.163056, 0.127877)]
+        int[] faceVertexCounts = [3, 3, 3, 3]
+        int[] faceVertexIndices = [2, 1, 0, 5, 6, 4, 2, 3, 1, 5, 7, 6]
+        rel material:binding = </_materials/M_MicrowaveDoorC2_7>
+        normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-0.255492, -0.163419, 0.126819), (0.169154, -0.163419, 0.127877), (-0.255492, -0.163419, -0.070218), (0.169154, -0.163419, -0.071277), (-0.255492, -0.163056, 0.126819), (0.169154, -0.163056, 0.127877), (-0.255492, -0.163056, -0.070218), (0.169154, -0.163056, -0.071277)]
+        texCoord2f[] primvars:UVMap = [(8.468035, 2.772326), (6.530731, -1.36867), (6.530731, 2.772326), (6.530731, -1.368669), (8.468035, 2.772327), (6.530731, 2.772327), (8.468035, 2.772326), (8.468035, -1.36867), (6.530731, -1.36867), (6.530731, -1.368669), (8.468035, -1.368669), (8.468035, 2.772327)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+    }
+}
+
+def Scope "_materials"
+{
+    def Material "M_MicrowaveDoorC2_7"
+    {
+        token outputs:surface.connect = </_materials/M_MicrowaveDoorC2_7/Principled_BSDF.outputs:surface>
+
+        def Shader "Principled_BSDF"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            float inputs:clearcoatRoughness = 0.03
+            color3f inputs:diffuseColor.connect = </_materials/M_MicrowaveDoorC2_7/Image_Texture.outputs:rgb>
+            float inputs:ior = 1.5
+            float inputs:metallic = 0
+            float3 inputs:normal.connect = </_materials/M_MicrowaveDoorC2_7/Image_Texture_001.outputs:rgb>
+            float inputs:opacity = 1
+            float inputs:roughness = 0.8585787
+            float inputs:specular = 0.5
+            token outputs:surface
+        }
+
+        def Shader "Image_Texture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @../../../textures/Microwave_Window_AlbedoTransparency.png@
+            token inputs:sourceColorSpace = "sRGB"
+            float2 inputs:st.connect = </_materials/M_MicrowaveDoorC2_7/uvmap.outputs:result>
+            token inputs:wrapS = "repeat"
+            token inputs:wrapT = "repeat"
+            float3 outputs:rgb
+        }
+
+        def Shader "uvmap"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname = "UVMap"
+            float2 outputs:result
+        }
+
+        def Shader "Image_Texture_001"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @./textures/Microwave_Window_Normal.png@
+            token inputs:sourceColorSpace = "sRGB"
+            float2 inputs:st.connect = </_materials/M_MicrowaveDoorC2_7/uvmap.outputs:result>
+            token inputs:wrapS = "repeat"
+            token inputs:wrapT = "repeat"
+            float3 outputs:rgb
+        }
+    }
+}
+

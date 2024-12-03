@@ -92,7 +92,7 @@ def snake_to_camel(snake_str):
     # camel_str = re.sub(r'(\d+)', r'_\1_', camel_str)
     camel_str = re.sub(r'(?<!_) (\d+) (?!_)', r'_\1_', camel_str)
 
-    camel_str = camel_str.strip('_').replace('.', '_').replace(' ', '_').replace('__', '_').replace(':', '_')
+    camel_str = camel_str.strip('_').replace('.', '_').replace(' ', '_').replace('__', '_').replace(':', '_').replace('(', '_').replace(')', '_')
     
     return camel_str
 
@@ -695,7 +695,7 @@ if __name__=="__main__":
 
 
     # # iterate from a specific key
-    # start_key = 'Television'
+    # start_key = 'CoffeeMachine'
     # keys = list(procthor_database.keys())
     # start_index = keys.index(start_key)
     # for asset_grp in keys[start_index:]:
@@ -705,8 +705,7 @@ if __name__=="__main__":
 
     #         if asset_id in all_prefab_details:
     #             prefab_info = all_prefab_details[asset_id]
-    #             convert_prefab(asset_id, prefab_info, root_path)
-    #             add_texture(asset_id,prefab_info,root_path)
+    #             process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
 
     #         else:
     #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
@@ -718,14 +717,13 @@ if __name__=="__main__":
 
     #         if asset_id in all_prefab_details:
     #             prefab_info = all_prefab_details[asset_id]
-    #             convert_prefab(asset_id, prefab_info, root_path,shift_center=True)
-    #             add_texture(asset_id,prefab_info,root_path)
+    #             process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
 
     #         else:
     #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
 
     from itertools import chain
-    with open('/home/zgao/ProcTHOR_Converter/house_7.json', 'r') as file:
+    with open('/home/zgao/unity_preafab_converter/house_5.json', 'r') as file:
         test_house = json.load(file)
     for obj in chain(test_house['objects'],test_house['doors'],test_house['windows']):
         asset_id = obj['assetId']
@@ -738,15 +736,12 @@ if __name__=="__main__":
                 process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
 
 
-    # sub_obj = 'mesh_floor_lamp_19_0'
-    # sub_obj_name = snake_to_camel(sub_obj)
-    # print(sub_obj_name)
 
 
     # Test the conversion for a single prefab  
     # asset_id= 'Teddy_Bear_1'
     # asset_id = 'Vase_Tall_4'
-    # # asset_id = 'Toilet_1'
+    # asset_id = 'coffee_machine_13'
     # # asset_id = 'Doorway_Double_9'
     # asset_id = 'Armchair_208_3'
     # # # # asset_id = 'Plunger_3'

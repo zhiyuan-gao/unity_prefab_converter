@@ -1,0 +1,19 @@
+#usda 1.0
+(
+    defaultPrim = "MeshTelevision_27_0_GeomSubset_4"
+    upAxis = "Z"
+)
+
+def Mesh "MeshTelevision_27_0_GeomSubset_4"
+{
+    int[] faceVertexCounts = [3, 3]
+    int[] faceVertexIndices = [1, 2, 0, 1, 3, 2]
+    normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 0.99999994), (0, 0, 1), (0, 0, 0.99999994), (0, 0, 1)] (
+        interpolation = "faceVarying"
+    )
+    point3f[] points = [(0.003669, 0.043799, 0.032866), (0.006165, 0.043799, 0.032866), (0.003669, 0.046295, 0.032866), (0.006165, 0.046295, 0.032866)]
+    texCoord2f[] primvars:st = [(-7.95989, -17.521914), (-7.960485, -17.521318), (-7.960485, -17.521914), (-7.95989, -17.521914), (-7.95989, -17.521318), (-7.960485, -17.521318)] (
+        interpolation = "faceVarying"
+    )
+}
+

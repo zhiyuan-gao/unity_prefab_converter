@@ -1,0 +1,19 @@
+#usda 1.0
+(
+    defaultPrim = "DoormeshMicrowaveDoorC2_1_GeomSubset_6"
+    upAxis = "Z"
+)
+
+def Mesh "DoormeshMicrowaveDoorC2_1_GeomSubset_6"
+{
+    int[] faceVertexCounts = [3, 3]
+    int[] faceVertexIndices = [1, 2, 0, 1, 3, 2]
+    normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+        interpolation = "faceVarying"
+    )
+    point3f[] points = [(-0.000041, -0.008155, -0.187187), (-0.000031, -0.008155, -0.187187), (-0.000041, -0.008145, -0.187187), (-0.000031, -0.008145, -0.187187)]
+    texCoord2f[] primvars:st = [(1, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1)] (
+        interpolation = "faceVarying"
+    )
+}
+

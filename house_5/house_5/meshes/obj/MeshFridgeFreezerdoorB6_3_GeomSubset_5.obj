@@ -1,0 +1,17 @@
+# Blender 4.1.1
+# www.blender.org
+mtllib MeshFridgeFreezerdoorB6_3_GeomSubset_5.mtl
+o MeshFridgeFreezerdoorB6_3_GeomSubset_5
+v -0.002956 0.000154 -0.889139
+v -0.002946 0.000154 -0.889139
+v -0.002956 0.000164 -0.889139
+v -0.002946 0.000164 -0.889139
+vn -0.0000 -0.0000 1.0000
+vt 7.358486 -121.224083
+vt 5.646933 -119.512527
+vt 5.646933 -121.224083
+vt 7.358486 -119.512527
+s 1
+usemtl M_FridgeFreezerdoorB6_5
+f 2/1/1 3/2/1 1/3/1
+f 2/1/1 4/4/1 3/2/1

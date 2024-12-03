@@ -1,0 +1,73 @@
+#usda 1.0
+(
+    defaultPrim = "MainMeshLaptop_10_1_GeomSubset_2"
+    doc = "Blender v4.1.1"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "MainMeshLaptop_10_1_GeomSubset_2"
+{
+    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+    uniform token[] xformOpOrder = ["xformOp:transform"]
+
+    def Mesh "MainMeshLaptop_10_1_GeomSubset_2" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform bool doubleSided = 1
+        float3[] extent = [(-0.056794, -0.107003, -0.117639), (0.058494, -0.000848, -0.110882)]
+        int[] faceVertexCounts = [3, 3, 3, 3, 3, 3]
+        int[] faceVertexIndices = [1, 2, 0, 8, 7, 4, 8, 6, 9, 1, 3, 2, 8, 9, 7, 8, 5, 6]
+        rel material:binding = </_materials/M_Laptop_10_2>
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 0.99999994), (0, 0, 1)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(0.000218, -0.002111, -0.110882), (0.001482, -0.002111, -0.110882), (0.000218, -0.000848, -0.110882), (0.001482, -0.000848, -0.110882), (-0.056794, -0.107003, -0.117639), (0.058494, -0.107003, -0.117639), (0.058494, -0.044101, -0.117639), (-0.056794, -0.044101, -0.117639), (0.00085, -0.107003, -0.117639), (0.00085, -0.044101, -0.117639)]
+        texCoord2f[] primvars:UVMap = [(-54.218258, -19.673967), (-55.218258, -18.673967), (-55.218258, -19.673967), (-55.78844, 0.294562), (-55.901024, 0.417419), (-55.901024, 0.294563), (-55.78844, 0.294562), (-55.67586, 0.417419), (-55.788445, 0.417418), (-54.218258, -19.673967), (-54.218258, -18.673967), (-55.218258, -18.673967), (-55.78844, 0.294562), (-55.788445, 0.417418), (-55.901024, 0.417419), (-55.78844, 0.294562), (-55.67586, 0.294563), (-55.67586, 0.417419)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+    }
+}
+
+def Scope "_materials"
+{
+    def Material "M_Laptop_10_2"
+    {
+        token outputs:surface.connect = </_materials/M_Laptop_10_2/Principled_BSDF.outputs:surface>
+
+        def Shader "Principled_BSDF"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            float inputs:clearcoatRoughness = 0.03
+            color3f inputs:diffuseColor.connect = </_materials/M_Laptop_10_2/Image_Texture.outputs:rgb>
+            float inputs:ior = 1.5
+            float inputs:metallic = 0
+            float inputs:opacity = 1
+            float inputs:roughness = 0.8585787
+            float inputs:specular = 0.5
+            token outputs:surface
+        }
+
+        def Shader "Image_Texture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @../../../textures/BrushedAluminum_AlbedoTransparency.png@
+            token inputs:sourceColorSpace = "sRGB"
+            float2 inputs:st.connect = </_materials/M_Laptop_10_2/uvmap.outputs:result>
+            token inputs:wrapS = "repeat"
+            token inputs:wrapT = "repeat"
+            float3 outputs:rgb
+        }
+
+        def Shader "uvmap"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname = "UVMap"
+            float2 outputs:result
+        }
+    }
+}
+

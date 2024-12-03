@@ -1,0 +1,19 @@
+#usda 1.0
+(
+    defaultPrim = "MeshCellphone_2_0_GeomSubset_1"
+    upAxis = "Z"
+)
+
+def Mesh "MeshCellphone_2_0_GeomSubset_1"
+{
+    int[] faceVertexCounts = [3, 3]
+    int[] faceVertexIndices = [3, 0, 2, 3, 1, 0]
+    normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+        interpolation = "faceVarying"
+    )
+    point3f[] points = [(-0.040279, 0.069567, 0.009444), (0.038729, 0.069567, 0.009444), (-0.040279, -0.062916, 0.009444), (0.038729, -0.062916, 0.009444)]
+    texCoord2f[] primvars:st = [(-1.500083, 0.015358), (-1.998895, 0.985021), (-1.998895, 0.015358), (-1.500083, 0.015358), (-1.500083, 0.985021), (-1.998895, 0.985021)] (
+        interpolation = "faceVarying"
+    )
+}
+

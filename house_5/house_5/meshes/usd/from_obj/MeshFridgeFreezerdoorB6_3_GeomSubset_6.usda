@@ -1,0 +1,85 @@
+#usda 1.0
+(
+    defaultPrim = "MeshFridgeFreezerdoorB6_3_GeomSubset_6"
+    doc = "Blender v4.1.1"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "MeshFridgeFreezerdoorB6_3_GeomSubset_6"
+{
+    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+    uniform token[] xformOpOrder = ["xformOp:transform"]
+
+    def Mesh "MeshFridgeFreezerdoorB6_3_GeomSubset_6" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform bool doubleSided = 1
+        float3[] extent = [(-0.002956, 0.000154, -0.889139), (-0.002946, 0.000164, -0.889139)]
+        int[] faceVertexCounts = [3, 3]
+        int[] faceVertexIndices = [1, 2, 0, 1, 3, 2]
+        rel material:binding = </_materials/M_FridgeFreezerdoorB6_6>
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 0.99999994), (0, 0, 1)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-0.002956, 0.000154, -0.889139), (-0.002946, 0.000154, -0.889139), (-0.002956, 0.000164, -0.889139), (-0.002946, 0.000164, -0.889139)]
+        texCoord2f[] primvars:UVMap = [(-5.253075, -117.71076), (-5.253071, -117.71076), (-5.253075, -117.71076), (-5.253075, -117.71076), (-5.253071, -117.71076), (-5.253071, -117.71076)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+    }
+}
+
+def Scope "_materials"
+{
+    def Material "M_FridgeFreezerdoorB6_6"
+    {
+        token outputs:surface.connect = </_materials/M_FridgeFreezerdoorB6_6/Principled_BSDF.outputs:surface>
+
+        def Shader "Principled_BSDF"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            float inputs:clearcoatRoughness = 0.03
+            color3f inputs:diffuseColor.connect = </_materials/M_FridgeFreezerdoorB6_6/Image_Texture.outputs:rgb>
+            float inputs:ior = 1.5
+            float inputs:metallic = 1
+            float3 inputs:normal.connect = </_materials/M_FridgeFreezerdoorB6_6/Image_Texture_001.outputs:rgb>
+            float inputs:opacity = 1
+            float inputs:roughness = 0.8585787
+            float inputs:specular = 0.5
+            token outputs:surface
+        }
+
+        def Shader "Image_Texture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @../../../textures/Fridge_Readout_AlbedoTransparency.png@
+            token inputs:sourceColorSpace = "sRGB"
+            float2 inputs:st.connect = </_materials/M_FridgeFreezerdoorB6_6/uvmap.outputs:result>
+            token inputs:wrapS = "repeat"
+            token inputs:wrapT = "repeat"
+            float3 outputs:rgb
+        }
+
+        def Shader "uvmap"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname = "UVMap"
+            float2 outputs:result
+        }
+
+        def Shader "Image_Texture_001"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @./textures/BrushedIron_Normal.png@
+            token inputs:sourceColorSpace = "sRGB"
+            float2 inputs:st.connect = </_materials/M_FridgeFreezerdoorB6_6/uvmap.outputs:result>
+            token inputs:wrapS = "repeat"
+            token inputs:wrapT = "repeat"
+            float3 outputs:rgb
+        }
+    }
+}
+
