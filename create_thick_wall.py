@@ -1,6 +1,6 @@
 from pxr import Usd, UsdGeom, UsdShade, Sdf, Gf
 import numpy as np
-
+from scipy.spatial.transform import Rotation
 
 class Wall:
     def __init__(self, id, p0, p1, height, thickness, material, empty, roomId, hole=None, layer=None):
@@ -109,21 +109,17 @@ def generate_holes(house):
             holes[hole_obj.wall1] = hole_obj
     return holes
 
-def generate_wall_mesh(to_create, global_vertex_positions=False, back_faces=False):
+def generate_wall_mesh(to_create, back_faces=False):
     p0p1 = np.array(to_create.p1) - np.array(to_create.p0)
     p0p1_norm = p0p1 / np.linalg.norm(p0p1)
+    # center = to_create.p0 + p0p1 * 0.5 + Vector3.up * to_create.height * 0.5 + normal * to_create.thickness * 0.5
 
     width = np.linalg.norm(p0p1)
     height = to_create.height
     thickness = to_create.thickness
-    # print(thickness)
-
-    if global_vertex_positions:
-        p0 = to_create.p0
-        p1 = to_create.p1
-    else:
-        p0 = [-width / 2.0, -height / 2.0, -thickness / 2.0]
-        p1 = [width / 2.0, -height / 2.0, -thickness / 2.0]
+    print(f"width: {width}, height: {height}, thickness: {thickness}")
+    p0 = to_create.p0
+    p1 = to_create.p1
 
     vertices = []
     triangles = []
@@ -135,26 +131,6 @@ def generate_wall_mesh(to_create, global_vertex_positions=False, back_faces=Fals
 
         if to_create.hole.wall1 == to_create.id:
             offset = [width - hole_bb.max[0], hole_bb.min[1]]
-                # {
-                #     p0,
-                #     p0 + new Vector3(0.0f, toCreate.height, 0.0f),
-                #     p0 + p0p1_norm * offset.x + Vector3.up * offset.y,
-                #     p0 + p0p1_norm * offset.x + Vector3.up * (offset.y + dims.y),
-                #     p1 + new Vector3(0.0f, toCreate.height, 0.0f),
-                #     p0 + p0p1_norm * (offset.x + dims.x) + Vector3.up * (offset.y + dims.y),
-                #     p1,
-                #     p0 + p0p1_norm * (offset.x + dims.x) + Vector3.up * offset.y
-                # };
-        # vertices = [
-        #     p0.tolist(),
-        #     [p0[0], p0[1] + height, p0[2]],
-        #     [p0[0] + p0p1_norm * offset[0], p0[1] + offset[1], p0[2]],
-        #     [p0[0] + offset[0], offset[1] + dims[1], p0[2]],
-        #     [p1[0], height, p1[2]],
-        #     [p0[0] + offset[0] + dims[0], offset[1] + dims[1], p0[2]],
-        #     p1.tolist(),
-        #     [p0[0] + offset[0] + dims[0], offset[1], p0[2]]
-        # ]
 
         vertices = [
             p0,
@@ -166,8 +142,6 @@ def generate_wall_mesh(to_create, global_vertex_positions=False, back_faces=Fals
             p1,
             p0 + p0p1_norm * (offset[0] + dims[0]) + np.array([0.0, offset[1], 0.0])
         ]
-
-
 
 
         triangles = [
@@ -208,7 +182,7 @@ def create_walls(house, material_db, procedural_parameters, game_object_id="Stru
                 material=w.get('material'),
                 empty=w.get('empty', False),
                 roomId=w['roomId'],
-                thickness=w.get('thickness', 0.05),  # 使用默认值 0.1
+                thickness=w.get('thickness', 0.1),  # 使用默认值 0.1
                 layer=w.get('layer')
             ) for w in house['walls']]
 
@@ -235,7 +209,6 @@ def create_walls(house, material_db, procedural_parameters, game_object_id="Stru
             if not w0.empty:
                 vertices, triangles = generate_wall_mesh(
                     w0,
-                    global_vertex_positions=procedural_parameters.get('globalVertexPositions', True),
                     back_faces=procedural_parameters.get('backFaces', False)
                 )
                 wall_go = {
@@ -291,17 +264,14 @@ def process_structure_meshes(house_json , usd_file_path, new_file_path):
     :return: Dictionary containing results for each mesh
     """
 
-    # base_path = "/World/Structure/Walls"
-    # Load the USD Stage
-
-
     stage = Usd.Stage.Open(usd_file_path)
+    default_prim = stage.GetDefaultPrim()
 
     # walls_prim = stage.GetPrimAtPath("/World/Structure/Walls")
     with open(house_json) as f:
         house = json.load(f)
     procedural_parameters = {
-        "globalVertexPositions": True,
+        
         "backFaces": True
     }
 
@@ -315,9 +285,6 @@ def process_structure_meshes(house_json , usd_file_path, new_file_path):
     #         print(len(wall['vertices']))
 
 
-
-
-
     for i, wall in enumerate(structure["walls"]):
         # mesh_path = prim.GetPath().pathString
         # source_mesh_geom = UsdGeom.Xformable(prim)
@@ -325,23 +292,17 @@ def process_structure_meshes(house_json , usd_file_path, new_file_path):
         vertex = wall['vertices']
 
         sorted_points = sort_rectangle_vertices(vertex)
+        if  i == 5:
+            print(sorted_points)
 
+        wall_xform = UsdGeom.Xform.Define(stage, f"{default_prim.GetPath()}/Wall_new_{i}")
 
+        wall_xform.AddTranslateOp().Set((0, 0, 0)) 
+        wall_xform.AddRotateXOp().Set(90)
 
-        new_mesh_path = '/house_7/Wall_6'
+        new_mesh_path = f'{default_prim.GetPath()}/Wall_new_{i}/Wall_new_{i}'
 
-        xform = UsdGeom.Xform.Define(stage, "/Test_Walls")
-
-        # 设置默认的 Transform Matrix
-        transform_matrix = Gf.Matrix4d(1.0)  # 创建一个单位矩阵作为默认变换
-
-        # 在 Xform 上应用变换
-        xform.AddTransformOp().Set(transform_matrix)
-
-
-
-
-        create_thick_wall(stage, sorted_points, new_mesh_path, transform_matrix)
+        create_thick_wall(stage, sorted_points, new_mesh_path, thickness= 0.1)
 
     # floors_prim = stage.GetPrimAtPath("/World/Structure/Floor")
     # for prim in floors_prim.GetAllChildren():
@@ -369,7 +330,7 @@ def process_structure_meshes(house_json , usd_file_path, new_file_path):
     #     stage.RemovePrim(prim.GetPath())
     stage.GetRootLayer().Export(new_file_path)
 
-    print("thickness mesh has been saved to ", new_file_path)
+    print("wall mesh has been saved to ", new_file_path)
 
 
 def sort_rectangle_vertices(points):
@@ -382,7 +343,7 @@ def sort_rectangle_vertices(points):
     """
     points = np.array(points)
 
-
+    # print(points)
 
 
 
@@ -492,7 +453,7 @@ def convert_to_gf_vec3f_list(sorted_points):
 
     return gf_vec3f_list
 
-def create_thick_wall(stage, vertex, mesh_prim_path, transform_matrix, thcikness = 0.05):
+def create_thick_wall(stage, vertex, mesh_prim_path, thickness = 0.05):
 
 
     mesh = UsdGeom.Mesh.Define(stage, mesh_prim_path)
@@ -500,9 +461,9 @@ def create_thick_wall(stage, vertex, mesh_prim_path, transform_matrix, thcikness
     constant_dim = np.where(np.all(vertex == vertex[0, :], axis=0))[0][0]
 
     back_vertex = np.copy(vertex)
-    back_vertex[:, constant_dim] += thcikness
+    back_vertex[:, constant_dim] += thickness
 
-    # back_vertex = vertex + np.array([0, thcikness])
+    # back_vertex = vertex + np.array([0, thickness])
 
     points = convert_to_gf_vec3f_list(np.vstack((vertex, back_vertex)))
 
@@ -639,14 +600,11 @@ def create_thick_wall(stage, vertex, mesh_prim_path, transform_matrix, thcikness
     # material_global = UsdShade.Material.Get(stage, "/World/Materials/WhiteMarble__115104")
     # UsdShade.MaterialBindingAPI(mesh).Bind(material_global)
 
-
     mesh.GetDoubleSidedAttr().Set(True)
 
-    target_mesh_geom = UsdGeom.Xformable(mesh)
-    target_mesh_geom.AddTransformOp().Set(transform_matrix)
 
 
-def creat_thick_floor(stage, vertex, mesh_prim_path, transform_matrix, thcikness = 0.05):
+def creat_thick_floor(stage, vertex, mesh_prim_path, transform_matrix, thickness = 0.05):
     pass
 
 if __name__ == "__main__":

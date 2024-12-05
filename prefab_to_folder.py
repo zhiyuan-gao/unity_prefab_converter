@@ -710,30 +710,30 @@ if __name__=="__main__":
     #         else:
     #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
 
-    # for asset_grp in procthor_database:
-    #     asset_list = procthor_database[asset_grp]
-    #     for asset in asset_list:
-    #         asset_id= asset['assetId']
+    for asset_grp in procthor_database:
+        asset_list = procthor_database[asset_grp]
+        for asset in asset_list:
+            asset_id= asset['assetId']
 
-    #         if asset_id in all_prefab_details:
-    #             prefab_info = all_prefab_details[asset_id]
-    #             process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
-
-    #         else:
-    #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
-
-    from itertools import chain
-    with open('/home/zgao/unity_preafab_converter/house_5.json', 'r') as file:
-        test_house = json.load(file)
-    for obj in chain(test_house['objects'],test_house['doors'],test_house['windows']):
-        asset_id = obj['assetId']
-        prefab_info = all_prefab_details[asset_id]
-        process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
-        if "children" in obj:
-            for child in obj["children"]:
-                asset_id = child['assetId']
+            if asset_id in all_prefab_details:
                 prefab_info = all_prefab_details[asset_id]
                 process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
+
+            else:
+                print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
+
+    # from itertools import chain
+    # with open('/home/zgao/unity_preafab_converter/house_5.json', 'r') as file:
+    #     test_house = json.load(file)
+    # for obj in chain(test_house['objects'],test_house['doors'],test_house['windows']):
+    #     asset_id = obj['assetId']
+    #     prefab_info = all_prefab_details[asset_id]
+    #     process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
+    #     if "children" in obj:
+    #         for child in obj["children"]:
+    #             asset_id = child['assetId']
+    #             prefab_info = all_prefab_details[asset_id]
+    #             process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
 
 
 
