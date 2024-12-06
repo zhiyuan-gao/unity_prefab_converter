@@ -109,7 +109,7 @@ def generate_holes(house):
             holes[hole_obj.wall1] = hole_obj
     return holes
 
-def generate_wall_mesh(to_create, back_faces=False):
+def generate_wall_vertices(to_create, back_faces=False):
     p0p1 = np.array(to_create.p1) - np.array(to_create.p0)
     p0p1_norm = p0p1 / np.linalg.norm(p0p1)
     # center = to_create.p0 + p0p1 * 0.5 + Vector3.up * to_create.height * 0.5 + normal * to_create.thickness * 0.5
@@ -117,7 +117,7 @@ def generate_wall_mesh(to_create, back_faces=False):
     width = np.linalg.norm(p0p1)
     height = to_create.height
     thickness = to_create.thickness
-    print(f"width: {width}, height: {height}, thickness: {thickness}")
+
     p0 = to_create.p0
     p1 = to_create.p1
 
@@ -170,10 +170,12 @@ def get_hole_bounding_box(hole):
         raise ValueError(f"Invalid `holePolygon` for object id: '{hole.id}'. Minimum 2 vertices indicating first min and second max of hole bounding box.")
     return BoundingBox(min_point=hole.hole_polygon[0], max_point=hole.hole_polygon[1])
 
-def create_walls(house, material_db, procedural_parameters, game_object_id="Structure"):
+def create_wall_info(house, material_db, game_object_id="Structure"):
     holes = generate_holes(house)
 
     structure = {"id": game_object_id, "walls": []}
+
+    ignore_walls = []
 
     # Convert each wall dictionary to a PolygonWall object, and set a default thickness if missing
     walls = [PolygonWall(
@@ -207,9 +209,8 @@ def create_walls(house, material_db, procedural_parameters, game_object_id="Stru
     for wall_tuples in zip3:
         for w0, w1, w2 in wall_tuples:
             if not w0.empty:
-                vertices, triangles = generate_wall_mesh(
+                vertices, triangles = generate_wall_vertices(
                     w0,
-                    back_faces=procedural_parameters.get('backFaces', False)
                 )
                 wall_go = {
                     "index": index,
@@ -217,6 +218,11 @@ def create_walls(house, material_db, procedural_parameters, game_object_id="Stru
                     "vertices": vertices,
                     "triangles": triangles,
                 }
+                wall_id_str = ' '.join(wall_go["id"].split('|')[-4:])
+
+                if wall_id_str in ignore_walls:
+                    continue
+                ignore_walls.append(wall_id_str)
                 structure["walls"].append(wall_go)
                 index += 1
 
@@ -275,15 +281,7 @@ def process_structure_meshes(house_json , usd_file_path, new_file_path):
         "backFaces": True
     }
 
-    structure = create_walls(house, material_db={}, procedural_parameters=procedural_parameters)
-
-    # for i, wall in enumerate(structure["walls"]):
-    #     if i == 1:
-
-    #         # print(f"Wall ID: {wall['id']}")
-    #         print(f"Vertices: {wall['vertices']}")
-    #         print(len(wall['vertices']))
-
+    structure = create_wall_info(house, material_db={},)
 
     for i, wall in enumerate(structure["walls"]):
         # mesh_path = prim.GetPath().pathString
@@ -292,8 +290,8 @@ def process_structure_meshes(house_json , usd_file_path, new_file_path):
         vertex = wall['vertices']
 
         sorted_points = sort_rectangle_vertices(vertex)
-        if  i == 5:
-            print(sorted_points)
+        # if  i == 5:
+        #     print(sorted_points)
 
         wall_xform = UsdGeom.Xform.Define(stage, f"{default_prim.GetPath()}/Wall_new_{i}")
 
@@ -301,6 +299,9 @@ def process_structure_meshes(house_json , usd_file_path, new_file_path):
         wall_xform.AddRotateXOp().Set(90)
 
         new_mesh_path = f'{default_prim.GetPath()}/Wall_new_{i}/Wall_new_{i}'
+
+        # if i == 0:
+        #     print(sorted_points)
 
         create_thick_wall(stage, sorted_points, new_mesh_path, thickness= 0.1)
 
@@ -343,13 +344,6 @@ def sort_rectangle_vertices(points):
     """
     points = np.array(points)
 
-    # print(points)
-
-
-
-
-
-
     # Find the dimension that is constant (i.e., all points have the same value in this dimension)
     constant_dim = np.where(np.all(points == points[0, :], axis=0))[0][0]
 
@@ -364,12 +358,19 @@ def sort_rectangle_vertices(points):
 
     return sorted_points
 
-def sort_2d_rectangle_vertices(points):
+def sort_2d_rectangle_vertices(points: np.ndarray) -> np.ndarray:
     """
     Sorts vertices into two rectangles, with specific ordering:
     if points has 8 vertices, 4 vertices for each rectangle
     Large rectangle (0: bottom-left, 1: top-left, 4: top-right, 6: bottom-right)
     Small rectangle (2: bottom-left, 3: top-left, 5: top-right, 7: bottom-right)
+    Vertices 0 - 7 are sorted as the same order as it in ai2thor
+    8-11 are the projection of the door or window on the wall
+    8: pro_up_left, 9: pro_up_right, 10: pro_bottom_left, 11: pro_bottom_right
+
+    In order to split the wall with holes into rectangles, add two extra vertices for walls 
+    with a door and four extra vertices for walls with a window
+
     if points has 4 vertices
     0: bottom-left, 1: top-left, 2: top-right, 3: bottom-right.
 
@@ -377,9 +378,8 @@ def sort_2d_rectangle_vertices(points):
     :return: np.array of sorted points.
     """
 
-    points = np.array(points)
-    # print(points)
     if points.shape[0] == 8:
+        # print(points)
         # Find the points corresponding to xmin, xmax, ymin, ymax
         xmin = points[:, 0].min()
         xmax = points[:, 0].max()
@@ -407,12 +407,35 @@ def sort_2d_rectangle_vertices(points):
         # Sort points within each rectangle
         large_rect_points = sort_rectangle(large_rect_points)
         small_rect_points = sort_rectangle(small_rect_points)
-        
-        # Combine results into a single np.array in the specified order
+
+        # projection of the door or window on the wall
+        pro_up_left = np.array([large_rect_points[0][0], small_rect_points[1][1]])
+
+        pro_up_right = np.array([large_rect_points[2][0], small_rect_points[2][1]])
+
         sorted_points = np.array([large_rect_points[0], large_rect_points[1], 
                                 small_rect_points[0], small_rect_points[1], 
                                 large_rect_points[2], small_rect_points[2], 
                                 large_rect_points[3], small_rect_points[3]])
+        
+        print(sorted_points)
+
+        # for doors
+        # if large_rect_points[0][1] == small_rect_points[0][1]:
+        if large_rect_points[0][1] - small_rect_points[0][1] < 0.01:
+            extra_points = np.array([pro_up_left, pro_up_right ])
+            # pro_bottom_left = np.array([small_rect_points[0][0], large_rect_points[0][1]])
+            # pro_bottom_right = np.array([small_rect_points[2][0], large_rect_points[3][1]])
+
+        # for windows
+        else:
+            pro_bottom_left = np.array([large_rect_points[0][0], small_rect_points[0][1]])
+            pro_bottom_right = np.array([large_rect_points[2][0], small_rect_points[3][1]])
+            extra_points = np.array([pro_up_left, pro_up_right, pro_bottom_left, pro_bottom_right])
+
+        sorted_points = np.vstack((sorted_points,extra_points))
+
+
     elif points.shape[0] == 4:
         
         # Convert the list of vertices to a numpy array for easier manipulation
@@ -434,9 +457,9 @@ def sort_2d_rectangle_vertices(points):
         
         # Combine them into the desired order: bottom-left, top-left, top-right, bottom-right
         sorted_points = [left_pair[0], left_pair[1], right_pair[1], right_pair[0]]
+
     else:
         raise ValueError("Invalid number of vertices for a cuboid.")
-
 
     return sorted_points
 
@@ -455,138 +478,229 @@ def convert_to_gf_vec3f_list(sorted_points):
 
 def create_thick_wall(stage, vertex, mesh_prim_path, thickness = 0.05):
 
-
-    mesh = UsdGeom.Mesh.Define(stage, mesh_prim_path)
-
+    # mesh = UsdGeom.Mesh.Define(stage, mesh_prim_path)
     constant_dim = np.where(np.all(vertex == vertex[0, :], axis=0))[0][0]
 
     back_vertex = np.copy(vertex)
     back_vertex[:, constant_dim] += thickness
 
-    # back_vertex = vertex + np.array([0, thickness])
+    vertex_vec3f = convert_to_gf_vec3f_list(np.vstack((vertex, back_vertex)))
 
-    points = convert_to_gf_vec3f_list(np.vstack((vertex, back_vertex)))
+    faceVertexCounts = [3]*12
+    faceVertexIndices = [0, 2, 1, 0, 3, 2,  #front
+                        4, 5, 6, 4, 6, 7, #back
+                        0, 1, 5, 0, 5, 4, #left
+                        3, 6, 2, 3, 7, 6, #right
+                        1, 2, 6, 1, 6, 5, #top
+                        0, 4, 7, 0, 7, 3  #bottom
+                        ]
+    normals = [Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+                Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), #front
 
-    mesh.GetPointsAttr().Set(points)
-    if vertex.shape[0] == 8:
-        faceVertexCounts = [3, 3, 3, 3, 3, 3, 3, 3,  #front with hole
-                            3, 3, 3, 3, 3, 3, 3, 3,  #back with hole
-                            3,3, #left outside
-                            3,3, #right outside
-                            3,3, #top outside
-                            3,3, #bottom outside
-                            3,3, #left inside
-                            3,3, #right inside
-                            3,3, #top inside
-                            3,3 ]#bottom inside
+                Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+                Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), #back
+
+                Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0),
+                Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), #left
+
+                Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),
+                Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),#right
+
+                Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),
+                Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),#top
+
+                Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),
+                Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),#bottom
+    ]
+
+    # NOTE: Doors and windows cannot share the same wall, per AI2-THOR limitation.Therefore, there can be at most one hole in the wall
+    # To create convex mesh, we need to split the wall with holes into rectangles. So we need extra vertices
+
+    if vertex.shape[0] == 12:
+
+        points_mesh_top = [vertex_vec3f[8],vertex_vec3f[1],vertex_vec3f[4],vertex_vec3f[9],
+                    vertex_vec3f[20],vertex_vec3f[13],vertex_vec3f[16],vertex_vec3f[21]]
+   
+        points_mesh_left = [vertex_vec3f[10],vertex_vec3f[8],vertex_vec3f[3],vertex_vec3f[2],
+                    vertex_vec3f[22],vertex_vec3f[20],vertex_vec3f[15],vertex_vec3f[14]]
+        
+        points_mesh_right = [vertex_vec3f[7],vertex_vec3f[5],vertex_vec3f[9],vertex_vec3f[11],
+                    vertex_vec3f[19],vertex_vec3f[17],vertex_vec3f[21],vertex_vec3f[23]]
+        
+        points_mesh_bottom = [vertex_vec3f[0],vertex_vec3f[10],vertex_vec3f[11],vertex_vec3f[6],
+                    vertex_vec3f[12],vertex_vec3f[22],vertex_vec3f[23],vertex_vec3f[18]]
+        
+        points_list = [points_mesh_top, points_mesh_left, points_mesh_right, points_mesh_bottom]
+        for i, points in enumerate(points_list):
+            mesh = UsdGeom.Mesh.Define(stage, f"{mesh_prim_path}_{i}")
+            mesh.GetPointsAttr().Set(points)
+            mesh.GetFaceVertexCountsAttr().Set(faceVertexCounts)
+            mesh.GetFaceVertexIndicesAttr().Set(faceVertexIndices)
+            mesh.GetNormalsAttr().Set(normals)
+            mesh.SetNormalsInterpolation("faceVarying")
+
+
+    elif vertex.shape[0] == 10:
+        points_mesh_top = [vertex_vec3f[8],vertex_vec3f[1],vertex_vec3f[4],vertex_vec3f[9],
+                    vertex_vec3f[18],vertex_vec3f[11],vertex_vec3f[14],vertex_vec3f[19]]
+        
+        points_mesh_left = [vertex_vec3f[0],vertex_vec3f[8],vertex_vec3f[3],vertex_vec3f[2],
+                    vertex_vec3f[10],vertex_vec3f[18],vertex_vec3f[13],vertex_vec3f[12]]
+        
+        points_mesh_right = [vertex_vec3f[7],vertex_vec3f[5],vertex_vec3f[9],vertex_vec3f[6],
+                    vertex_vec3f[17],vertex_vec3f[15],vertex_vec3f[19],vertex_vec3f[16]]
+        
+        points_list = [points_mesh_top, points_mesh_left, points_mesh_right]
+
+        for i, points in enumerate(points_list):
+            mesh = UsdGeom.Mesh.Define(stage, f"{mesh_prim_path}_{i}")
+            mesh.GetPointsAttr().Set(points)
+            mesh.GetFaceVertexCountsAttr().Set(faceVertexCounts)
+            mesh.GetFaceVertexIndicesAttr().Set(faceVertexIndices)
+            mesh.GetNormalsAttr().Set(normals)
+            mesh.SetNormalsInterpolation("faceVarying")
+
+
+
+
+
+
+
+
+        # mesh.GetPointsAttr().Set(points)
+        # mesh.GetFaceVertexCountsAttr().Set(faceVertexCounts)
+        # mesh.GetNormalsAttr().Set(normals)
+        # mesh.SetNormalsInterpolation("faceVarying") 
+
+        # faceVertexCounts = [3, 3, 3, 3, 3, 3, 3, 3,  #front with hole
+        #                     3, 3, 3, 3, 3, 3, 3, 3,  #back with hole
+        #                     3,3, #left outside
+        #                     3,3, #right outside
+        #                     3,3, #top outside
+        #                     3,3, #bottom outside
+        #                     3,3, #left inside
+        #                     3,3, #right inside
+        #                     3,3, #top inside
+        #                     3,3 ]#bottom inside
         
 
-        mesh.GetFaceVertexCountsAttr().Set(faceVertexCounts)
-        faceVertexIndices = [1, 0, 2, 3, 1, 2, 4, 1, 3, 4, 3, 5, 6, 4, 5, 6, 5, 7, 6, 7, 0, 2, 0, 7,#front with hole
+        # # mesh.GetFaceVertexCountsAttr().Set(faceVertexCounts)
+        # faceVertexIndices = [1, 0, 2, 3, 1, 2, 4, 1, 3, 4, 3, 5, 6, 4, 5, 6, 5, 7, 6, 7, 0, 2, 0, 7,#front with hole
                             
-                            8, 9, 10, 9, 11, 10, 9, 12, 11, 11, 12, 13, 12, 14, 13, 13, 14, 15, 15, 14, 8, 8, 10, 15,#back with hole
+        #                     8, 9, 10, 9, 11, 10, 9, 12, 11, 11, 12, 13, 12, 14, 13, 13, 14, 15, 15, 14, 8, 8, 10, 15,#back with hole
 
-                            #  9, 8, 10, 11, 9, 10, 12, 9, 11, 12, 11, 13, 14, 12, 13, 14, 13, 15, 14, 15, 8, 10, 8, 15,#back with hole
+        #                     #  9, 8, 10, 11, 9, 10, 12, 9, 11, 12, 11, 13, 14, 12, 13, 14, 13, 15, 14, 15, 8, 10, 8, 15,#back with hole
+        # # triangles = [
+        # #     0, 1, 2, 1, 3, 2, 1, 4, 3, 3, 4, 5, 4, 6, 5, 5, 6, 7, 7, 6, 0, 0, 2, 7
+        # # ]
 
-                            1, 9, 8, 1, 8, 0, #left outside
-                            4, 6, 14, 4, 14, 12, #right outside
-                            1, 4, 12, 1, 12, 9, #top outside
-                            0, 8, 14, 0, 14, 6, #bottom outside
+        # # if back_faces:
+        # #     triangles.extend([t for t in reversed(triangles)])s
+        #                     1, 9, 8, 1, 8, 0, #left outside
+        #                     4, 6, 14, 4, 14, 12, #right outside
+        #                     1, 4, 12, 1, 12, 9, #top outside
+        #                     0, 8, 14, 0, 14, 6, #bottom outside
                             
-                            2, 10, 11, 2, 11, 3, #left inside
-                            5, 13, 15, 5, 15, 7, #right inside
-                            11, 13, 5, 11, 5, 3, #top inside
-                            2, 7, 15, 2, 15, 10, #bottom inside
+        #                     2, 10, 11, 2, 11, 3, #left inside
+        #                     5, 13, 15, 5, 15, 7, #right inside
+        #                     11, 13, 5, 11, 5, 3, #top inside
+        #                     2, 7, 15, 2, 15, 10, #bottom inside
                             
-                            ]
-        mesh.GetFaceVertexIndicesAttr().Set(faceVertexIndices)
+        #                     ]
+        # mesh.GetFaceVertexIndicesAttr().Set(faceVertexIndices)
 
-        # 设置法线
-        normals = [
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), #front with hole
+        # # 设置法线
+        # normals = [
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), #front with hole
 
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), #back with hole
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), #back with hole
 
-            Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), 
-            Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0),#left outside
+        #     Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), 
+        #     Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0),#left outside
 
-            Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),
-            Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),#right outside
+        #     Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),
+        #     Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),#right outside
 
-            Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),
-            Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),#top outside
+        #     Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),
+        #     Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),#top outside
 
-            Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),
-            Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),#bottom outside
+        #     Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),
+        #     Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),#bottom outside
 
-            Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),
-            Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),#left inside
+        #     Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),
+        #     Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),#left inside
 
-            Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),
-            Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),#right inside
+        #     Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),
+        #     Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),#right inside
 
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-            Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), #top inside
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #     Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), #top inside
 
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1),
-            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1) #bottom inside
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1),
+        #     Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1) #bottom inside
 
-        ]
+        # ]
 
 
     elif vertex.shape[0] == 4:
-        faceVertexCounts = [3, 3, #front
-                            3, 3, #back
-                            3, 3, #left
-                            3, 3, #right
-                            3, 3, #top
-                            3, 3, #bottom
-                              ]
+        # faceVertexCounts = [3, 3, #front
+        #                     3, 3, #back
+        #                     3, 3, #left
+        #                     3, 3, #right
+        #                     3, 3, #top
+        #                     3, 3, #bottom
+        #                       ]
+        # mesh.GetFaceVertexCountsAttr().Set(faceVertexCounts)
+
+
+        # faceVertexIndices = [0, 2, 1, 0, 3, 2,  #front
+        #                     4, 5, 6, 4, 6, 7, #back
+        #                     0, 1, 5, 0, 5, 4, #left
+        #                     3, 6, 2, 3, 7, 6, #right
+        #                     1, 2, 6, 1, 6, 5, #top
+        #                     0, 4, 7, 0, 7, 3  #bottom
+        #                     ]
+
+        mesh = UsdGeom.Mesh.Define(stage, mesh_prim_path)
+        mesh.GetPointsAttr().Set(vertex_vec3f)
         mesh.GetFaceVertexCountsAttr().Set(faceVertexCounts)
-
-
-        faceVertexIndices = [0, 2, 1, 0, 3, 2,  #front
-                            4, 5, 6, 4, 6, 7, #back
-                            0, 1, 5, 0, 5, 4, #left
-                            3, 6, 2, 3, 7, 6, #right
-                            1, 2, 6, 1, 6, 5, #top
-                            0, 4, 7, 0, 7, 3  #bottom
-                            ]
-        
+        mesh.GetFaceVertexIndicesAttr().Set(faceVertexIndices)
+        mesh.GetNormalsAttr().Set(normals)
+        mesh.SetNormalsInterpolation("faceVarying")
         mesh.GetFaceVertexIndicesAttr().Set(faceVertexIndices)
 
-        normals = [Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
-                   Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), #front
+        # normals = [Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), 
+        #            Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), Gf.Vec3f(0, 0, 1), #front
 
-                    Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
-                    Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), #back
+        #             Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1),
+        #             Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), Gf.Vec3f(0, 0, -1), #back
 
-                    Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0),
-                    Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), #left
+        #             Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0),
+        #             Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), Gf.Vec3f(-1, 0, 0), #left
 
-                    Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),
-                    Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),#right
+        #             Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),
+        #             Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(1, 0, 0),#right
 
-                    Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),
-                    Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),#top
+        #             Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),
+        #             Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0), Gf.Vec3f(0, 1, 0),#top
 
-                    Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),
-                    Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),#bottom
-        ]
+        #             Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),
+        #             Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0), Gf.Vec3f(0, -1, 0),#bottom
+        # ]
 
 
     else:
@@ -610,27 +724,6 @@ def creat_thick_floor(stage, vertex, mesh_prim_path, transform_matrix, thickness
 if __name__ == "__main__":
 
     import json
-
-    # with open('/home/zgao/unity_preafab_converter/house_7.json') as f:
-    #     house = json.load(f)
-    # procedural_parameters = {
-    #     "globalVertexPositions": True,
-    #     "backFaces": True
-    # }
-
-    # structure = create_walls(house, material_db={}, procedural_parameters=procedural_parameters)
-
-    # for i, wall in enumerate(structure["walls"]):
-    #     if i == 1:
-
-    #         # print(f"Wall ID: {wall['id']}")
-    #         print(f"Vertices: {wall['vertices']}")
-    #         print(len(wall['vertices']))
-
-    #         print(type(wall['vertices'][0]))
-
-            # print(f"Triangles: {wall['triangles']}")
-
 
     house_json = "/home/zgao/unity_preafab_converter/house_7.json"
     usd_file_path = "/home/zgao/unity_preafab_converter/house_7/house_7.usda"

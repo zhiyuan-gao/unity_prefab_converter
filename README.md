@@ -38,3 +38,12 @@ Paintings and windows need to be added.
 2. convert every .obj to .usda
 3. split .usda according to texture
 4. convert splited .usda to .obj
+
+
+## NOTE: Doors and windows cannot share the same wall, per AI2-THOR limitation.
+https://github.com/zhiyuan-gao/procthor/blob/4feb6a4f90afbc3d94448e8b3e4ae5727108d243/procthor/generation/wall_objects.py#L351C1-L351C83
+
+
+## TODO
+delete duplecated wall
+splited walls
