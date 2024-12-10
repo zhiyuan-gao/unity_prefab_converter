@@ -19,7 +19,7 @@ How to use ParseAllPrefabs.cs?
 Put it in ai2thor/unity/Assets/Editor folder, then we can find the Parse All Prefab in Assets option in the Tools drop-down menu at the top of the Unity interface.
 
 
-## Update
+## Update and TODOs
 Some errors in the code:
 The sub-object face indexes are in the wrong order.   Done
 
@@ -29,9 +29,15 @@ Rewrite mesh names and files hierarchy?  Done
 
 Fix the uvmap bugs. Done
 
-Position of holes are not correct.
-Paintings and windows need to be added.
+Position of holes are not correct. Done
 
+Paintings and windows need to be added.  windows done
+
+Some objects' center and scale may be wrong
+
+check the order of textures, might not match the order of sub-geomesh
+
+Think about a mechanism, to avoid objects colliding with thick walls, e.g. paintings, TVs on the wall, bed close to the wall...
 
 ## Convert Pipelin
 1. Prefab to  .obj file(s)
@@ -43,7 +49,3 @@ Paintings and windows need to be added.
 ## NOTE: Doors and windows cannot share the same wall, per AI2-THOR limitation.
 https://github.com/zhiyuan-gao/procthor/blob/4feb6a4f90afbc3d94448e8b3e4ae5727108d243/procthor/generation/wall_objects.py#L351C1-L351C83
 
-
-## TODO
-delete duplecated wall
-splited walls

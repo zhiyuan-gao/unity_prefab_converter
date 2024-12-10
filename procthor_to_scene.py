@@ -14,10 +14,11 @@ from multiverse_parser import (WorldBuilder,
                                MeshProperty)
 from multiverse_parser import MjcfExporter, UrdfExporter
 
-from pxr import Usd, UsdGeom, UsdShade
+from pxr import Usd, UsdGeom, UsdShade, Gf
 import random
 import argparse
-import numpy as np
+
+from create_thick_wall import create_wall_info, sort_rectangle_vertices
 
 source_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -120,7 +121,7 @@ class ProcthorImporter(Factory):
     def __init__(self, file_path: str, config: Configuration):
         super().__init__(file_path, config)
         with open(file_path) as f:
-            house = json.load(f)
+            self.house = json.load(f)
 
         self._world_builder = WorldBuilder(usd_file_path=self.tmp_usd_file_path)
 
@@ -129,31 +130,28 @@ class ProcthorImporter(Factory):
 
         body_builder = self._world_builder.add_body(body_name=house_name)
 
-        objects = house["objects"]
+        objects = self.house["objects"]
         for obj in objects:
             self.import_object(house_name, obj)
 
-        walls = house["walls"]
-        doors = house["doors"]
-        windows = house["windows"]
+        walls = self.house["walls"]
+        doors = self.house["doors"]
+        windows = self.house["windows"]
 
-        # for obj in windows:
-        #     self.import_object(house_name, obj)
-        # for obj in doors:
-        #     self.import_object(house_name, obj)
+        for window_id, window in enumerate(windows):
+            self.import_hole_cover(window, window_id, walls)
 
-        walls_with_door = {}
+        # walls_with_door = {}
         for door_id, door in enumerate(doors):
-            self.import_door_new(door, door_id, walls, walls_with_door)
+            self.import_hole_cover(door, door_id, walls)
 
-        # for window_id, window in enumerate(windows):
 
-        for wall_id, wall in enumerate(walls):
-            wall_id_str = ' '.join(wall["id"].split('|')[-4:])
-            if wall_id_str in ignore_walls:
-                continue
-            ignore_walls.append(wall_id_str)
-            self.import_wall(wall, wall_id, walls_with_door)
+        structure = create_wall_info(self.house, material_db={},)
+
+        for wall_id, wall in enumerate(structure["walls"]):
+
+            self.import_wall(wall, wall_id)
+
 
     def import_object(self, parent_body_name: str, obj: Dict[str, Any]) -> None:
         body_name = obj["id"].replace("|", "_").replace("_surface", "")
@@ -190,7 +188,15 @@ class ProcthorImporter(Factory):
         for child in obj.get("children", {}):
             self.import_object(body_name, child)
 
-    def import_wall(self, wall: Dict[str, Any], wall_id: int, walls_with_door: Dict[str, Any]) -> None:
+
+    def import_wall(self, wall: Dict[str, Any], wall_id: int) -> None:
+        
+
+        vertex = wall['vertices']
+        vertex = sort_rectangle_vertices(vertex)
+
+        thickness = wall['thickness']
+
         body_name = f"Wall_{wall_id}"
         body_builder = self._world_builder.add_body(body_name=body_name, parent_body_name=house_name)
 
@@ -201,135 +207,95 @@ class ProcthorImporter(Factory):
 
         body_builder.set_transform(quat=rotation_quat)
 
-        point_1 = [wall["polygon"][0]["x"], wall["polygon"][0]["y"], wall["polygon"][0]["z"]]
-        point_2 = [wall["polygon"][1]["x"], wall["polygon"][1]["y"], wall["polygon"][1]["z"]]
-        point_3 = [wall["polygon"][2]["x"], wall["polygon"][2]["y"], wall["polygon"][2]["z"]]
-        point_4 = [wall["polygon"][3]["x"], wall["polygon"][3]["y"], wall["polygon"][3]["z"]]
+        constant_dim = numpy.where(numpy.all(vertex == vertex[0, :], axis=0))[0][0]
 
-        points = numpy.array([point_1, point_2, point_3, point_4])
+        back_vertex = vertex.copy()
+        front_vertex = vertex.copy()
+        half_thickness = thickness / 2
+        front_vertex[:, constant_dim] -= half_thickness
+        back_vertex[:, constant_dim] += half_thickness
 
-        # Compute normal from faces
-        normal_1 = numpy.cross(points[1] - points[0], points[2] - points[0])
-        normal_2 = numpy.cross(points[3] - points[1], points[2] - points[1])
-        normal = (normal_1 + normal_2) / 2
-        normal /= numpy.linalg.norm(normal)
+        sorted_points = numpy.vstack((front_vertex, back_vertex))
 
-        normals = numpy.array([[-1, 0, 0], [-1, 0, 0], [-1, 0, 0],
-                               [0, 1, 0], [0, 1, 0], [0, 1, 0],
-                               [1, 0, 0], [1, 0, 0], [1, 0, 0],
-                               [0, -1, 0], [0, -1, 0], [0, -1, 0],
-                               [0, 0, -1], [0, 0, -1], [0, 0, -1],
-                               [0, 0, 1], [0, 0, 1], [0, 0, 1],
-                               [-1, 0, 0], [-1, 0, 0], [-1, 0, 0],
-                               [0, 1, 0], [0, 1, 0], [0, 1, 0],
-                               [1, 0, 0], [1, 0, 0], [1, 0, 0],
-                               [0, -1, 0], [0, -1, 0], [0, -1, 0],
-                               [0, 0, -1], [0, 0, -1], [0, 0, -1],
-                               [0, 0, 1], [0, 0, 1], [0, 0, 1]])
-        face_vertex_counts = numpy.array([3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3])
-        face_vertex_indices = numpy.array(
-            [[1, 2, 0], [3, 6, 2],
-             [7, 4, 6], [5, 0, 4],
-             [6, 0, 2], [3, 5, 7],
-             [1, 3, 2], [3, 7, 6],
-             [7, 5, 4], [5, 1, 0],
-             [6, 4, 0], [3, 1, 5]])
+        face_vertex_counts = numpy.array([3] * 12)
 
-        if wall["id"] not in walls_with_door:
-            if normal[0] != 0:
-                x = point_1[0]
-                dx = -0.05 * normal[0]
-                y = (point_1[1] + point_3[1]) / 2.0
-                dy = (point_3[1] - point_1[1]) / 2.0
-                z = (point_1[2] + point_2[2]) / 2.0
-                dz = (point_2[2] - point_1[2]) / 2.0
-            elif normal[2] != 0:
-                x = (point_2[0] + point_3[0]) / 2.0
-                dx = (point_3[0] - point_2[0]) / 2.0
-                y = (point_1[1] + point_3[1]) / 2.0
-                dy = (point_3[1] - point_1[1]) / 2.0
-                z = point_1[2]
-                dz = -0.05 * normal[2]
-            else:
-                raise ValueError("Invalid normal")
-            points = numpy.array(
-                [[x - dx, y - dy, z - dz], [x - dx, y - dy, z + dz], [x - dx, y + dy, z - dz], [x - dx, y + dy, z + dz],
-                 [x + dx, y - dy, z - dz], [x + dx, y - dy, z + dz], [x + dx, y + dy, z - dz],
-                 [x + dx, y + dy, z + dz]])
+        face_vertex_indices = numpy.array([
+            0, 2, 1, 0, 3, 2,  # front
+            4, 5, 6, 4, 6, 7,  # back
+            0, 1, 5, 0, 5, 4,  # left
+            3, 6, 2, 3, 7, 6,  # right
+            1, 2, 6, 1, 6, 5,  # top
+            0, 4, 7, 0, 7, 3   # bottom
+        ])
 
-            mesh_file_name = f"Wall_{wall_id}"
+        # normals
+        normals = numpy.array([
+            [0, 0, 1], [0, 0, 1], [0, 0, 1],
+            [0, 0, 1], [0, 0, 1], [0, 0, 1],  # front
 
-            mesh_property = MeshProperty(points=points,
-                                         normals=normals,
-                                         face_vertex_counts=face_vertex_counts,
-                                         face_vertex_indices=face_vertex_indices,
-                                         mesh_file_name=mesh_file_name)
-            geom_property = GeomProperty(geom_type=GeomType.MESH,
-                                         is_visible=True,
-                                         is_collidable=True)
-            geom_builder = body_builder.add_geom(geom_name=f"{body_name}",
-                                                 geom_property=geom_property)
-            geom_builder.add_mesh(mesh_name=f"SM_{body_name}", mesh_property=mesh_property)
+            [0, 0, -1], [0, 0, -1], [0, 0, -1],
+            [0, 0, -1], [0, 0, -1], [0, 0, -1],  # back
 
-        else:
-            door = walls_with_door[wall["id"]]
-            hole_height = door["holePolygon"][1]["y"]
-            if point_1[1] < point_3[1]:
-                y = [(point_1[1] + hole_height) / 2.0, (hole_height + point_3[1]) / 2.0,
-                     (point_1[1] + hole_height) / 2.0]
-                dy = [(hole_height - point_1[1]) / 2.0, (point_3[1] - hole_height) / 2.0,
-                      (hole_height - point_1[1]) / 2.0]
-            else:
-                y = [(point_3[1] + hole_height) / 2.0, (hole_height + point_1[1]) / 2.0,
-                     (point_3[1] + hole_height) / 2.0]
-                dy = [(hole_height - point_3[1]) / 2.0, (point_1[1] - hole_height) / 2.0,
-                      (hole_height - point_3[1]) / 2.0]
-            if normal[0] != 0:
-                z = [(point_1[2] + point_2[2]) / 2.0] * 3
-                dz = [(point_1[2] - point_2[2]) * normal[0] / 2.0] * 3
+            [-1, 0, 0], [-1, 0, 0], [-1, 0, 0],
+            [-1, 0, 0], [-1, 0, 0], [-1, 0, 0],  # left
 
-                dz[0] = door["holePolygon"][0]["x"] / 2
-                if point_1[2] > point_2[2]:
-                    z[0] = point_2[2] + dz[0]
-                    dz[2] = (point_1[2] - point_2[2] - door["holePolygon"][1]["x"]) / 2.0
-                    z[2] = point_1[2] - dz[2]
-                else:
-                    z[0] = point_1[2] + dz[0]
-                    dz[2] = (point_2[2] - point_1[2] - door["holePolygon"][1]["x"]) / 2.0
-                    z[2] = point_2[2] - dz[2]
+            [1, 0, 0], [1, 0, 0], [1, 0, 0],
+            [1, 0, 0], [1, 0, 0], [1, 0, 0],  # right
 
-                x = [point_1[0]] * 3
-                dx = [0.05] * 3
-            elif normal[2] != 0:
-                x = [(point_2[0] + point_3[0]) / 2.0] * 3
-                dx = [(point_2[0] - point_3[0]) * normal[2] / 2.0] * 3
+            [0, 1, 0], [0, 1, 0], [0, 1, 0],
+            [0, 1, 0], [0, 1, 0], [0, 1, 0],  # top
 
-                dx[0] = door["holePolygon"][0]["x"] / 2.0
-                if point_2[0] > point_3[0]:
-                    x[0] = point_3[0] + dx[0]
-                    dx[2] = (point_2[0] - point_3[0] - door["holePolygon"][1]["x"]) / 2.0
-                    x[2] = point_2[0] - dx[2]
-                else:
-                    x[0] = point_2[0] + dx[0]
-                    dx[2] = (point_3[0] - point_2[0] - door["holePolygon"][1]["x"]) / 2.0
-                    x[2] = point_3[0] - dx[2]
+            [0, -1, 0], [0, -1, 0], [0, -1, 0],
+            [0, -1, 0], [0, -1, 0], [0, -1, 0]  # bottom
+        ])
 
-                z = [point_1[2]] * 3
-                dz = [0.05] * 3
-            else:
-                raise ValueError("Invalid normal")
+        # NOTE: Doors and windows cannot share the same wall, per AI2-THOR limitation.Therefore, there can be at most one hole in the wall
+        # To create convex mesh, we need to split the wall with holes into rectangles. So we need extra vertices
 
-            for idx in range(3):
-                points = numpy.array(
-                    [[x[idx] - dx[idx], y[idx] - dy[idx], z[idx] - dz[idx]],
-                     [x[idx] - dx[idx], y[idx] - dy[idx], z[idx] + dz[idx]],
-                     [x[idx] - dx[idx], y[idx] + dy[idx], z[idx] - dz[idx]],
-                     [x[idx] - dx[idx], y[idx] + dy[idx], z[idx] + dz[idx]],
-                     [x[idx] + dx[idx], y[idx] - dy[idx], z[idx] - dz[idx]],
-                     [x[idx] + dx[idx], y[idx] - dy[idx], z[idx] + dz[idx]],
-                     [x[idx] + dx[idx], y[idx] + dy[idx], z[idx] - dz[idx]],
-                     [x[idx] + dx[idx], y[idx] + dy[idx], z[idx] + dz[idx]]])
+        if vertex.shape[0] == 12:
 
+            points_mesh_top = numpy.array([sorted_points[8],sorted_points[1],sorted_points[4],sorted_points[9],
+                        sorted_points[20],sorted_points[13],sorted_points[16],sorted_points[21]])
+    
+            points_mesh_left = numpy.array([sorted_points[10],sorted_points[8],sorted_points[3],sorted_points[2],
+                        sorted_points[22],sorted_points[20],sorted_points[15],sorted_points[14]])
+            
+            points_mesh_right = numpy.array([sorted_points[7],sorted_points[5],sorted_points[9],sorted_points[11],
+                        sorted_points[19],sorted_points[17],sorted_points[21],sorted_points[23]])
+            
+            points_mesh_bottom = numpy.array([sorted_points[0],sorted_points[10],sorted_points[11],sorted_points[6],
+                        sorted_points[12],sorted_points[22],sorted_points[23],sorted_points[18]])
+            
+            points_list = [points_mesh_top, points_mesh_left, points_mesh_right, points_mesh_bottom]
+
+            for idx, points in enumerate(points_list):
+                mesh_file_name = f"Wall_{wall_id}_{idx}"
+
+                mesh_property = MeshProperty(points=points,
+                                             normals=normals,
+                                             face_vertex_counts=face_vertex_counts,
+                                             face_vertex_indices=face_vertex_indices,
+                                             mesh_file_name=mesh_file_name)
+                geom_property = GeomProperty(geom_type=GeomType.MESH,
+                                             is_visible=True,
+                                             is_collidable=True)
+                geom_builder = body_builder.add_geom(geom_name=f"{body_name}_{idx}",
+                                                     geom_property=geom_property)
+                geom_builder.add_mesh(mesh_name=f"SM_{body_name}_{idx}", mesh_property=mesh_property)
+
+        elif vertex.shape[0] == 10:
+            points_mesh_top = numpy.array([sorted_points[8],sorted_points[1],sorted_points[4],sorted_points[9],
+                        sorted_points[18],sorted_points[11],sorted_points[14],sorted_points[19]])
+            
+            points_mesh_left = numpy.array([sorted_points[0],sorted_points[8],sorted_points[3],sorted_points[2],
+                        sorted_points[10],sorted_points[18],sorted_points[13],sorted_points[12]])
+            
+            points_mesh_right = numpy.array([sorted_points[7],sorted_points[5],sorted_points[9],sorted_points[6],
+                        sorted_points[17],sorted_points[15],sorted_points[19],sorted_points[16]])
+            
+            points_list = [points_mesh_top, points_mesh_left, points_mesh_right]
+
+            for idx, points in enumerate(points_list):
                 mesh_file_name = f"Wall_{wall_id}_{idx}"
 
                 mesh_property = MeshProperty(points=points,
@@ -345,53 +311,68 @@ class ProcthorImporter(Factory):
                 geom_builder.add_mesh(mesh_name=f"SM_{body_name}_{idx}", mesh_property=mesh_property)
 
 
-    def import_door_new(self, door: Dict[str, Any],door_id: int, walls: List[Dict[str, Any]],walls_with_door: Dict) -> None:
+        elif vertex.shape[0] == 4:
+            mesh_file_name = f"Wall_{wall_id}"
 
-        wall0_id = door['wall0']
-        wall1_id = door['wall1']
-        # for wall in walls:
-        #     if wall["id"] == wall0_id:
-        #         poly_wall0 = wall
-        #         break
+            mesh_property = MeshProperty(points=sorted_points,
+                                         normals=normals,
+                                         face_vertex_counts=face_vertex_counts,
+                                         face_vertex_indices=face_vertex_indices,
+                                         mesh_file_name=mesh_file_name)
+            geom_property = GeomProperty(geom_type=GeomType.MESH,
+                                         is_visible=True,
+                                         is_collidable=True)
+            geom_builder = body_builder.add_geom(geom_name=f"{body_name}",
+                                                 geom_property=geom_property)
+            geom_builder.add_mesh(mesh_name=f"SM_{body_name}", mesh_property=mesh_property)
+
+
+    def import_hole_cover(self, hole_cover: Dict[str, Any],hole_cover_id: int, walls: List[Dict[str, Any]]) -> None:
+
+        hole_cover_class = hole_cover['id'].split('|')[0]
+        wall0_id = hole_cover['wall0']
+        wall1_id = hole_cover['wall1']
 
         for wall in walls:
             if wall["id"] == wall1_id:
-                walls_with_door[wall1_id] = door
                 break
         else:
             raise ValueError(f"Wall {wall1_id} not found")
 
         for wall in walls:
             if wall["id"] == wall0_id:
-                walls_with_door[wall0_id] = door
                 poly_wall0 = wall
                 break
         else:
             raise ValueError(f"Wall {wall0_id} not found")
 
 
-        wall0 = polygon_wall_to_simple_wall(poly_wall0, door)
+        wall0 = polygon_wall_to_simple_wall(poly_wall0, hole_cover)
 
-        p1 = np.array([wall0['p1']['x'], wall0['p1']['y'], wall0['p1']['z']])
-        p0 = np.array([wall0['p0']['x'], wall0['p0']['y'], wall0['p0']['z']])
+        p1 = numpy.array([wall0['p1']['x'], wall0['p1']['y'], wall0['p1']['z']])
+        p0 = numpy.array([wall0['p0']['x'], wall0['p0']['y'], wall0['p0']['z']])
         p0p1 = p1 - p0
-        p0p1_norm = p0p1 / np.linalg.norm(p0p1)
+        p0p1_norm = p0p1 / numpy.linalg.norm(p0p1)
 
-        position_vec = p0 + (p0p1_norm * (door['assetPosition']['x'])) + np.array([0, 1, 0])* door['assetPosition']['y']
+        position_vec = p0 + (p0p1_norm * (hole_cover['assetPosition']['x'])) + numpy.array([0, 1, 0])* hole_cover['assetPosition']['y']
 
-        theta = -np.sign(p0p1_norm[2]) * np.arccos(np.dot(p0p1_norm, np.array([1, 0, 0])))
-        rotY = np.degrees(theta)
-        quat = Rotation.from_euler('y', rotY, degrees=True).as_quat()
+        theta = -numpy.sign(p0p1_norm[2]) * numpy.arccos(numpy.dot(p0p1_norm, numpy.array([1, 0, 0])))
+        rotY = numpy.degrees(theta)
 
-
-        # rotation = obj.get("rotation", {"x": 0, "y": 0, "z": 0})
         rotation_mat = Rotation.from_euler("xyz", [0, rotY, 0],
                                            degrees=True)
 
         x_90_rotation_matrix = numpy.array([[1, 0, 0],
                                             [0, 0, -1],
                                             [0, 1, 0]])
-        body_name = f"Door_{door_id}"
+        
+        if hole_cover_class == 'door':
+            body_name = f"Door_{hole_cover_id}"
+        elif hole_cover_class == 'window':
+            body_name = f"Window_{hole_cover_id}"
+        else:
+            raise ValueError(f"Unknown hole cover class: {hole_cover_class}")
+
         body_builder = self._world_builder.add_body(body_name=body_name, parent_body_name=house_name)
 
         position_vec = numpy.dot(x_90_rotation_matrix, position_vec)
@@ -400,71 +381,12 @@ class ProcthorImporter(Factory):
 
         body_builder.set_transform(pos=position_vec, quat=rotation_quat)
 
-
-        asset_name = door["assetId"]
-        self.import_asset_new(body_builder, asset_name)
-
-
-    def import_door(self, door: Dict[str, Any], door_id: int, walls: List[Dict[str, Any]],
-                    walls_with_door: Dict) -> None:
-        
-        body_name = f"Door_{door_id}"
-        body_builder = self._world_builder.add_body(body_name=body_name, parent_body_name=house_name)
-
-        position = door.get("assetPosition", {"x": 0, "y": 0, "z": 0})
-        position_vec = numpy.array([0, 0, position["y"]])
-
-        wall0 = door.get("wall0", None)
-        wall1 = door.get("wall1", None)
-        if wall0 is None:
-            raise ValueError(f"Door {door_id} does not have wall0")
-        if wall1 is None:
-            raise ValueError(f"Door {door_id} does not have wall1")
-
-        for wall in walls:
-            if wall["id"] == wall1:
-                walls_with_door[wall1] = door
-                break
-        else:
-            raise ValueError(f"Wall {wall1} not found")
-
-        for wall in walls:
-            if wall["id"] == wall0:
-                walls_with_door[wall0] = door
-                break
-        else:
-            raise ValueError(f"Wall {wall0} not found")
-
-        if wall["polygon"][0]["x"] == wall["polygon"][1]["x"]:
-            position_vec[0] = position["z"] + wall["polygon"][0]["x"]
-            position_vec[1] = -position["x"] - (
-                wall["polygon"][0]["z"] if wall["polygon"][0]["z"] < wall["polygon"][1]["z"] else wall["polygon"][1][
-                    "z"])
-            body_builder.set_transform(pos=position_vec,
-                                       quat=Rotation.from_euler("xyz", [0, 0, 90], degrees=True).as_quat())
-        elif wall["polygon"][0]["z"] == wall["polygon"][1]["z"]:
-            position_vec[0] = position["x"] + (
-                wall["polygon"][0]["x"] if wall["polygon"][0]["x"] < wall["polygon"][1]["x"] else wall["polygon"][1][
-                    "x"])
-            position_vec[1] = position["z"] - wall["polygon"][0]["z"]
-            body_builder.set_transform(pos=position_vec)
-        else:
-            raise ValueError(f"Invalid wall {wall}")
-
-        if "assetId" not in door:
-            return None
-
-        asset_name = door["assetId"]
-        # asset_name = re.sub(r'(\d+)x(\d+)', r'\1_X_\2', asset_name)
-        # asset_name = snake_to_camel(asset_name)
-        # asset_name = asset_name.replace("Doorframe", "Doorway")
-        if not any([door_name in asset_name for door_name in include_doors]):
-            return None
+        asset_name = hole_cover["assetId"]
         self.import_asset_new(body_builder, asset_name)
 
     def import_asset_new(self, body_builder: BodyBuilder, asset_name: str) -> None:
         # asset_paths = get_asset_paths(asset_name)
-        asset_paths = '/home/zgao/unity_preafab_converter/procthor_assets'
+        asset_paths = '/home/zgao/unity_prefab_converter/procthor_assets'
         prefab_info = self.all_prefab_details[asset_name]
 
         folder_path = os.path.join(asset_paths, asset_name)

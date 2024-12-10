@@ -432,6 +432,50 @@
       </geometry>
     </visual>
   </link>
+  <joint name="Window_0_joint" type="fixed">
+    <origin xyz="8.245738943496418 -10.123 1.3084695730051197" rpy="0.0 0.0 0.0"/>
+    <parent link="house_7"/>
+    <child link="Window_0"/>
+  </joint>
+  <link name="Window_0">
+    <visual name="SM_Window_0_Window_Fixed_60_X_72_0">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/MeshWindowFixed_60X72_0_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Window_0_Window_Fixed_60_X_72_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/MeshWindowFixed_60X72_0_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="Window_1_joint" type="fixed">
+    <origin xyz="5.276376266351104 -8.098 1.3099458012422718" rpy="0.0 0.0 0.0"/>
+    <parent link="house_7"/>
+    <child link="Window_1"/>
+  </joint>
+  <link name="Window_1">
+    <visual name="SM_Window_1_Window_Hung_44_X_60_0">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/MeshWindowHung_44X60_0_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Window_1_Window_Hung_44_X_60_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/MeshWindowHung_44X60_0_GeomSubset_2.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="SM_Window_1_Window_Hung_44_X_60_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/obj/MeshWindowHung_44X60_0_GeomSubset_1.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
   <joint name="Door_0_joint" type="fixed">
     <origin xyz="4.049 -2.242056729709356 1.037670373916626" rpy="0.0 0.0 -1.5707963705062866"/>
     <parent link="house_7"/>
@@ -561,10 +605,28 @@
     <child link="Wall_1"/>
   </joint>
   <link name="Wall_1">
-    <visual name="Wall_1">
+    <visual name="Wall_1_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file://house_7/meshes/stl/Wall_1.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="file://house_7/meshes/stl/Wall_1_0.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="Wall_1_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/stl/Wall_1_1.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="Wall_1_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/stl/Wall_1_2.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="Wall_1_3">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/stl/Wall_1_3.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -587,10 +649,28 @@
     <child link="Wall_3"/>
   </joint>
   <link name="Wall_3">
-    <visual name="Wall_3">
+    <visual name="Wall_3_0">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file://house_7/meshes/stl/Wall_3.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="file://house_7/meshes/stl/Wall_3_0.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="Wall_3_1">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/stl/Wall_3_1.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="Wall_3_2">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/stl/Wall_3_2.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="Wall_3_3">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/stl/Wall_3_3.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -671,6 +751,19 @@
       </geometry>
     </visual>
   </link>
+  <joint name="Wall_9_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="1.5707963705062866 0.0 0.0"/>
+    <parent link="house_7"/>
+    <child link="Wall_9"/>
+  </joint>
+  <link name="Wall_9">
+    <visual name="Wall_9">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="file://house_7/meshes/stl/Wall_9.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
   <joint name="Wall_10_joint" type="fixed">
     <origin xyz="0.0 0.0 0.0" rpy="1.5707963705062866 0.0 0.0"/>
     <parent link="house_7"/>
@@ -681,19 +774,6 @@
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="file://house_7/meshes/stl/Wall_10.stl" scale="1.0 1.0 1.0"/>
-      </geometry>
-    </visual>
-  </link>
-  <joint name="Wall_11_joint" type="fixed">
-    <origin xyz="0.0 0.0 0.0" rpy="1.5707963705062866 0.0 0.0"/>
-    <parent link="house_7"/>
-    <child link="Wall_11"/>
-  </joint>
-  <link name="Wall_11">
-    <visual name="Wall_11">
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-      <geometry>
-        <mesh filename="file://house_7/meshes/stl/Wall_11.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>

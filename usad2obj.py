@@ -14,8 +14,8 @@ def convert_usd_to_obj(usda_path, obj_path):
     print(f"Converted {usda_path} to {obj_path}")
 
 # for i in range(0, 4):
-#     usda_path = f"/home/zgao/unity_preafab_converter/procthor_assets/Floor_Lamp_19/M_FloorLamp_19_{i}.usda"  
-#     obj_path = f"/home/zgao/unity_preafab_converter/procthor_assets/Floor_Lamp_19/M_FloorLamp_19_{i}.obj"       
+#     usda_path = f"/home/zgao/unity_prefab_converter/procthor_assets/Floor_Lamp_19/M_FloorLamp_19_{i}.usda"  
+#     obj_path = f"/home/zgao/unity_prefab_converter/procthor_assets/Floor_Lamp_19/M_FloorLamp_19_{i}.obj"       
 #     convert_usd_to_obj(usda_path, obj_path)
 
 

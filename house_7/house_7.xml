@@ -57,6 +57,11 @@
 		<mesh name="MeshSinkFaucet_19_0" file="obj/MeshSinkFaucet_19_0.obj" scale="1.0 1.0 1.0"/>
 		<mesh name="MeshPlunger_0_GeomSubset_0" file="obj/MeshPlunger_0_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
 		<mesh name="MeshPlunger_0_GeomSubset_1" file="stl/MeshPlunger_0_GeomSubset_1.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="MeshWindowFixed_60X72_0_GeomSubset_1" file="stl/MeshWindowFixed_60X72_0_GeomSubset_1.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="MeshWindowFixed_60X72_0_GeomSubset_0" file="obj/MeshWindowFixed_60X72_0_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
+		<mesh name="MeshWindowHung_44X60_0_GeomSubset_0" file="stl/MeshWindowHung_44X60_0_GeomSubset_0.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="MeshWindowHung_44X60_0_GeomSubset_2" file="stl/MeshWindowHung_44X60_0_GeomSubset_2.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="MeshWindowHung_44X60_0_GeomSubset_1" file="stl/MeshWindowHung_44X60_0_GeomSubset_1.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="MeshDoorwayDouble_9_4" file="obj/MeshDoorwayDouble_9_4.obj" scale="1.0 1.0 1.0"/>
 		<mesh name="MeshDoorwayHandle_9_1" file="obj/MeshDoorwayHandle_9_1.obj" scale="1.0 1.0 1.0"/>
 		<mesh name="MeshDoorwayDoor_9_2_GeomSubset_0" file="obj/MeshDoorwayDoor_9_2_GeomSubset_0.obj" scale="1.0 1.0 1.0"/>
@@ -74,9 +79,15 @@
 		<mesh name="Wall_0_0" file="stl/Wall_0_0.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_0_1" file="stl/Wall_0_1.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_0_2" file="stl/Wall_0_2.stl" scale="1.0 1.0 1.0"/>
-		<mesh name="Wall_1" file="stl/Wall_1.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_1_0" file="stl/Wall_1_0.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_1_1" file="stl/Wall_1_1.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_1_2" file="stl/Wall_1_2.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_1_3" file="stl/Wall_1_3.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_2" file="stl/Wall_2.stl" scale="1.0 1.0 1.0"/>
-		<mesh name="Wall_3" file="stl/Wall_3.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_3_0" file="stl/Wall_3_0.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_3_1" file="stl/Wall_3_1.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_3_2" file="stl/Wall_3_2.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_3_3" file="stl/Wall_3_3.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_4" file="stl/Wall_4.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_5_0" file="stl/Wall_5_0.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_5_1" file="stl/Wall_5_1.stl" scale="1.0 1.0 1.0"/>
@@ -84,8 +95,8 @@
 		<mesh name="Wall_6" file="stl/Wall_6.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_7" file="stl/Wall_7.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_8" file="stl/Wall_8.stl" scale="1.0 1.0 1.0"/>
+		<mesh name="Wall_9" file="stl/Wall_9.stl" scale="1.0 1.0 1.0"/>
 		<mesh name="Wall_10" file="stl/Wall_10.stl" scale="1.0 1.0 1.0"/>
-		<mesh name="Wall_11" file="stl/Wall_11.stl" scale="1.0 1.0 1.0"/>
 		<material name="M_Bed_1_0" rgba="1.0 0.9779411554336548 0.9779411554336548 1.0"/>
 		<material name="M_BedMattress_1_0" texture="Mattress1AO"/>
 		<material name="M_BedsheetUnmade_1_0" rgba="1.0 1.0 1.0 1.0"/>
@@ -133,6 +144,11 @@
 		<material name="M_SinkFaucet_19_0" texture="MetalBumpy_AlbedoTransparency"/>
 		<material name="M_Plunger_0" texture="TexturesCom_WoodWhite"/>
 		<material name="M_Plunger_1" rgba="0.16262899339199066 0.07102499902248383 0.058097001165151596 1.0"/>
+		<material name="M_WindowFixed_60X72_1" rgba="1.0 1.0 1.0 1.0"/>
+		<material name="M_WindowFixed_60X72_0" texture="WoodGrains1"/>
+		<material name="M_WindowHung_44X60_0" rgba="1.0 1.0 1.0 1.0"/>
+		<material name="M_WindowHung_44X60_2" rgba="1.0 1.0 1.0 1.0"/>
+		<material name="M_WindowHung_44X60_1" rgba="1.0 1.0 1.0 1.0"/>
 		<material name="M_DoorwayDouble_9_0" texture="WoodGrains1"/>
 		<material name="M_DoorwayHandle_9_0" texture="BrushedIron_AlbedoTransparency"/>
 		<material name="M_DoorwayDoor_9_0" texture="WoodGrains1"/>
@@ -211,6 +227,10 @@
 				<geom name="SM_Faucet_3_1_1_Bathroom_Faucet_27_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="SinkFaucetKnob_19_SinkFaucetKnob_19_1" material="M_SinkFaucetKnob_19_0" class="visual"/>
 				<geom name="SM_Faucet_3_1_1_Bathroom_Faucet_27_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshSinkFaucet_19_0" material="M_SinkFaucet_19_0" class="visual"/>
 			</body>
+			<body name="Window_0" pos="8.245738983154297 -10.123000144958496 1.308469533920288" quat="1.0 0.0 0.0 0.0">
+				<geom name="SM_Window_0_Window_Fixed_60_X_72_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshWindowFixed_60X72_0_GeomSubset_1" material="M_WindowFixed_60X72_1" class="visual"/>
+				<geom name="SM_Window_0_Window_Fixed_60_X_72_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshWindowFixed_60X72_0_GeomSubset_0" material="M_WindowFixed_60X72_0" class="visual"/>
+			</body>
 			<body name="Door_0" pos="4.048999786376953 -2.2420568466186523 1.037670373916626" quat="0.7071067690849304 0.0 0.0 -0.7071067690849304">
 				<geom name="SM_Door_0_Doorway_Double_9_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshDoorwayDouble_9_4" material="M_DoorwayDouble_9_0" class="visual"/>
 				<geom name="SM_Door_0_Doorway_Double_9_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshDoorwayHandle_9_1" material="M_DoorwayHandle_9_0" class="visual"/>
@@ -237,8 +257,8 @@
 			<body name="Wall_8" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
 				<geom name="Wall_8" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_8" class="visual"/>
 			</body>
-			<body name="Wall_11" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
-				<geom name="Wall_11" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_11" class="visual"/>
+			<body name="Wall_10" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
+				<geom name="Wall_10" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_10" class="visual"/>
 			</body>
 			<body name="Pillow_2_0_1" pos="9.727476119995117 -1.526103138923645 0.9710858464241028" quat="-0.7071067690849304 0.0 0.0 0.7071067690849304">
 				<geom name="SM_Pillow_2_0_1_pillow_13_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshPillow_13_0" material="M_Pillow_13_0" class="visual"/>
@@ -257,25 +277,6 @@
 				<geom name="SM_Plunger_3_2_Plunger_3_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshPlunger_0_GeomSubset_0" material="M_Plunger_0" class="visual"/>
 				<geom name="SM_Plunger_3_2_Plunger_3_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshPlunger_0_GeomSubset_1" material="M_Plunger_1" class="visual"/>
 			</body>
-			<body name="Wall_1" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
-				<geom name="Wall_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_1" class="visual"/>
-			</body>
-			<body name="Wall_5" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
-				<geom name="Wall_5_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_5_0" class="visual"/>
-				<geom name="Wall_5_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_5_1" class="visual"/>
-				<geom name="Wall_5_2" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_5_2" class="visual"/>
-			</body>
-			<body name="Wall_10" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
-				<geom name="Wall_10" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_10" class="visual"/>
-			</body>
-			<body name="Statue_2_1" pos="9.898834228515625 -9.34598445892334 0.9235717058181763" quat="1.0 0.0 0.0 -2.0861622829215776e-07">
-				<geom name="SM_Statue_2_1_Fertility_Statue_2_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshFertilityStatue_0_GeomSubset_0" material="M_FertilityStatue_0" class="visual"/>
-				<geom name="SM_Statue_2_1_Fertility_Statue_2_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshFertilityStatue_0_GeomSubset_1" material="M_FertilityStatue_1" class="visual"/>
-			</body>
-			<body name="Chair_2_3_2" pos="7.11924409866333 -3.788311243057251 0.4184993803501129" quat="0.9998934864997864 0.0 0.0 0.014594354666769505">
-				<geom name="SM_Chair_2_3_2_Chair_204_1_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="ChairmeshChair_204_0_GeomSubset_1" material="M_Chair_204_1" class="visual"/>
-				<geom name="SM_Chair_2_3_2_Chair_204_1_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="ChairmeshChair_204_0_GeomSubset_0" material="M_Chair_204_0" class="visual"/>
-			</body>
 			<body name="Door_1" pos="8.636131286621094 0.0 1.0651136636734009" quat="1.0 0.0 0.0 0.0">
 				<geom name="SM_Door_1_Doorway_Double_1_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshDoorwayDoor_1_1_GeomSubset_1" material="M_DoorwayDoor_1_1" class="visual"/>
 				<geom name="SM_Door_1_Doorway_Double_1_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshDoorwayHandle_1_0" material="M_DoorwayHandle_1_0" class="visual"/>
@@ -285,21 +286,51 @@
 				<geom name="SM_Door_1_Doorway_Double_1_5" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshDoorwayDoor_1_3_GeomSubset_1" material="M_DoorwayDoor_1_1" class="visual"/>
 				<geom name="SM_Door_1_Doorway_Double_1_6" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshDoorwayDoor_1_3_GeomSubset_0" material="M_DoorwayDoor_1_0" class="visual"/>
 			</body>
+			<body name="Wall_3" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
+				<geom name="Wall_3_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_3_0" class="visual"/>
+				<geom name="Wall_3_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_3_1" class="visual"/>
+				<geom name="Wall_3_2" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_3_2" class="visual"/>
+				<geom name="Wall_3_3" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_3_3" class="visual"/>
+			</body>
 			<body name="Wall_7" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
 				<geom name="Wall_7" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_7" class="visual"/>
+			</body>
+			<body name="Statue_2_1" pos="9.898834228515625 -9.34598445892334 0.9235717058181763" quat="1.0 0.0 0.0 -2.0861622829215776e-07">
+				<geom name="SM_Statue_2_1_Fertility_Statue_2_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshFertilityStatue_0_GeomSubset_0" material="M_FertilityStatue_0" class="visual"/>
+				<geom name="SM_Statue_2_1_Fertility_Statue_2_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshFertilityStatue_0_GeomSubset_1" material="M_FertilityStatue_1" class="visual"/>
+			</body>
+			<body name="Chair_2_3_2" pos="7.11924409866333 -3.788311243057251 0.4184993803501129" quat="0.9998934864997864 0.0 0.0 0.014594354666769505">
+				<geom name="SM_Chair_2_3_2_Chair_204_1_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="ChairmeshChair_204_0_GeomSubset_1" material="M_Chair_204_1" class="visual"/>
+				<geom name="SM_Chair_2_3_2_Chair_204_1_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="ChairmeshChair_204_0_GeomSubset_0" material="M_Chair_204_0" class="visual"/>
+			</body>
+			<body name="Window_1" pos="5.276376247406006 -8.097999572753906 1.309945821762085" quat="1.0 0.0 0.0 0.0">
+				<geom name="SM_Window_1_Window_Hung_44_X_60_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshWindowHung_44X60_0_GeomSubset_0" material="M_WindowHung_44X60_0" class="visual"/>
+				<geom name="SM_Window_1_Window_Hung_44_X_60_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshWindowHung_44X60_0_GeomSubset_2" material="M_WindowHung_44X60_2" class="visual"/>
+				<geom name="SM_Window_1_Window_Hung_44_X_60_2" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshWindowHung_44X60_0_GeomSubset_1" material="M_WindowHung_44X60_1" class="visual"/>
+			</body>
+			<body name="Wall_5" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
+				<geom name="Wall_5_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_5_0" class="visual"/>
+				<geom name="Wall_5_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_5_1" class="visual"/>
+				<geom name="Wall_5_2" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_5_2" class="visual"/>
 			</body>
 			<body name="DiningTable_2_3_0" pos="7.11924409866333 -4.837872505187988 0.39023110270500183" quat="-0.7071067690849304 0.0 0.0 0.7071067690849304">
 				<geom name="SM_DiningTable_2_3_0_Dining_Table_208_1_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="TablemeshDiningTable_208_0_GeomSubset_1" material="M_DiningTable_208_1" class="visual"/>
 				<geom name="SM_DiningTable_2_3_0_Dining_Table_208_1_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="TablemeshDiningTable_208_0_GeomSubset_0" material="M_DiningTable_208_0" class="visual"/>
 			</body>
-			<body name="Wall_3" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
-				<geom name="Wall_3" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_3" class="visual"/>
+			<body name="Wall_1" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
+				<geom name="Wall_1_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_1_0" class="visual"/>
+				<geom name="Wall_1_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_1_1" class="visual"/>
+				<geom name="Wall_1_2" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_1_2" class="visual"/>
+				<geom name="Wall_1_3" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_1_3" class="visual"/>
 			</body>
 			<body name="Sink_3_1_0" pos="0.338744193315506 -5.68202018737793 0.5097440481185913" quat="0.7071067690849304 0.0 0.0 0.7071067690849304">
 				<geom name="SM_Sink_3_1_0_Sink_15_0" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="MeshPsSinkbasin_15_1" material="M_PsSinkbasin_15_0" class="visual"/>
 				<geom name="SM_Sink_3_1_0_Sink_15_1" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Sink_15_Sink_15_0_GeomSubset_1" material="M_Sink_15_1" class="visual"/>
 				<geom name="SM_Sink_3_1_0_Sink_15_2" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Sink_15_Sink_15_0_GeomSubset_0" material="M_Sink_15_0" class="visual"/>
 				<geom name="SM_Sink_3_1_0_Sink_15_3" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Sink_15_Sink_15_0_GeomSubset_2" material="M_Sink_15_2" class="visual"/>
+			</body>
+			<body name="Wall_9" pos="0.0 0.0 0.0" quat="0.7071067690849304 0.7071067690849304 0.0 0.0">
+				<geom name="Wall_9" type="mesh" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0" mesh="Wall_9" class="visual"/>
 			</body>
 		</body>
 	</worldbody>

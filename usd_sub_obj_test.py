@@ -161,7 +161,7 @@ if __name__=="__main__":
     source_dir = os.path.dirname(os.path.realpath(__file__))
     assets_output_dir = os.path.join(source_dir, 'procthor_assets')
 
-    usd_file_path = '/home/zgao/unity_preafab_converter/procthor_assets/Floor_Lamp_19/FloorLamp_19.usda'
+    usd_file_path = '/home/zgao/unity_prefab_converter/procthor_assets/Floor_Lamp_19/FloorLamp_19.usda'
     # mesh_path = '/root/FloorLamp_19/FloorLamp_19'
     out_put_path_list = split_usd(usd_file_path)
     # print(out_put_path_list)

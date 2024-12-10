@@ -114,38 +114,6 @@ public class ParseAllPrefabs : EditorWindow
         }
         Dictionary<string, Dictionary<string, Dictionary<string, object>>> allPrefabDetails = new Dictionary<string, Dictionary<string, Dictionary<string, object>>>();
 
-        // foreach (var assetGroupKey in jsonData.Keys)
-        // {
-        //     // 获取每个 asset group 中的 asset 列表
-        //     // var assetList = jsonData[assetGroupKey] as List<object>;
-        //     var assetList = jsonData[assetGroupKey] as List<Dictionary<string, object>>;
-
-        //     // var assetList = jsonData[assetGroupKey] as JArray;
-
-        //     if (assetList != null)
-        //     {
-        //         // 遍历每个 asset
-        //         foreach (var assetObj in assetList)
-        //         {
-        //             var asset = assetObj as Dictionary<string, object>;
-
-        //             if (asset != null && asset.ContainsKey("assetId"))
-        //             {
-        //                 // 获取 assetId
-        //                 string assetId = asset["assetId"].ToString();
-        //                 Debug.Log($"Asset ID: {assetId} in group: {assetGroupKey}");
-
-                        
-        //                 // 你可以在这里对 assetId 进行进一步处理
-        //                 // 例如，加载对应的 prefab，或者其他操作
-        //             }
-        //         }
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError($"Asset group {assetGroupKey} is not a valid list of assets.");
-        //     }
-
 
         foreach (var assetGroupKey in jsonData.Properties())
         {
@@ -166,6 +134,7 @@ public class ParseAllPrefabs : EditorWindow
                         string assetId = assetDict["assetId"].ToString();
                         // Debug.Log($"Asset ID: {assetId} in group: {assetGroupKey}");
                         GameObject prefab = LoadPrefabByName(assetId);
+
                         // GameObject spawned = Instantiate(prefab);
                         if (prefab != null)
                         {
@@ -226,6 +195,7 @@ public class ParseAllPrefabs : EditorWindow
         Debug.Log($"All Prefab details saved to {saveJsonPath}");
     }
 
+
     private Dictionary<string, Dictionary<string, object>> GetPrefabDetails(GameObject prefab)
     {
         Transform rootTransform = prefab.transform;
@@ -233,18 +203,60 @@ public class ParseAllPrefabs : EditorWindow
 
         var simObj = prefab.GetComponent<SimObjPhysics>();
         Vector3? boxCenter = null;
+        // var bBox = prefab.GetComponent<boundingBox>();
         // 检查 simObj 是否为 null
         if (simObj != null)
         {
-            // simObj 存在，可以安全地使用它
-            // Debug.Log("SimObjPhysics component found.");
-            
+
             // 进一步检查 AxisAlignedBoundingBox 是否为 null
             if (simObj.AxisAlignedBoundingBox != null)
             {
+                // this boxCenter may be not correct
                 boxCenter = simObj.AxisAlignedBoundingBox.center;
 
-                // 使用 box 继续执行操作...
+                Transform boundingBoxTransform = prefab.transform.Find("BoundingBox");
+                if (boundingBoxTransform != null)
+                {
+                    // 获取 GameObject
+                    GameObject boundingBoxObject = boundingBoxTransform.gameObject;
+
+                    // 获取 BoxCollider 组件
+                    BoxCollider boxCollider = boundingBoxObject.GetComponent<BoxCollider>();
+
+                    if (boxCollider != null)
+                    {
+                        boxCenter = boxCollider.center;
+                    }
+
+                }
+
+
+                // if (prefab.name == "Window_Hung_44x60")
+                // {
+                //     Debug.Log($"BoxCenter: {boxCenter}");
+                //     // Debug.Log($"local: {prefab.transform.localPosition}");
+
+                //     Transform boundingBoxTransform = prefab.transform.Find("BoundingBox");
+    
+                //     // 获取 GameObject
+                //     GameObject boundingBoxObject = boundingBoxTransform.gameObject;
+
+                //     // 获取 BoxCollider 组件
+                //     BoxCollider boxCollider = boundingBoxObject.GetComponent<BoxCollider>();
+
+                //     if (boxCollider != null)
+                //     {
+                //         Debug.Log("BoxCollider found.");
+                //         Debug.Log($"BoxCollider center: {boxCollider.center}");
+                //         Debug.Log($"BoxCollider size: {boxCollider.size}");
+                //     }
+                //     else
+                //     {
+                //         Debug.LogError("BoxCollider not found.");
+                //     }
+
+                // }
+
             }
             else
             {
@@ -289,26 +301,6 @@ public class ParseAllPrefabs : EditorWindow
                         {
                             originalTransform = fbxPrefab.transform;
                         }
-                        
-
-
-                        // test
-                        if (prefab.name == "Doorway_Double_1")
-                        // Doorframe_Double_1  Toilet_1
-                        {
-                            Debug.Log($"Mesh: {mesh.name}, Position: {originalTransform.position}, Rotation: {originalTransform.rotation.eulerAngles}, Scale: {originalTransform.localScale}");
-
-                        }
-
-                        // // test
-                        // if (prefab.name == "Plunger_3")
-                        // {
-                        //     Debug.Log("Plunger here");
-                        //     Debug.Log($"Position: {fbxPrefab.transform.position}, Rotation: {fbxPrefab.transform.rotation.eulerAngles}, Scale: {fbxPrefab.transform.localScale}");
-
-
-                        // }
-
 
 
 
@@ -677,31 +669,36 @@ public class ParseAllPrefabs : EditorWindow
     }
 
 
-
     private GameObject LoadPrefabByName(string assetId)
     {
-        // 使用 AssetDatabase.FindAssets 来搜索文件名匹配的 Prefab
-        string[] guids = AssetDatabase.FindAssets(assetId + " t:Prefab"); // 搜索类型为 Prefab 的文件
+        // 使用 AssetDatabase.FindAssets 搜索类型为 Prefab 的文件
+        string[] guids = AssetDatabase.FindAssets($"\"{assetId}\" t:Prefab"); // 精确搜索
 
-        if (guids.Length > 0)
+        foreach (string guid in guids)
         {
-            // 取第一个匹配的 Prefab
-            string path = AssetDatabase.GUIDToAssetPath(guids[0]);
-            // Debug.Log($"Prefab found at: {path}");
+            // 将 GUID 转换为路径
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            string fileName = System.IO.Path.GetFileNameWithoutExtension(path); // 获取文件名（不包括扩展名）
 
-            // 加载 Prefab
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-            if (prefab != null)
+            // 检查文件名是否与 assetId 完全匹配
+            if (fileName == assetId)
             {
-                // Debug.Log($"Prefab {assetId} loaded successfully from {path}");
-                return prefab;
+                // 加载 Prefab
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+
+                if (prefab != null)
+                {
+                    // Debug.Log($"Prefab {assetId} loaded successfully from {path}");
+                    return prefab; // 返回第一个完全匹配的 Prefab
+                }
             }
         }
 
-        Debug.LogError($"Prefab with name {assetId} not found in Assets folder.");
-        return null;
+        Debug.LogError($"Prefab with exact name {assetId} not found in Assets folder.");
+        return null; // 如果找不到完全匹配的 Prefab，返回 null
     }
+
+
 
     private void SaveToJson(Dictionary<string, Dictionary<string, Dictionary<string, object>>> data, string fileName)
     {

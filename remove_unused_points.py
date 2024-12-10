@@ -77,6 +77,6 @@ def remove_unused_points(usda_file_path, output_file_path):
     stage.GetRootLayer().Export(output_file_path)
 
 # Example usage
-input_usda = "/home/zgao/unity_preafab_converter/procthor_assets/Floor_Lamp_19/FloorLamp_19_GeomSubset_2.usda"
-output_usda = "/home/zgao/unity_preafab_converter/procthor_assets/Floor_Lamp_19/FloorLamp_19_GeomSubset_2_simple.usda"
+input_usda = "/home/zgao/unity_prefab_converter/procthor_assets/Floor_Lamp_19/FloorLamp_19_GeomSubset_2.usda"
+output_usda = "/home/zgao/unity_prefab_converter/procthor_assets/Floor_Lamp_19/FloorLamp_19_GeomSubset_2_simple.usda"
 remove_unused_points(input_usda, output_usda)
