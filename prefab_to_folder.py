@@ -176,6 +176,8 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
         # Find and select the specified Mesh object
 
         if obj:
+            # print('obj.matrix_world:', obj.matrix_world)
+            
 
             obj.hide_set(False) 
             obj.hide_viewport = False  
@@ -197,10 +199,12 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
             rotation_blender = convert_unity_rotation_to_blender(rotation_unity)
 
             scale_unity = prefab_info[sub_obj]['Transform']["Scale"]
+
+            model_scale_factor = prefab_info[sub_obj]['ScaleFactor'] #scale factor of fbx itself, due to the different length unit.
             scale_blender = Vector((
-                scale_unity["x"],      
-                scale_unity["z"],      
-                scale_unity["y"] 
+                scale_unity["x"]*model_scale_factor,      
+                scale_unity["z"]*model_scale_factor,      
+                scale_unity["y"]*model_scale_factor 
             ))
 
             transform_matrix_pivot = (
@@ -217,6 +221,9 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                 # _____________________set the correct pivot of fbx ______________________
         
                 original_transform = prefab_info[sub_obj].get('OriginalTransform')
+                # bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+                print('obj.matrix_world:', obj.matrix_world)
+                # obj.matrix_world = Matrix.Identity(4)
                 # ['OriginalTransform']
                 if original_transform is not None:
 
@@ -236,7 +243,6 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                     original_translate = position_blender
                     original_rotate = rotation_blender
                     original_scale = scale_blender
-                                                
 
                 inverse_rotate = original_rotate.conjugated() 
 
@@ -248,18 +254,19 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
 
                 inverse_translate = -original_translate
                 inverse_translation_matrix = Matrix.Translation(inverse_translate)
+                print('inverse_translate:', inverse_translate)
+                print('inverse_rotate:', inverse_rotate)
 
                 inverse_transform_matrix = inverse_translation_matrix @ inverse_rotation_matrix @ inverse_scale_matrix
 
-                obj.matrix_world = inverse_transform_matrix  @ obj.matrix_world
+                # obj.matrix_world = inverse_transform_matrix  @ obj.matrix_world
 
-                bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+                # bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
                 # ____________________adapt the pivot to prefab ______________________
 
-                obj.matrix_world =  transform_matrix_pivot @ obj.matrix_world
-                # obj.matrix_world =  transform_matrix_pivot 
-                bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+                # obj.matrix_world =  transform_matrix_pivot @ obj.matrix_world
+                # bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
             else:
                 # already has a pivot
@@ -721,26 +728,27 @@ if __name__=="__main__":
 
     #         else:
                 # print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
-
-    from itertools import chain
-    with open('/home/zgao/unity_prefab_converter/house_7.json', 'r') as file:
-        test_house = json.load(file)
-    for obj in chain(test_house['objects'],test_house['doors'],test_house['windows']):
-        asset_id = obj['assetId']
-        prefab_info = all_prefab_details[asset_id]
-        process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
-        if "children" in obj:
-            for child in obj["children"]:
-                asset_id = child['assetId']
-                prefab_info = all_prefab_details[asset_id]
-                process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
+# 
+    # from itertools import chain
+    # with open('/home/zgao/unity_prefab_converter/house_5.json', 'r') as file:
+    # # with open('/home/zgao/procthor/procthor/klbr/house_0.json', 'r') as file:
+    #     test_house = json.load(file)
+    # for obj in chain(test_house['objects'],test_house['doors'],test_house['windows']):
+    #     asset_id = obj['assetId']
+    #     prefab_info = all_prefab_details[asset_id]
+    #     process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
+    #     if "children" in obj:
+    #         for child in obj["children"]:
+    #             asset_id = child['assetId']
+    #             prefab_info = all_prefab_details[asset_id]
+    #             process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
 
 
 
 
     # Test the conversion for a single prefab  
     # asset_id= 'Teddy_Bear_1'
-    # asset_id = 'Vase_Tall_4'
+    asset_id = 'Box_20'
     # asset_id = 'coffee_machine_13'
     # # asset_id = 'Doorway_Double_9'
     # asset_id = 'Window_Hung_44x60'
@@ -750,6 +758,6 @@ if __name__=="__main__":
     # # # # asset_id = 'Bathroom_Faucet_27'
     # # # asset_id = 'Floor_Lamp_19'
 
-    # prefab_info = all_prefab_details[asset_id]
-    # process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
+    prefab_info = all_prefab_details[asset_id]
+    process_pipeline(asset_id, prefab_info,root_path,shift_center=False)
 

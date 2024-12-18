@@ -79,14 +79,6 @@ public class ParseAllPrefabs : EditorWindow
         GUILayout.Space(30); // 添加空间
 
 
-
-        // // Parse 按钮
-        // if (GUILayout.Button("Parse All Prefabs"))
-        // {
-        //     ParsePrefabsInAssets();
-        // }
-        // Debug.Log("procthorDatabasePath: " + procthorDatabasePath);
-
         if (GUILayout.Button("Parse All Prefabs"))
         {   
             jsonData = LoadJsonFile(procthorDatabasePath); 
@@ -160,36 +152,6 @@ public class ParseAllPrefabs : EditorWindow
         }
 
 
-
-        // // create a big dictionary to store all prefab details
-        // Dictionary<string, Dictionary<string, Dictionary<string, object>>> allPrefabDetails = new Dictionary<string, Dictionary<string, Dictionary<string, object>>>();
-
-        // foreach (string prefabGUID in allPrefabs)
-        // {
-        //     string prefabPath = AssetDatabase.GUIDToAssetPath(prefabGUID);
-        //     GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-
-        //     if (prefab != null)
-        //     {
-        //         // get the details of each prefab
-        //         if (jsonData != null)
-        //         {
-        //             // do something with the loaded JSON data
-        //             Debug.Log("Loaded JSON data:");
-        //             foreach (var key in jsonData.Keys)
-        //             {
-        //                 Debug.Log($"Key: {key}");
-        //             }
-        //         }
-        //         Dictionary<string, Dictionary<string, object>> prefabDetails = GetPrefabDetails(prefab);
-
-        //         // TODO: get aabb box center here
-
-                
-        //         allPrefabDetails[prefab.name] = prefabDetails;
-        //     }
-        // }
-
         // // save the dictionary to a JSON file
         SaveToJson(allPrefabDetails, saveJsonPath);
         Debug.Log($"All Prefab details saved to {saveJsonPath}");
@@ -231,32 +193,6 @@ public class ParseAllPrefabs : EditorWindow
                 }
 
 
-                // if (prefab.name == "Window_Hung_44x60")
-                // {
-                //     Debug.Log($"BoxCenter: {boxCenter}");
-                //     // Debug.Log($"local: {prefab.transform.localPosition}");
-
-                //     Transform boundingBoxTransform = prefab.transform.Find("BoundingBox");
-    
-                //     // 获取 GameObject
-                //     GameObject boundingBoxObject = boundingBoxTransform.gameObject;
-
-                //     // 获取 BoxCollider 组件
-                //     BoxCollider boxCollider = boundingBoxObject.GetComponent<BoxCollider>();
-
-                //     if (boxCollider != null)
-                //     {
-                //         Debug.Log("BoxCollider found.");
-                //         Debug.Log($"BoxCollider center: {boxCollider.center}");
-                //         Debug.Log($"BoxCollider size: {boxCollider.size}");
-                //     }
-                //     else
-                //     {
-                //         Debug.LogError("BoxCollider not found.");
-                //     }
-
-                // }
-
             }
             else
             {
@@ -275,15 +211,16 @@ public class ParseAllPrefabs : EditorWindow
         {
             Transform objTransform = mf.transform;
             Mesh mesh = mf.sharedMesh;
+            string meshPath = AssetDatabase.GetAssetPath(mf.sharedMesh);
             if (mf.sharedMesh == null)
             {
                 Debug.LogWarning($"MeshFilter on object {mf.gameObject.name} has no mesh.");
                 continue;
             }
 
-
             string assetPath = AssetDatabase.GetAssetPath(mesh);
             Transform originalTransform = null;
+            float scaleFactor = 0;
             if (!string.IsNullOrEmpty(assetPath))
             {
                 // Debug.Log("Mesh: " + mesh.name + " is from asset: " + assetPath);
@@ -302,19 +239,18 @@ public class ParseAllPrefabs : EditorWindow
                             originalTransform = fbxPrefab.transform;
                         }
 
-
+                        ModelImporter modelImporter = AssetImporter.GetAtPath(meshPath) as ModelImporter;
+                        if (modelImporter != null)
+                        {
+                            scaleFactor = modelImporter.globalScale;
+                        }
 
                     }
+
                 }
             }
         
 
-
-            // Vector3 center = mesh.bounds.center;
-            
-            // pivot to center in world koordinates
-            // Vector3 pivotToCenter = center;
-            // Vector3 pivotToCenter = objTransform.TransformPoint(center);
 
             MeshRenderer meshRenderer = mf.GetComponent<MeshRenderer>();
             string hierarchyPath = GetHierarchyPath(mf.transform);
@@ -350,41 +286,6 @@ public class ParseAllPrefabs : EditorWindow
                     }
                 }},
 
-                // {"pivotToCenter", new Dictionary<string, float> {
-                //     { "x", pivotToCenter.x },
-                //     { "y", pivotToCenter.y },
-                //     { "z", pivotToCenter.z }
-                // }},
-
-
-                // {"boundingBoxTransform", new Dictionary<string, object> {
-                //     { "Position", new Dictionary<string, float> {
-                //         { "x", boxColliderPosition.x },
-                //         { "y", boxColliderPosition.y },
-                //         { "z", boxColliderPosition.z } }
-                //     },
-                //     { "Rotation", new Dictionary<string, float> {
-                //         { "x", boxColliderRotation.x },
-                //         { "y", boxColliderRotation.y },
-                //         { "z", boxColliderRotation.z },
-                //         { "w", boxColliderRotation.w } }
-                //     },
-                //     { "Scale", new Dictionary<string, float> {
-                //         { "x", boxColliderScale.x },
-                //         { "y", boxColliderScale.y },
-                //         { "z", boxColliderScale.z } }
-                //     },
-                //     {"Center", new Dictionary<string, float> {
-                //         { "x", boxColliderCenter.x },
-                //         { "y", boxColliderCenter.y },
-                //         { "z", boxColliderCenter.z }
-                //     }},
-                //     {"Size", new Dictionary<string, float> {
-                //         { "x", boxColliderSize.x },
-                //         { "y", boxColliderSize.y },
-                //         { "z", boxColliderSize.z }
-                //     }}
-                // }},
 
 
                 { "MeshName", mesh != null ? mesh.name : "None" },
@@ -415,6 +316,11 @@ public class ParseAllPrefabs : EditorWindow
                     }}
                 });
 
+            }
+
+            if (scaleFactor != 0)
+            {
+                meshFilterDetails.Add("ScaleFactor", scaleFactor);
             }
 
             // else
@@ -490,25 +396,9 @@ public class ParseAllPrefabs : EditorWindow
         }
         return path;
     }
-   
-    // private static Transform FindMeshFilterInHierarchy(Transform parent, string meshName)
-    // {
-    //     foreach (Transform child in parent)
-    //     {
-    //         if (child.name == meshName)
-    //         {
-    //             return child;
-    //         }
-    //         Transform result = FindMeshFilterInHierarchy(child, meshName);
-    //         if (result != null)
-    //         {
-    //             return result;
-    //         }
-    //     }
-    //     return null;
-    // }
 
-    // 递归查找FBX中的MeshFilter，根据Mesh名称匹配
+
+    // Find the MeshFilter in the FBX hierarchy based on the mesh name
     private static Transform FindMeshFilterInHierarchy(Transform parent, string meshName)
     {
         // 遍历所有子节点
@@ -533,23 +423,6 @@ public class ParseAllPrefabs : EditorWindow
 
 
 
-
-    // private Transform FindOriginalMeshTransform(GameObject fbxPrefab, string meshName)
-    // {
-    //     MeshFilter[] fbxMeshFilters = fbxPrefab.GetComponentsInChildren<MeshFilter>();
-
-    //     foreach (MeshFilter fbxMeshFilter in fbxMeshFilters)
-    //     {
-    //         if (fbxMeshFilter.sharedMesh.name == meshName)
-    //         {
-                
-    //             return fbxMeshFilter.transform;
-    //         }
-    //     }
-
-    //     return null;
-    // }
-
     private Matrix4x4 GetGlobalTransformRelativeToRoot(Transform meshTransform)
     {
         Transform currentTransform = meshTransform;
@@ -563,72 +436,6 @@ public class ParseAllPrefabs : EditorWindow
 
         return globalMatrix; 
     }
-
-    // private Dictionary<string, object> LoadJsonFile(string path)
-    // {
-    //     try
-    //     {
-    //         if (File.Exists(path))
-    //         {
-    //             // 读取 JSON 文件内容
-    //             string jsonContent = File.ReadAllText(path);
-
-    //             // 解析 JSON 文件为字典并返回
-    //             Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent);
-                
-    //             // 在此处你可以进行数据处理
-    //             Debug.Log("JSON file loaded successfully!");
-    //             return data;
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("File not found: " + path);
-    //             return null;
-    //         }
-    //     }
-    //     catch (System.Exception e)
-    //     {
-    //         Debug.LogError("Failed to load JSON file: " + e.Message);
-    //         return null;
-    //     }
-    // }
-
-    // private Dictionary<string, object> LoadJsonFile(string path)
-    // {
-    //     try
-    //     {
-    //         if (File.Exists(path))
-    //         {
-    //             // 读取 JSON 文件内容
-    //             string jsonContent = File.ReadAllText(path);
-    //             Debug.Log("JSON Content: " + jsonContent); // 输出 JSON 内容
-
-    //             // 尝试反序列化 JSON 文件为字典
-    //             Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonContent);
-
-    //             if (data != null)
-    //             {
-    //                 Debug.Log("JSON file loaded and deserialized successfully!");
-    //             }
-    //             else
-    //             {
-    //                 Debug.LogError("Failed to deserialize JSON content. The structure might not match Dictionary<string, object>.");
-    //             }
-
-    //             return data;
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("File not found: " + path);
-    //             return null;
-    //         }
-    //     }
-    //     catch (System.Exception e)
-    //     {
-    //         Debug.LogError("Failed to load JSON file: " + e.Message);
-    //         return null;
-    //     }
-    // }
 
 
 

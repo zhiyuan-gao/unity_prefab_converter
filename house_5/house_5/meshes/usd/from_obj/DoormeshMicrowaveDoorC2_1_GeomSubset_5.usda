@@ -16,14 +16,14 @@ def Xform "DoormeshMicrowaveDoorC2_1_GeomSubset_5"
     )
     {
         uniform bool doubleSided = 1
-        float3[] extent = [(-0.000041, -0.008155, -0.187187), (-0.000031, -0.008145, -0.187187)]
+        float3[] extent = [(0.000572, -0.007128, -0.198043), (0.000582, -0.007118, -0.198043)]
         int[] faceVertexCounts = [3, 3]
         int[] faceVertexIndices = [1, 2, 0, 1, 3, 2]
         rel material:binding = </_materials/M_MicrowaveDoorC2_5>
         normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
             interpolation = "faceVarying"
         )
-        point3f[] points = [(-0.000041, -0.008155, -0.187187), (-0.000031, -0.008155, -0.187187), (-0.000041, -0.008145, -0.187187), (-0.000031, -0.008145, -0.187187)]
+        point3f[] points = [(0.000572, -0.007128, -0.198043), (0.000582, -0.007128, -0.198043), (0.000572, -0.007118, -0.198043), (0.000582, -0.007118, -0.198043)]
         texCoord2f[] primvars:UVMap = [(1, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1)] (
             interpolation = "faceVarying"
         )

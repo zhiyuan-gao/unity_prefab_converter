@@ -1,0 +1,345 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v5.0.1937526254)
+
+newmtl M_Sphere_037_0
+Kd 0 0 0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_RobothorDiningTableExtendable_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/WoodGrains1.png
+
+newmtl M_FertilityStatue_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/MarbleWhiteSmooth.png
+
+newmtl M_FertilityStatue_1
+Kd 0.800000012 0.800000012 0.800000012
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Keychain3_1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/BrushedIron_AlbedoTransparency.png
+
+newmtl M_Keychain3_2
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/BrushedIron_AlbedoTransparency.png
+
+newmtl M_Keychain3_0
+Kd 0.198529005 0.198529005 0.198529005
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Keychain3_4
+Kd 0.0470370017 0.175260007 0.426470995
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Keychain3_3
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/BrushedIron_AlbedoTransparency.png
+
+newmtl M_RobothorPencil_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/RoboTHOR_Pencil_Primary1_AlbedoTransparency.png
+
+newmtl M_Box_20_FlapInner_2_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/Cardboard_AlbedoTransparency.png
+
+newmtl M_Box_20_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/Cardboard_AlbedoTransparency.png
+
+newmtl M_Box_20_FlapInner_1_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/Cardboard_AlbedoTransparency.png
+
+newmtl M_Box_20_FlapOuter_2_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/Cardboard_AlbedoTransparency.png
+
+newmtl M_Box_20_FlapOuter_1_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/Cardboard_AlbedoTransparency.png
+
+newmtl M_DeskLamp_2_2
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/TexturesCom_FabricPlain0072_seamless_albedo_S.png
+
+newmtl M_DeskLamp_2_1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/BrushedAluminum_AlbedoTransparency.png
+
+newmtl M_DeskLamp_2_0
+Kd 0.919117987 0.715624988 0.669063985
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_DeskLamp_2_3
+Kd 5.18917179 5.07596684 3.84292507
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Chair_2_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/HammeredMetal_AlbedoTransparency.png
+
+newmtl M_Chair_2_2
+Kd 1 0.88924998 0.426470995
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Chair_2_1
+Kd 1 0.88924998 0.426470995
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Chair_2_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/HammeredMetal_AlbedoTransparency.png
+
+newmtl M_Chair_2_2
+Kd 1 0.88924998 0.426470995
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Chair_2_1
+Kd 1 0.88924998 0.426470995
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Fp401_Cube_050_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/HammeredMetal_AlbedoTransparency.png
+
+newmtl M_RobothorWallDecor_4_3_1
+Kd 0.147058994 0.147058994 0.147058994
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_RobothorWallDecor_4_3_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/Wall_Decor_Photo_1V_AlbedoTransparency.png
+
+newmtl M_RobothorWallDecor_4_3_2
+Kd 1 0.977940977 0.977940977
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_RobothorWallDecorPoster_1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/TexturesCom_WoodWhite.png
+
+newmtl M_RobothorWallDecorPoster_2
+Kd 1 0.977940977 0.977940977
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_RobothorWallDecorPoster_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/Wall_Decor_Photo_3V_AlbedoTransparency.png
+
+newmtl M_RobothorWallDecorPoster_1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/TexturesCom_WoodWhite.png
+
+newmtl M_RobothorWallDecorPoster_2
+Kd 1 0.977940977 0.977940977
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_RobothorWallDecorPoster_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/Wall_Decor_Photo_3V_AlbedoTransparency.png
+
+newmtl M_WindowFixed_60X72_1
+Kd 1 1 1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_WindowFixed_60X72_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/WoodGrains1.png
+
+newmtl M_WindowFixed_60X36_1
+Kd 1 1 1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_WindowFixed_60X36_0
+Kd 0.147058994 0.147058994 0.147058994
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_WindowHung_48X24_2
+Kd 1 1 1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_WindowHung_48X24_1
+Kd 1 1 1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_WindowHung_48X24_0
+Kd 0.147058994 0.147058994 0.147058994
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_DoorwayDoor_2_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/WoodGrains1.png
+
+newmtl M_DoorwayDoor_2_1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/TexturesCom_Medieval Metal_albedo_S.png
+
+newmtl M_DoorwayHandle_2_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/TexturesCom_Medieval Metal_albedo_S.png
+
+newmtl M_DoorwayDoor_2_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/WoodGrains1.png
+
+newmtl M_DoorwayDoor_2_1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/TexturesCom_Medieval Metal_albedo_S.png
+
+newmtl M_DoorwayHandle_2_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/TexturesCom_Medieval Metal_albedo_S.png
+
+newmtl M_DoorwayDouble_2_0
+Kd 1 0.977941155 0.977941155
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_DoorwayDoor_4_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/LightWoodCounters.png
+
+newmtl M_DoorwayDoor_4_1
+Kd 1 1 1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Doorway_4_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/WoodGrains1.png
+
+newmtl M_DoorwayHandle_4_0
+Kd 1 1 1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+
+newmtl M_Doorway_10_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/LightWoodCounters.png
+
+newmtl M_DoorwayDoor_10_1
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/BrushedAluminum_AlbedoTransparency.png
+
+newmtl M_DoorwayHandle_10_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/BrushedAluminum_AlbedoTransparency.png
+
+newmtl M_DoorwayDoor_10_0
+Ks 0 0 0
+Ke 0 0 0
+illum 1
+map_Kd ./materials/textures/LightWoodCounters.png
+

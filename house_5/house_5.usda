@@ -4500,6 +4500,46 @@ def Xform "house_5"
         }
     }
 
+    def Xform "Window_0"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (8.374918929768196, 0, 1.3006609899632153, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "SM_Window_0_Window_Bay_2_0" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_5/meshes/usd/MeshWindowBay_2_0_GeomSubset_0.usda@</MeshWindowBay_2_0_GeomSubset_0>
+        )
+        {
+            rel material:binding = </house_5/Window_0/SM_Window_0_Window_Bay_2_0/Materials/M_WindowBay_2_0>
+
+            def Scope "Materials"
+            {
+                def Material "M_WindowBay_2_0" (
+                    prepend references = @./house_5/materials/usd/M_WindowBay_2_0.usda@</M_WindowBay_2_0>
+                )
+                {
+                }
+            }
+        }
+
+        def Mesh "SM_Window_0_Window_Bay_2_1" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            prepend references = @./house_5/meshes/usd/MeshWindowBay_2_0_GeomSubset_1.usda@</MeshWindowBay_2_0_GeomSubset_1>
+        )
+        {
+            rel material:binding = </house_5/Window_0/SM_Window_0_Window_Bay_2_1/Materials/M_WindowBay_2_1>
+
+            def Scope "Materials"
+            {
+                def Material "M_WindowBay_2_1" (
+                    prepend references = @./house_5/materials/usd/M_WindowBay_2_1.usda@</M_WindowBay_2_1>
+                )
+                {
+                }
+            }
+        }
+    }
+
     def Xform "Door_0"
     {
         matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (9.189261093201763, -5.921, 1.0534253120422363, 1) )
@@ -4833,8 +4873,26 @@ def Xform "house_5"
         matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
         uniform token[] xformOpOrder = ["xformOp:transform"]
 
-        def Mesh "Wall_4" (
-            prepend references = @./house_5/meshes/usd/Wall_4.usda@</SM_Wall_4>
+        def Mesh "Wall_4_0" (
+            prepend references = @./house_5/meshes/usd/Wall_4_0.usda@</SM_Wall_4_0>
+        )
+        {
+        }
+
+        def Mesh "Wall_4_1" (
+            prepend references = @./house_5/meshes/usd/Wall_4_1.usda@</SM_Wall_4_1>
+        )
+        {
+        }
+
+        def Mesh "Wall_4_2" (
+            prepend references = @./house_5/meshes/usd/Wall_4_2.usda@</SM_Wall_4_2>
+        )
+        {
+        }
+
+        def Mesh "Wall_4_3" (
+            prepend references = @./house_5/meshes/usd/Wall_4_3.usda@</SM_Wall_4_3>
         )
         {
         }
@@ -4888,6 +4946,18 @@ def Xform "house_5"
         }
     }
 
+    def Xform "Wall_9"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "Wall_9" (
+            prepend references = @./house_5/meshes/usd/Wall_9.usda@</SM_Wall_9>
+        )
+        {
+        }
+    }
+
     def Xform "Wall_10"
     {
         matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
@@ -4936,85 +5006,49 @@ def Xform "house_5"
         }
     }
 
-    def Xform "Wall_18"
+    def Xform "Wall_14"
     {
         matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
         uniform token[] xformOpOrder = ["xformOp:transform"]
 
-        def Mesh "Wall_18" (
-            prepend references = @./house_5/meshes/usd/Wall_18.usda@</SM_Wall_18>
+        def Mesh "Wall_14" (
+            prepend references = @./house_5/meshes/usd/Wall_14.usda@</SM_Wall_14>
         )
         {
         }
     }
 
-    def Xform "Wall_19"
+    def Xform "Wall_15"
     {
         matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
         uniform token[] xformOpOrder = ["xformOp:transform"]
 
-        def Mesh "Wall_19" (
-            prepend references = @./house_5/meshes/usd/Wall_19.usda@</SM_Wall_19>
+        def Mesh "Wall_15" (
+            prepend references = @./house_5/meshes/usd/Wall_15.usda@</SM_Wall_15>
         )
         {
         }
     }
 
-    def Xform "Wall_20"
+    def Xform "Wall_16"
     {
         matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
         uniform token[] xformOpOrder = ["xformOp:transform"]
 
-        def Mesh "Wall_20" (
-            prepend references = @./house_5/meshes/usd/Wall_20.usda@</SM_Wall_20>
-        )
-        {
-        }
-    }
-
-    def Xform "Wall_21"
-    {
-        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
-        uniform token[] xformOpOrder = ["xformOp:transform"]
-
-        def Mesh "Wall_21" (
-            prepend references = @./house_5/meshes/usd/Wall_21.usda@</SM_Wall_21>
-        )
-        {
-        }
-    }
-
-    def Xform "Wall_24"
-    {
-        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
-        uniform token[] xformOpOrder = ["xformOp:transform"]
-
-        def Mesh "Wall_24" (
-            prepend references = @./house_5/meshes/usd/Wall_24.usda@</SM_Wall_24>
-        )
-        {
-        }
-    }
-
-    def Xform "Wall_25"
-    {
-        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 2.220446049250313e-16, 0.9999999999999998, 0), (0, -0.9999999999999998, 2.220446049250313e-16, 0), (0, 0, 0, 1) )
-        uniform token[] xformOpOrder = ["xformOp:transform"]
-
-        def Mesh "Wall_25_0" (
-            prepend references = @./house_5/meshes/usd/Wall_25_0.usda@</SM_Wall_25_0>
+        def Mesh "Wall_16_0" (
+            prepend references = @./house_5/meshes/usd/Wall_16_0.usda@</SM_Wall_16_0>
         )
         {
         }
 
-        def Mesh "Wall_25_1" (
-            prepend references = @./house_5/meshes/usd/Wall_25_1.usda@</SM_Wall_25_1>
+        def Mesh "Wall_16_1" (
+            prepend references = @./house_5/meshes/usd/Wall_16_1.usda@</SM_Wall_16_1>
         )
         {
         }
 
-        def Mesh "Wall_25_2" (
-            prepend references = @./house_5/meshes/usd/Wall_25_2.usda@</SM_Wall_25_2>
+        def Mesh "Wall_16_2" (
+            prepend references = @./house_5/meshes/usd/Wall_16_2.usda@</SM_Wall_16_2>
         )
         {
         }
