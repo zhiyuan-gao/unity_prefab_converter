@@ -176,8 +176,6 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
         # Find and select the specified Mesh object
 
         if obj:
-            # print('obj.matrix_world:', obj.matrix_world)
-            
 
             obj.hide_set(False) 
             obj.hide_viewport = False  
@@ -213,17 +211,24 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                 Matrix.Diagonal(scale_blender).to_4x4()
             )
 
-            epsilon = 1e-6
-            global_location = obj.matrix_world.translation
+            # epsilon = 1e-6
+            # global_location = obj.matrix_world.translation
+            test_const = 0
             # consider this as no pivot found
-            if abs(global_location.x) < epsilon and abs(global_location.y) < epsilon and abs(global_location.z) < epsilon:
+            # if abs(global_location.x) < epsilon and abs(global_location.y) < epsilon and abs(global_location.z) < epsilon:
+            if test_const == 0:
 
                 # _____________________set the correct pivot of fbx ______________________
         
                 original_transform = prefab_info[sub_obj].get('OriginalTransform')
-                # bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
-                print('obj.matrix_world:', obj.matrix_world)
-                # obj.matrix_world = Matrix.Identity(4)
+
+                bpy.context.view_layer.objects.active = obj
+                obj.select_set(True)
+                bpy.ops.object.mode_set(mode='OBJECT')
+                bpy.context.scene.cursor.location = (0.0, 0.0, 0.0)
+                bpy.ops.object.origin_set(type='ORIGIN_CURSOR')
+
+                bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
                 # ['OriginalTransform']
                 if original_transform is not None:
 
@@ -244,29 +249,24 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                     original_rotate = rotation_blender
                     original_scale = scale_blender
 
-                inverse_rotate = original_rotate.conjugated() 
+                forward_translation_matrix = Matrix.Translation(original_translate)
+                forward_rotation_matrix = original_rotate.to_matrix().to_4x4()
+                forward_scale_matrix = Matrix.Diagonal(original_scale).to_4x4()
 
-                inverse_rotation_matrix = inverse_rotate.to_matrix().to_4x4()  
+                forward_transform_matrix = forward_translation_matrix @ forward_rotation_matrix @ forward_scale_matrix
 
-                inverse_scale_matrix = Matrix.Diagonal(Vector((1.0 / original_scale.x, 
-                                                            1.0 / original_scale.y, 
-                                                            1.0 / original_scale.z))).to_4x4()
+                inverse_transform_matrix = forward_transform_matrix.inverted()
 
-                inverse_translate = -original_translate
-                inverse_translation_matrix = Matrix.Translation(inverse_translate)
-                print('inverse_translate:', inverse_translate)
-                print('inverse_rotate:', inverse_rotate)
+                obj.matrix_world = inverse_transform_matrix  @ obj.matrix_world
+                
+                bpy.context.scene.cursor.location = (0.0, 0.0, 0.0)
+                bpy.ops.object.origin_set(type='ORIGIN_CURSOR')
 
-                inverse_transform_matrix = inverse_translation_matrix @ inverse_rotation_matrix @ inverse_scale_matrix
-
-                # obj.matrix_world = inverse_transform_matrix  @ obj.matrix_world
-
-                # bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
-
+                bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
                 # ____________________adapt the pivot to prefab ______________________
 
-                # obj.matrix_world =  transform_matrix_pivot @ obj.matrix_world
-                # bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+                obj.matrix_world =  transform_matrix_pivot @ obj.matrix_world
+                bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
             else:
                 # already has a pivot
@@ -274,7 +274,7 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                 bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
             obj.name = snake_to_camel(obj.name)
-            print('obj.name:', obj.name)
+
             obj.data.name = f"SM_{obj.name}"
 
             # Prefab's pivot is the center of the all sub-meshes, got from unity
@@ -404,6 +404,12 @@ def convert_unity_rotation_to_blender(unity_quat):
     Quaternion, (w, x, y, z) in Blender's coordinate system
     """
 
+    # blender_quaternion = Quaternion([
+    #     unity_quat['w'],  
+    #     unity_quat['x'], 
+    #     -unity_quat['z'],
+    #     unity_quat['y']
+    # ])
     original_rotation = Quaternion([
         unity_quat['w'],  
         unity_quat['x'], 
@@ -727,7 +733,7 @@ if __name__=="__main__":
     #             process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
 
     #         else:
-                # print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
+    #             print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
 # 
     # from itertools import chain
     # with open('/home/zgao/unity_prefab_converter/house_5.json', 'r') as file:
@@ -748,16 +754,16 @@ if __name__=="__main__":
 
     # Test the conversion for a single prefab  
     # asset_id= 'Teddy_Bear_1'
-    asset_id = 'Box_20'
-    # asset_id = 'coffee_machine_13'
+    # asset_id = 'Box_20'
+    # asset_id = 'Laptop_6'
     # # asset_id = 'Doorway_Double_9'
     # asset_id = 'Window_Hung_44x60'
     # # # # asset_id = 'Plunger_3'
     # # # # asset_id = 'Toilet_Paper_Used_Up'
-    # # # # asset_id = 'Toilet_Paper'
+    asset_id = 'Toilet_1'
     # # # # asset_id = 'Bathroom_Faucet_27'
     # # # asset_id = 'Floor_Lamp_19'
 
     prefab_info = all_prefab_details[asset_id]
-    process_pipeline(asset_id, prefab_info,root_path,shift_center=False)
+    process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
 
