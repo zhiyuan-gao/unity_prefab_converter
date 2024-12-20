@@ -5,7 +5,7 @@ import re
 import os
 # from mathutils import Vector, Euler
 from math import radians
-from mathutils import Matrix, Quaternion, Vector
+from mathutils import Matrix, Quaternion, Vector,Euler
 import yaml
 import math
 import shutil
@@ -177,8 +177,8 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
 
         if obj:
 
-            obj.hide_set(False) 
-            obj.hide_viewport = False  
+            obj.hide_set(False)
+            obj.hide_viewport = False
             obj.select_set(True)
             for child in obj.children:
                 child.select_set(False)
@@ -186,30 +186,32 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
             bpy.context.view_layer.objects.active = obj
 
             position_unity = prefab_info[sub_obj]['Transform']["Position"]
-            position_blender = Vector((
-                -position_unity["x"],  
-                -position_unity["z"],  
-                position_unity["y"]   
-            )) 
+            # position_blender = Vector((
+            #     -position_unity["x"],  
+            #     -position_unity["z"],  
+            #     position_unity["y"]   
+            # )) 
 
             rotation_unity = prefab_info[sub_obj]['Transform']["Rotation"]
 
-            rotation_blender = convert_unity_rotation_to_blender(rotation_unity)
+            # rotation_blender = convert_unity_rotation_to_blender_old(rotation_unity)
 
             scale_unity = prefab_info[sub_obj]['Transform']["Scale"]
 
             model_scale_factor = prefab_info[sub_obj]['ScaleFactor'] #scale factor of fbx itself, due to the different length unit.
-            scale_blender = Vector((
-                scale_unity["x"]*model_scale_factor,      
-                scale_unity["z"]*model_scale_factor,      
-                scale_unity["y"]*model_scale_factor 
-            ))
+            # scale_blender = Vector((
+            #     scale_unity["x"]*model_scale_factor,      
+            #     scale_unity["z"]*model_scale_factor,      
+            #     scale_unity["y"]*model_scale_factor 
+            # ))
 
-            transform_matrix_pivot = (
-                Matrix.Translation(position_blender) @
-                rotation_blender.to_matrix().to_4x4() @
-                Matrix.Diagonal(scale_blender).to_4x4()
-            )
+            # transform_matrix_pivot = (
+            #     Matrix.Translation(position_blender) @
+            #     rotation_blender.to_matrix().to_4x4() @
+            #     Matrix.Diagonal(scale_blender).to_4x4()
+            # )
+
+            transform_matrix_pivot = convert_unity_to_blender_transform(position_unity, rotation_unity, scale_unity)
 
             # epsilon = 1e-6
             # global_location = obj.matrix_world.translation
@@ -232,44 +234,68 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity', 
                 # ['OriginalTransform']
                 if original_transform is not None:
 
-
-                    original_translate = Vector((-original_transform['Position']['x'],
-                                                -original_transform['Position']['z'],
-                                                original_transform['Position']['y']))
-
-                    original_rotate = convert_unity_rotation_to_blender(original_transform['Rotation'])
-
-                    original_scale = Vector((original_transform['Scale']['x'],
-                                                original_transform['Scale']['z'],
-                                                original_transform['Scale']['y']))
+                    # Some objects are not in the orgin in fbx file, so we need to move them to the origin
+                    # How? By getting their transform in fbx, then do it inverse.
+                    # the original_transform here is the transform of the object in the fbx file.
+                    original_translate = Vector((original_transform['Position']['x'],
+                                                original_transform['Position']['y'],
+                                                original_transform['Position']['z']))
                     
+
+                    original_rotate = Quaternion((
+                        rotation_unity['w'],
+                        rotation_unity['x'],
+                        rotation_unity['y'],
+                        rotation_unity['z']
+                    ))
+                    
+                    original_scale = Vector((original_transform['Scale']['x'],
+                                                original_transform['Scale']['y'],
+                                                original_transform['Scale']['z']))
+                    
+                    transform_in_fbx = (
+                        Matrix.Translation(original_translate) @
+                        original_rotate.to_matrix().to_4x4() @
+                        Matrix.Diagonal(original_scale).to_4x4()
+                    )
+                    # print(transform_in_fbx)
+                    inverse_transform_matrix_in_fbx = transform_in_fbx.inverted()
+                    print(inverse_transform_matrix_in_fbx)
+                    inverse_transform_matrix_in_blender = convert_unity_matrix_to_blender(inverse_transform_matrix_in_fbx)
+                    print(inverse_transform_matrix_in_blender)
+                    # print('right________________________________________________')
                 else:
                     # if the original transform is not provided, it is the single mesh in the fbx and prefab.
-                    original_translate = position_blender
-                    original_rotate = rotation_blender
-                    original_scale = scale_blender
+                    # original_translate = position_blender
+                    # original_rotate = rotation_blender
+                    # original_scale = scale_blender
+                    # forward_transform_matrix = transform_matrix_pivot
+                    print('wrong________________________________________________')
 
-                forward_translation_matrix = Matrix.Translation(original_translate)
-                forward_rotation_matrix = original_rotate.to_matrix().to_4x4()
-                forward_scale_matrix = Matrix.Diagonal(original_scale).to_4x4()
+                # forward_translation_matrix = Matrix.Translation(original_translate)
+                # forward_rotation_matrix = original_rotate.to_matrix().to_4x4()
+                # forward_scale_matrix = Matrix.Diagonal(original_scale).to_4x4()
+                # inverse_transform_matrix = forward_transform_matrix.inverted()
 
-                forward_transform_matrix = forward_translation_matrix @ forward_rotation_matrix @ forward_scale_matrix
+                obj.matrix_world = inverse_transform_matrix_in_blender  @ obj.matrix_world
 
-                inverse_transform_matrix = forward_transform_matrix.inverted()
-
-                obj.matrix_world = inverse_transform_matrix  @ obj.matrix_world
+                # obj.matrix_world = obj.matrix_world  @ inverse_transform_matrix_in_blender
                 
                 bpy.context.scene.cursor.location = (0.0, 0.0, 0.0)
                 bpy.ops.object.origin_set(type='ORIGIN_CURSOR')
 
                 bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+
                 # ____________________adapt the pivot to prefab ______________________
 
                 obj.matrix_world =  transform_matrix_pivot @ obj.matrix_world
+                print(transform_matrix_pivot)
                 bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
             else:
                 # already has a pivot
+                print('wrong________________________________________________')
+
                 obj.matrix_world =  transform_matrix_pivot
                 bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
@@ -350,49 +376,49 @@ def process_pipeline(asset_id, prefab_info, root_path='/home/zgao/ai2thor/unity'
 
 
     obj_file_paths = convert_prefab(asset_id, prefab_info, root_path, shift_center)
-    add_texture(asset_id,prefab_info,root_path)
+    # add_texture(asset_id,prefab_info,root_path)
 
-    for obj_file_path in obj_file_paths:
-        obj_file_name = os.path.splitext(obj_file_path)[0]
+#     for obj_file_path in obj_file_paths:
+#         obj_file_name = os.path.splitext(obj_file_path)[0]
 
-        # if the obj use multiple materials, it will be splited into multiple usd files
-        has_multiple_mat = multiple_mat_check(obj_file_path)
-        if has_multiple_mat:
+#         # if the obj use multiple materials, it will be splited into multiple usd files
+#         has_multiple_mat = multiple_mat_check(obj_file_path)
+#         if has_multiple_mat:
 
-            usda_file_path = f'{obj_file_name}.usda'
-            convert_obj_to_usd(obj_file_path,usda_file_path)
+#             usda_file_path = f'{obj_file_name}.usda'
+#             convert_obj_to_usd(obj_file_path,usda_file_path)
 
-            # split the usd file
-            code = f"""
-from usd_sub_obj_test import split_usd
-import json
-result = split_usd('{usda_file_path}')
-print(json.dumps(result))
-            """
-            python_path = "/home/zgao/.virtualenvs/multiverse/bin/python"
-            result = subprocess.run([python_path, "-c", code], capture_output=True, text=True)
+#             # split the usd file
+#             code = f"""
+# from usd_sub_obj_test import split_usd
+# import json
+# result = split_usd('{usda_file_path}')
+# print(json.dumps(result))
+#             """
+#             python_path = "/home/zgao/.virtualenvs/multiverse/bin/python"
+#             result = subprocess.run([python_path, "-c", code], capture_output=True, text=True)
 
-            if result.returncode == 0:
+#             if result.returncode == 0:
 
-                try:
-                    out_put_path_list = json.loads(result.stdout)
+#                 try:
+#                     out_put_path_list = json.loads(result.stdout)
 
-                except json.JSONDecodeError:
-                    print("Error: cannot decode the output")
-            else:
-                print("Error:", result.stderr)
+#                 except json.JSONDecodeError:
+#                     print("Error: cannot decode the output")
+#             else:
+#                 print("Error:", result.stderr)
 
-            # convert the splited usd file to obj file and export to same folder
-            for i, sub_usda_file_path in enumerate(out_put_path_list):
-                convert_usd_to_obj(sub_usda_file_path)
+#             # convert the splited usd file to obj file and export to same folder
+#             for i, sub_usda_file_path in enumerate(out_put_path_list):
+#                 convert_usd_to_obj(sub_usda_file_path)
             
-            # remove the original unsplited obj file and its mtl file
-            os.remove(obj_file_path)
-            ori_matl_path = f'{os.path.splitext(obj_file_path)[0]}.mtl'
-            os.remove(ori_matl_path)
+#             # remove the original unsplited obj file and its mtl file
+#             os.remove(obj_file_path)
+#             ori_matl_path = f'{os.path.splitext(obj_file_path)[0]}.mtl'
+#             os.remove(ori_matl_path)
 
 
-def convert_unity_rotation_to_blender(unity_quat):
+def convert_unity_rotation_to_blender_old(unity_quat):
     """
   
     use mathutils to convert Unity's rotation quaternion to the target coordinate system (Z axis up, Y axis forward, X axis right)
@@ -403,13 +429,6 @@ def convert_unity_rotation_to_blender(unity_quat):
     Output:
     Quaternion, (w, x, y, z) in Blender's coordinate system
     """
-
-    # blender_quaternion = Quaternion([
-    #     unity_quat['w'],  
-    #     unity_quat['x'], 
-    #     -unity_quat['z'],
-    #     unity_quat['y']
-    # ])
     original_rotation = Quaternion([
         unity_quat['w'],  
         unity_quat['x'], 
@@ -431,7 +450,78 @@ def convert_unity_rotation_to_blender(unity_quat):
     
     return new_rotation
 
+def convert_unity_matrix_to_blender(unity_matrix):
+    """
+    Convert Unity's 4x4 transformation matrix to Blender's coordinate system.
+    
+    Args:
+        unity_matrix: list of list or mathutils.Matrix, a 4x4 transformation matrix in Unity.
+        
+    Returns:
+        mathutils.Matrix: 4x4 transformation matrix in Blender's coordinate system.
+    """
+    # Ensure input is a mathutils.Matrix
+    if not isinstance(unity_matrix, Matrix):
+        unity_matrix = Matrix(unity_matrix)
 
+    # Transformation matrix for coordinate system change
+    transform_matrix = Matrix((
+        (1,  0,  0,  0),  # X remains X
+        (0,  0, -1,  0),  # Z becomes -Y
+        (0,  1,  0,  0),  # Y becomes Z
+        (0,  0,  0,  1)
+    ))
+
+    # Convert the Unity matrix into Blender's coordinate system
+    blender_matrix = transform_matrix @ unity_matrix @ transform_matrix.inverted()
+
+    return blender_matrix
+
+
+
+def convert_unity_to_blender_transform(position_unity, rotation_unity, scale_unity, bake_space_transform=False):
+    """
+    Convert Unity's position, rotation (quaternion), and scale to Blender's 4x4 transformation matrix.
+    
+    Args:
+        position_unity: dict, Unity's position, with keys {'x', 'y', 'z'}.
+        rotation_unity: dict, Unity's rotation quaternion, with keys {'x', 'y', 'z', 'w'}.
+        scale_unity: dict, Unity's scale, with keys {'x', 'y', 'z'}.
+        bake_space_transform: bool, whether Blender's bake_space_transform=True has been used.
+        
+    Returns:
+        mathutils.Matrix: 4x4 transformation matrix in Blender's coordinate system.
+    """
+    # Create transformation matrices for position, rotation, and scale
+    position_matrix = Matrix.Translation((position_unity['x'], position_unity['y'], position_unity['z']))
+    
+    rotation_unity_quat = Quaternion((
+        rotation_unity['w'],  # Blender uses (w, x, y, z)
+        rotation_unity['x'],
+        rotation_unity['y'],
+        rotation_unity['z']
+    ))
+    rotation_matrix = rotation_unity_quat.to_matrix().to_4x4()
+    
+    scale_matrix = Matrix.Scale(scale_unity['x'], 4, (1, 0, 0)) @ \
+                   Matrix.Scale(scale_unity['y'], 4, (0, 1, 0)) @ \
+                   Matrix.Scale(scale_unity['z'], 4, (0, 0, 1))
+    
+    # Combine position, rotation, and scale into one transformation matrix
+    blender_matrix = position_matrix @ rotation_matrix @ scale_matrix
+
+    if not bake_space_transform:
+        # Apply manual conversion only if bake_space_transform=False
+        transform_matrix = Matrix((
+            (1,  0,  0,  0),  # X remains X
+            (0,  0, -1,  0),  # Z becomes -Y
+            (0,  1,  0,  0),  # Y becomes Z
+            (0,  0,  0,  1)
+        ))
+
+        blender_matrix = transform_matrix @ blender_matrix @ transform_matrix.inverted()
+
+    return blender_matrix
 
 def load_mat_file(filepath):
     with open(filepath, 'r') as file:
@@ -754,14 +844,14 @@ if __name__=="__main__":
 
     # Test the conversion for a single prefab  
     # asset_id= 'Teddy_Bear_1'
-    # asset_id = 'Box_20'
+    asset_id = 'Box_20'
     # asset_id = 'Laptop_6'
     # # asset_id = 'Doorway_Double_9'
     # asset_id = 'Window_Hung_44x60'
     # # # # asset_id = 'Plunger_3'
     # # # # asset_id = 'Toilet_Paper_Used_Up'
-    asset_id = 'Toilet_1'
-    # # # # asset_id = 'Bathroom_Faucet_27'
+    # asset_id = 'Laptop_6'
+    # asset_id = 'Toilet_1'
     # # # asset_id = 'Floor_Lamp_19'
 
     prefab_info = all_prefab_details[asset_id]
