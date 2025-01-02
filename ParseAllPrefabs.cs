@@ -165,6 +165,7 @@ public class ParseAllPrefabs : EditorWindow
 
         var simObj = prefab.GetComponent<SimObjPhysics>();
         Vector3? boxCenter = null;
+        Transform boundingBoxTransform = null;
         // var bBox = prefab.GetComponent<boundingBox>();
         // 检查 simObj 是否为 null
         if (simObj != null)
@@ -176,7 +177,7 @@ public class ParseAllPrefabs : EditorWindow
                 // this boxCenter may be not correct
                 boxCenter = simObj.AxisAlignedBoundingBox.center;
 
-                Transform boundingBoxTransform = prefab.transform.Find("BoundingBox");
+                boundingBoxTransform = prefab.transform.Find("BoundingBox");
                 if (boundingBoxTransform != null)
                 {
                     // 获取 GameObject
@@ -328,7 +329,27 @@ public class ParseAllPrefabs : EditorWindow
             //     Debug.LogWarning("OriginalTransform is null, not adding it to the dictionary.");
             // }
 
-        
+            if (boundingBoxTransform != null)
+            {
+                meshFilterDetails.Add("BoundingBoxTF", new Dictionary<string, object> {
+                    { "Position", new Dictionary<string, float> {
+                        { "x", boundingBoxTransform.position.x },
+                        { "y", boundingBoxTransform.position.y },
+                        { "z", boundingBoxTransform.position.z }
+                    }},
+                    { "Rotation", new Dictionary<string, float> {
+                        { "x", boundingBoxTransform.rotation.x },
+                        { "y", boundingBoxTransform.rotation.y },
+                        { "z", boundingBoxTransform.rotation.z },
+                        { "w", boundingBoxTransform.rotation.w }
+                    }},
+                    { "Scale", new Dictionary<string, float> {
+                        { "x", boundingBoxTransform.lossyScale.x },
+                        { "y", boundingBoxTransform.lossyScale.y },
+                        { "z", boundingBoxTransform.lossyScale.z }
+                    }}
+                });
+            }
             if (boxCenter.HasValue)
             {
                 meshFilterDetails.Add("BoxCenter", new Dictionary<string, object>{

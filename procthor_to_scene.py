@@ -183,7 +183,7 @@ class ProcthorImporter(Factory):
         if "assetId" not in obj:
             return None
 
-        self.import_asset_new(body_builder, asset_id)
+        self.import_asset(body_builder, asset_id)
 
         for child in obj.get("children", {}):
             self.import_object(body_name, child)
@@ -382,9 +382,9 @@ class ProcthorImporter(Factory):
         body_builder.set_transform(pos=position_vec, quat=rotation_quat)
 
         asset_name = hole_cover["assetId"]
-        self.import_asset_new(body_builder, asset_name)
+        self.import_asset(body_builder, asset_name)
 
-    def import_asset_new(self, body_builder: BodyBuilder, asset_name: str) -> None:
+    def import_asset(self, body_builder: BodyBuilder, asset_name: str) -> None:
         # asset_paths = get_asset_paths(asset_name)
         asset_paths = '/home/zgao/unity_prefab_converter/procthor_assets'
         prefab_info = self.all_prefab_details[asset_name]
@@ -436,61 +436,6 @@ class ProcthorImporter(Factory):
 
 
                 mesh_idx += 1
-
-    def import_asset(self, body_builder: BodyBuilder, asset_name: str) -> None:
-        asset_name = snake_to_camel(asset_name)
-
-        asset_paths = get_asset_paths(asset_name)
-        if len(asset_paths) == 0:
-            return None
-        else:
-            i = int(random.uniform(0, len(asset_paths)))
-            asset_path = asset_paths[i]
-
-        asset_dir = os.path.dirname(asset_path)
-        mesh_idx = 0
-        body_name = body_builder.xform.GetPrim().GetName()
-        if (os.path.basename(os.path.dirname(asset_dir)) == "grp_objects"
-                or "Pen" in asset_name
-                or "Keychain" in asset_name):
-            tmp_usd_mesh_file_path, tmp_origin_mesh_file_path = self.import_mesh(
-                mesh_file_path=asset_path, merge_mesh=True)
-            mesh_stage = Usd.Stage.Open(tmp_usd_mesh_file_path)
-            for mesh_prim in [prim for prim in mesh_stage.Traverse() if prim.IsA(UsdGeom.Mesh)]:
-                mesh_name = mesh_prim.GetName()
-                mesh_path = mesh_prim.GetPath()
-                mesh_property = MeshProperty.from_mesh_file_path(mesh_file_path=tmp_usd_mesh_file_path,
-                                                                 mesh_path=mesh_path)
-                geom_property = GeomProperty(geom_type=GeomType.MESH,
-                                             is_visible=True,
-                                             is_collidable=True)
-                geom_builder = body_builder.add_geom(geom_name=f"SM_{body_name}_{asset_name}",
-                                                     geom_property=geom_property)
-                geom_builder.add_mesh(mesh_name=mesh_name, mesh_property=mesh_property)
-        else:
-            if "Chair" in asset_name:
-                print(asset_name)
-            file_text = re.sub(r'[^a-zA-Z]', '', asset_name)
-            for root, dirs, files in os.walk(asset_dir):
-                for file in files:
-                    file_name = os.path.splitext(file)[0]
-                    if file.endswith('.stl') and file_text in file_name:
-                        asset_path = os.path.join(root, file)
-                        tmp_usd_mesh_file_path, tmp_origin_mesh_file_path = self.import_mesh(
-                            mesh_file_path=asset_path, merge_mesh=True)
-                        mesh_stage = Usd.Stage.Open(tmp_usd_mesh_file_path)
-                        for mesh_prim in [prim for prim in mesh_stage.Traverse() if prim.IsA(UsdGeom.Mesh)]:
-                            mesh_name = mesh_prim.GetName()
-                            mesh_path = mesh_prim.GetPath()
-                            mesh_property = MeshProperty.from_mesh_file_path(mesh_file_path=tmp_usd_mesh_file_path,
-                                                                             mesh_path=mesh_path)
-                            geom_property = GeomProperty(geom_type=GeomType.MESH,
-                                                         is_visible=True,
-                                                         is_collidable=True)
-                            geom_builder = body_builder.add_geom(geom_name=f"SM_{body_name}_{asset_name}_{mesh_idx}",
-                                                                 geom_property=geom_property)
-                            geom_builder.add_mesh(mesh_name=mesh_name, mesh_property=mesh_property)
-                            mesh_idx += 1
 
 
 
