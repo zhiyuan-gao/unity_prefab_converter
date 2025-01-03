@@ -1,0 +1,82 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "FridgeDrawer2_18_FridgeDrawer2C6_2_GeomSubset_6"
+    {
+        def Mesh "FridgeDrawer2_18_FridgeDrawer2C6_2_GeomSubset_6"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [24, 25, 27, 26]
+            rel material:binding = </root/_materials/M_FridgeDrawer2C6_6>
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(0.000154, 0.015229, -0.841603), (0.000163, 0.015229, -0.841603), (0.000154, 0.015237, -0.841603), (0.000163, 0.015237, -0.841603), (0.000154, 0.015229, -0.841603), (0.000163, 0.015229, -0.841603), (0.000154, 0.015237, -0.841603), (0.000163, 0.015237, -0.841603), (0.000154, 0.015229, -0.841603), (0.000163, 0.015229, -0.841603), (0.000154, 0.015237, -0.841603), (0.000163, 0.015237, -0.841603), (0.000154, 0.015229, -0.841603), (0.000163, 0.015229, -0.841603), (0.000154, 0.015237, -0.841603), (0.000163, 0.015237, -0.841603), (0.000154, 0.015229, -0.841603), (0.000163, 0.015229, -0.841603), (0.000154, 0.015237, -0.841603), (0.000163, 0.015237, -0.841603), (0.000154, 0.015229, -0.841603), (0.000163, 0.015229, -0.841603), (0.000154, 0.015237, -0.841603), (0.000163, 0.015237, -0.841603), (0.000154, 0.015229, -0.841603), (0.000163, 0.015229, -0.841603), (0.000154, 0.015237, -0.841603), (0.000163, 0.015237, -0.841603), (0.027887, 0.119722, 0.292065), (0.447011, 0.119721, 0.292065), (0.027887, 0.057353, 0.196658), (0.027887, 0.052915, 0.194256), (0.447011, 0.052913, 0.194256), (0.447011, 0.057352, 0.196658), (0.027887, 0.119722, 0.298609), (0.027887, 0.057353, 0.298609), (0.027887, 0.052915, 0.298609), (0.027886, -0.173477, 0.298609), (0.447011, 0.057352, 0.298609), (0.447011, 0.119721, 0.298609), (0.447011, 0.052913, 0.298609), (0.44701, -0.173479, 0.298609), (0.44701, -0.140436, 0.194256), (0.44701, -0.158768, 0.212588), (0.027886, -0.158767, 0.212589), (0.027886, -0.140435, 0.194256), (0.027886, -0.157371, 0.205573), (0.44701, -0.157372, 0.205573), (0.027886, -0.153397, 0.199626), (0.44701, -0.153398, 0.199626), (0.027886, -0.14745, 0.195652), (0.44701, -0.147451, 0.195652), (0.032441, 0.112222, 0.294299), (0.442457, 0.112221, 0.294299), (0.439942, 0.053192, 0.201179), (0.034956, 0.053193, 0.201179), (0.442607, -0.151005, 0.214024), (0.440049, -0.167327, 0.299661), (0.034848, -0.167325, 0.299661), (0.032289, -0.151004, 0.214024), (0.439942, 0.051406, 0.200212), (0.034956, 0.051407, 0.200212), (0.037732, 0.057353, 0.298609), (0.034849, 0.113481, 0.298609), (0.037732, 0.052915, 0.298609), (0.442539, -0.150107, 0.208583), (0.442539, -0.147838, 0.205186), (0.442539, -0.144442, 0.202917), (0.44259, -0.139663, 0.202106), (0.437166, 0.052913, 0.298609), (0.44005, 0.11348, 0.298609), (0.437166, 0.057352, 0.298609), (0.032306, -0.139661, 0.202106), (0.032358, -0.144441, 0.202917), (0.032358, -0.147837, 0.205186), (0.032358, -0.150106, 0.208583), (0.037169, 0.052609, 0.278644), (0.03422, -0.16332, 0.278644), (0.437729, 0.052607, 0.278644), (0.437735, 0.056499, 0.278644), (0.442034, 0.102297, 0.278644), (0.440676, -0.163321, 0.278644), (0.037163, 0.0565, 0.278644), (0.032864, 0.102298, 0.278644), (0.027887, 0.110949, 0.278644), (0.447011, 0.110947, 0.278644), (0.44701, -0.170064, 0.278644), (0.027886, -0.170063, 0.278644), (0.027887, 0.057353, 0.278644), (0.027887, 0.052915, 0.278644), (0.447011, 0.052913, 0.278644), (0.447011, 0.057352, 0.278644), (0.027886, -0.185925, 0.298609), (0.44701, -0.185926, 0.298609), (0.44701, -0.182512, 0.278644), (0.027886, -0.182511, 0.278644)]
+            bool[] primvars:sharp_face = [0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-5.253075, -117.08902), (-3.54152, -117.08902), (-3.54152, -115.377464), (-5.253075, -115.377464)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_FridgeDrawer2C6_6"
+        {
+            token outputs:surface.connect = </root/_materials/M_FridgeDrawer2C6_6/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_FridgeDrawer2C6_6/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 1
+                float3 inputs:normal.connect = </root/_materials/M_FridgeDrawer2C6_6/Image_Texture_001.outputs:rgb>
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/Fridge_Readout_AlbedoTransparency.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_FridgeDrawer2C6_6/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+
+            def Shader "Image_Texture_001"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/BrushedIron_Normal.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_FridgeDrawer2C6_6/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+        }
+    }
+}
+

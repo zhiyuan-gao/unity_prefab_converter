@@ -1,0 +1,155 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    doc = "Blender v4.1.0"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "root" (
+    customData = {
+        dictionary Blender = {
+            bool generated = 1
+        }
+    }
+)
+{
+    def Xform "CountertopIsland_4X3"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Mesh "CountertopIsland_4X3" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform bool doubleSided = 1
+            float3[] extent = [(-0.6096, -0.456922, -0.516547), (0.6096, 0.457478, 0.419483)]
+            int[] faceVertexCounts = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+            int[] faceVertexIndices = [0, 1, 3, 2, 2, 3, 5, 4, 4, 5, 7, 6, 1, 7, 5, 3, 6, 0, 2, 4, 7, 1, 9, 8, 1, 0, 10, 9, 0, 6, 11, 10, 6, 7, 8, 11, 8, 9, 15, 12, 9, 10, 14, 15, 10, 11, 13, 14, 11, 8, 12, 13, 17, 16, 18, 19, 20, 17, 19, 21, 22, 20, 21, 23, 16, 22, 23, 18, 13, 12, 16, 17, 14, 13, 17, 20, 15, 14, 20, 22, 12, 15, 22, 16, 18, 23, 21, 19]
+            rel material:binding = </root/_materials/M_CountertopIsland_4X3_0>
+            normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.6096, -0.456922, 0.389483), (0.6096, -0.456922, 0.389483), (-0.6096, -0.456922, 0.419483), (0.6096, -0.456922, 0.419483), (-0.6096, 0.457478, 0.419483), (0.6096, 0.457478, 0.419483), (-0.6096, 0.457478, 0.389483), (0.6096, 0.457478, 0.389483), (0.5896, 0.437478, 0.389483), (0.5896, -0.436922, 0.389483), (-0.5896, -0.436922, 0.389483), (-0.5896, 0.437478, 0.389483), (0.5896, 0.437478, -0.436547), (-0.5896, 0.437478, -0.436547), (-0.5896, -0.436922, -0.436547), (0.5896, -0.436922, -0.436547), (0.5696, 0.417478, -0.436547), (-0.5696, 0.417478, -0.436547), (0.5696, 0.417478, -0.516547), (-0.5696, 0.417478, -0.516547), (-0.5696, -0.416922, -0.436547), (-0.5696, -0.416922, -0.516547), (0.5696, -0.416922, -0.436547), (0.5696, -0.416922, -0.516547)]
+            bool[] primvars:sharp_face = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-10.475873, 0.209214), (-8.570864, 0.209214), (-8.570864, 0.256088), (-10.475873, 0.256088), (-10.475867, -0.256192), (-8.570868, -0.256192), (-8.570868, 1.172559), (-10.475867, 1.172559), (-10.475897, 0.660321), (-8.570842, 0.660321), (-8.570842, 0.707194), (-10.475897, 0.707194), (-10.166882, 1.109737), (-8.738091, 1.109737), (-8.738091, 1.15661), (-10.166882, 1.15661), (-10.737584, 1.090152), (-9.308834, 1.090152), (-9.308834, 1.137025), (-10.737584, 1.137025), (-8.570874, 0.194739), (-8.570874, 1.623483), (-8.602124, 1.592233), (-8.602124, 0.225989), (-8.570874, 1.623483), (-10.475863, 1.623483), (-10.444613, 1.592233), (-8.602124, 1.592233), (-10.475863, 1.623483), (-10.475863, 0.194739), (-10.444613, 0.225989), (-10.444613, 1.592233), (-10.475863, 0.194739), (-8.570874, 0.194739), (-8.602124, 0.225989), (-10.444613, 0.225989), (-19.284939, 0.634483), (-19.968065, 0.634483), (-19.968065, -0.010849), (-19.284939, -0.010849), (-18.815542, 0.388901), (-19.736792, 0.3889), (-19.736792, -0.256438), (-18.815542, -0.256438), (-19.5838, 0.388899), (-20.266924, 0.388899), (-20.266924, -0.256436), (-19.5838, -0.256436), (-19.73679, 0.028495), (-18.815542, 0.028496), (-18.815542, 0.673834), (-19.73679, 0.673834), (-20.116224, 0.758638), (-19.226221, 0.758638), (-19.226221, 0.821136), (-20.116224, 0.821136), (-19.59267, 0.25642), (-20.244541, 0.25642), (-20.244541, 0.193922), (-19.59267, 0.193922), (-19.226225, 0.788715), (-20.11622, 0.788715), (-20.11622, 0.726217), (-19.226225, 0.726217), (-19.592667, 0.289013), (-20.244545, 0.289013), (-20.244545, 0.226515), (-19.592667, 0.226515), (-19.736795, 0.302526), (-18.815538, 0.302526), (-18.831163, 0.318153), (-19.72117, 0.318153), (-19.736795, 0.985656), (-19.736795, 0.302526), (-19.72117, 0.318153), (-19.72117, 0.970033), (-18.815538, 0.985656), (-19.736795, 0.985656), (-19.72117, 0.970033), (-18.831163, 0.970033), (-18.815538, 0.302526), (-18.815538, 0.985656), (-18.831163, 0.970033), (-18.831163, 0.318153), (-19.226223, 0.2717), (-19.226223, 0.923576), (-20.116222, 0.923576), (-20.116222, 0.2717)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            uniform token subsetFamily:materialBind:familyType = "nonOverlapping"
+
+            def GeomSubset "M_CountertopIsland_4X3_0" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token elementType = "face"
+                uniform token familyName = "materialBind"
+                int[] indices = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                rel material:binding = </root/_materials/M_CountertopIsland_4X3_0>
+            }
+
+            def GeomSubset "M_CountertopIsland_4X3_1" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token elementType = "face"
+                uniform token familyName = "materialBind"
+                int[] indices = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+                rel material:binding = </root/_materials/M_CountertopIsland_4X3_1>
+            }
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_CountertopIsland_4X3_0"
+        {
+            token outputs:surface.connect = </root/_materials/M_CountertopIsland_4X3_0/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_CountertopIsland_4X3_0/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/marbleBase2.jpg@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_CountertopIsland_4X3_0/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+
+        def Material "M_CountertopIsland_4X3_1"
+        {
+            token outputs:surface.connect = </root/_materials/M_CountertopIsland_4X3_1/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_CountertopIsland_4X3_1/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float3 inputs:normal.connect = </root/_materials/M_CountertopIsland_4X3_1/Image_Texture_001.outputs:rgb>
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/DarkWood2.tif@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_CountertopIsland_4X3_1/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+
+            def Shader "Image_Texture_001"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/HammeredMetal_Normal.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_CountertopIsland_4X3_1/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+        }
+    }
+}
+

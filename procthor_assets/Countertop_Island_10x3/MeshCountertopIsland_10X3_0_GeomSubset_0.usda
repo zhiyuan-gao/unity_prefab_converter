@@ -1,0 +1,70 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "MeshCountertopIsland_10X3_0_GeomSubset_0"
+    {
+        def Mesh "MeshCountertopIsland_10X3_0_GeomSubset_0"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4, 4, 4, 4, 4, 4, 4, 4, 4]
+            int[] faceVertexIndices = [0, 1, 3, 2, 2, 3, 5, 4, 4, 5, 7, 6, 1, 7, 5, 3, 6, 0, 2, 4, 0, 6, 8, 9, 6, 7, 10, 8, 7, 1, 11, 10, 1, 0, 9, 11]
+            rel material:binding = </root/_materials/M_CountertopIsland_10X3_0>
+            normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (-8.330263e-7, 0, -1), (8.330263e-7, 0, -1)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-1.524245, -0.456922, 0.389483), (1.523755, -0.456922, 0.389483), (-1.524245, -0.456922, 0.419483), (1.523755, -0.456922, 0.419483), (-1.524245, 0.457478, 0.419483), (1.523755, 0.457478, 0.419483), (-1.524245, 0.457478, 0.389483), (1.523755, 0.457478, 0.389483), (-1.504245, 0.437478, 0.389483), (-1.504245, -0.436922, 0.389483), (1.503755, 0.437478, 0.389483), (1.503755, -0.436922, 0.389483), (1.503755, -0.436922, -0.436547), (1.503755, 0.437478, -0.436547), (-1.504245, 0.437478, -0.436547), (-1.504245, -0.436922, -0.436547), (1.483755, -0.416922, -0.436547), (1.483755, 0.417478, -0.436547), (1.483755, -0.416922, -0.516547), (1.483755, 0.417478, -0.516547), (-1.484245, 0.417478, -0.436547), (-1.484245, 0.417478, -0.516547), (-1.484245, -0.416922, -0.436547), (-1.484245, -0.416922, -0.516547)]
+            bool[] primvars:sharp_face = [0, 0, 0, 0, 0, 0, 0, 0, 0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-12.11911, 0.206651), (-7.356585, 0.206651), (-7.356585, 0.253525), (-12.11911, 0.253525), (-12.119098, -0.323049), (-7.356598, -0.32305), (-7.356597, 1.1057), (-12.119098, 1.105701), (-12.11917, 0.528709), (-7.356524, 0.528708), (-7.356524, 0.575582), (-12.11917, 0.575583), (-10.103639, 0.850582), (-8.674847, 0.850582), (-8.674847, 0.897456), (-10.103639, 0.897456), (-10.103621, 0.867136), (-8.674864, 0.867136), (-8.674864, 0.914011), (-10.103621, 0.914011), (-12.119123, 1.427582), (-12.119123, -0.001183), (-12.087873, 0.030068), (-12.087873, 1.396334), (-12.119123, -0.001183), (-7.356572, -0.001183), (-7.387821, 0.030068), (-12.087873, 0.030068), (-7.356572, -0.001183), (-7.356572, 1.427583), (-7.38782, 1.396333), (-7.387821, 0.030068), (-7.356572, 1.427583), (-12.119123, 1.427582), (-12.087873, 1.396334), (-7.38782, 1.396333)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_CountertopIsland_10X3_0"
+        {
+            token outputs:surface.connect = </root/_materials/M_CountertopIsland_10X3_0/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_CountertopIsland_10X3_0/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/marbleBase2.jpg@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_CountertopIsland_10X3_0/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+

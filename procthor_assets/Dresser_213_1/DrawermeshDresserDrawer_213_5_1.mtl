@@ -1,0 +1,11 @@
+newmtl M_DresserDrawer_213_5_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.94852940 0.67580340 0.38359648
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.00000000
+illum 2
+map_Kd textures/DarkWoodFloors.jpg
+map_Bump textures/HammeredMetal_Normal.png

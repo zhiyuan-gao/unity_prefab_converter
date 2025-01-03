@@ -1,0 +1,13 @@
+# Blender 4.1.0 MTL File: 'None'
+# www.blender.org
+
+newmtl M_RobothorFloorLampHolmo_1
+Ns 19.999990
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd textures/RoboTHOR_Floor_Lamp_Secondary_Holmo_AlbedoTransparency.jpg
+map_Bump -bm 1.000000 textures/RoboTHOR_Floor_Lamp_Secondary_Holmo_Normal.jpg

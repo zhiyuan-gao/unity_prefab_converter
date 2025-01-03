@@ -1,0 +1,11 @@
+newmtl M_Sofa_216_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.73529410 0.64461280 0.52984430
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.00000000
+illum 2
+map_Kd textures/Sofa_velvet.001_AlbedoTransparency.png
+map_Bump textures/Sofa_velvet.001_Normal.png

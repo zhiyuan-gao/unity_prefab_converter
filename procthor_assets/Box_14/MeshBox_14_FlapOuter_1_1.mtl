@@ -1,0 +1,11 @@
+newmtl M_Box_14_FlapOuter_1_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.98529410 0.76907516 0.60131920
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.00000000
+illum 2
+map_Kd textures/Cardboard_AlbedoTransparency.png
+map_Bump textures/Cardboard_Normal.png

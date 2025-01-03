@@ -1,0 +1,11 @@
+newmtl M_TowelStatue_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.58823526 0.36481324 0.12543254
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.10000000 0.10000000 0.10000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 1.00000000
+illum 2
+map_Kd textures/StatueWoman1_DefaultMaterial_AlbedoTransparency.png
+map_Bump textures/StatueWoman1_DefaultMaterial_Normal.png

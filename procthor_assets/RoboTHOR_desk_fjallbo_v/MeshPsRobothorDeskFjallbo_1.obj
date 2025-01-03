@@ -1,0 +1,16 @@
+# Blender 4.1.0
+# www.blender.org
+mtllib MeshPsRobothorDeskFjallbo_1.mtl
+o PsRobothorDeskFjallbo
+v 0.478676 -0.177984 0.158543
+v 0.199726 -0.177984 0.158543
+v 0.199726 0.174133 0.158543
+v 0.478676 0.174133 0.158543
+vn -0.0000 -0.0000 1.0000
+vt -19.764660 0.917161
+vt -19.732819 0.917162
+vt -19.732819 0.360638
+vt -19.764660 0.360639
+s 1
+usemtl M_PsRobothorDeskFjallbo_0
+f 3/1/1 2/2/1 1/3/1 4/4/1

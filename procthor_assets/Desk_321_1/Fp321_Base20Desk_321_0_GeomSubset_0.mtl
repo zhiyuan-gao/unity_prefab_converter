@@ -1,0 +1,13 @@
+# Blender 4.1.0 MTL File: 'None'
+# www.blender.org
+
+newmtl M_Desk_321_0
+Ns 19.999990
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd textures/TexturesCom_WoodFine0038_1_seamless_albedo_S.png
+map_Bump -bm 1.000000 textures/TexturesCom_Medieval Metal_normalmap_S.png

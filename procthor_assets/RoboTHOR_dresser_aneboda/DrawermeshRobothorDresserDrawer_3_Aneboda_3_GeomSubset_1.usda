@@ -1,0 +1,82 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "DrawermeshRobothorDresserDrawer_3_Aneboda_3_GeomSubset_1"
+    {
+        def Mesh "DrawermeshRobothorDresserDrawer_3_Aneboda_3_GeomSubset_1"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [35, 32, 33, 34]
+            rel material:binding = </root/_materials/M_RobothorDresserDrawer_3_Aneboda_1>
+            normal3f[] normals = [(0.00028947467, -0.99999994, 0), (0.00028947467, -0.99999994, 0), (0.00028947467, -0.99999994, 0), (0.00028947467, -0.99999994, 0)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.399844, -0.189917, -0.457951), (-0.399844, -0.189917, -0.167041), (0.400156, -0.189686, -0.167041), (0.400156, -0.189686, -0.457951), (-0.399841, -0.199918, -0.167041), (-0.399841, -0.199918, -0.457951), (0.400158, -0.199686, -0.457951), (0.400158, -0.199686, -0.167041), (-0.379841, -0.199912, -0.437951), (0.380158, -0.199693, -0.437951), (0.380158, -0.199693, -0.187041), (-0.379841, -0.199912, -0.187041), (-0.379844, -0.189912, -0.437951), (0.380156, -0.189692, -0.437951), (0.380156, -0.189692, -0.187041), (-0.379844, -0.189912, -0.187041), (0.050158, -0.199775, -0.177033), (0.050163, -0.214537, -0.177033), (0.050163, -0.214537, -0.18417), (0.050165, -0.222682, -0.18417), (0.050165, -0.222682, -0.168899), (0.050158, -0.199775, -0.168899), (-0.049842, -0.199805, -0.177033), (-0.049837, -0.214567, -0.177033), (-0.049837, -0.214567, -0.18417), (-0.049835, -0.222711, -0.18417), (-0.049835, -0.222711, -0.168899), (-0.049842, -0.199805, -0.168899), (-0.379844, -0.192565, -0.437951), (-0.379844, -0.192565, -0.187041), (0.380156, -0.192345, -0.187041), (0.380156, -0.192345, -0.437951), (-0.379842, -0.197565, -0.187041), (-0.379842, -0.197565, -0.437951), (0.380158, -0.197345, -0.437951), (0.380158, -0.197345, -0.187041), (-0.365217, -0.189918, -0.455037), (0.366466, -0.189918, -0.455037), (-0.365217, -0.189918, -0.205983), (0.366466, -0.189918, -0.205983), (-0.365217, 0.187641, -0.205983), (0.366466, 0.187641, -0.205983), (-0.365217, 0.187641, -0.455037), (0.366466, 0.187641, -0.455037), (-0.354044, -0.189918, -0.205983), (0.355293, -0.189918, -0.205983), (0.355293, 0.178996, -0.205983), (-0.354044, 0.178996, -0.205983), (-0.354044, -0.189918, -0.445757), (0.355293, -0.189918, -0.445757), (0.355293, 0.178996, -0.445757), (-0.354044, 0.178996, -0.445757)]
+            bool[] primvars:sharp_face = [0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-1.049471, -2.510097), (-1.049471, -0.283532), (-1.78456, -0.283532), (-1.78456, -2.510098)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_RobothorDresserDrawer_3_Aneboda_1"
+        {
+            token outputs:surface.connect = </root/_materials/M_RobothorDresserDrawer_3_Aneboda_1/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_RobothorDresserDrawer_3_Aneboda_1/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float3 inputs:normal.connect = </root/_materials/M_RobothorDresserDrawer_3_Aneboda_1/Image_Texture_001.outputs:rgb>
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/WoodGrains2.jpg@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_RobothorDresserDrawer_3_Aneboda_1/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+
+            def Shader "Image_Texture_001"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/FloorDarkNRM.jpg@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_RobothorDresserDrawer_3_Aneboda_1/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+        }
+    }
+}
+

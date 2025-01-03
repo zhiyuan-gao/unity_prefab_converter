@@ -1,0 +1,11 @@
+newmtl M_Ottoman_210_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.47794116 0.38938150 0.33034170
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.00000000
+illum 2
+map_Kd textures/Ottoman_default.002_AlbedoTransparency.png
+map_Bump textures/Ottoman_default.002_Normal.png

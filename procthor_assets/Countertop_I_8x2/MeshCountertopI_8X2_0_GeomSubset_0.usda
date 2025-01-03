@@ -1,0 +1,70 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "MeshCountertopI_8X2_0_GeomSubset_0"
+    {
+        def Mesh "MeshCountertopI_8X2_0_GeomSubset_0"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4, 4, 4, 4, 4, 4, 4, 4, 4]
+            int[] faceVertexIndices = [12, 13, 1, 5, 1, 3, 6, 5, 2, 0, 4, 7, 5, 6, 9, 12, 1, 13, 8, 3, 6, 3, 8, 9, 12, 9, 7, 4, 0, 13, 12, 4, 8, 13, 0, 2]
+            rel material:binding = </root/_materials/M_CountertopI_8X2_0>
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1.0670692e-9, 0, -1), (-1.0670692e-9, 0, -1), (-1.0670692e-9, 0, -1), (-1.0670692e-9, 0, -1), (1, 0, 0), (1, 0, 0), (1, -4.0787214e-8, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, -3.568881e-8, 0)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-1.219238, 0.306747, 0.417919), (-1.219238, -0.302853, 0.417919), (-1.219238, 0.306747, 0.387919), (-1.219238, -0.302853, 0.387919), (1.219162, 0.306747, 0.417919), (1.219162, -0.302853, 0.417919), (1.219162, -0.302853, 0.387919), (1.219162, 0.306747, 0.387919), (-1.219238, -0.282853, 0.387919), (1.219162, -0.282852, 0.387919), (-1.219238, 0.306747, -0.518111), (1.219162, 0.306747, -0.518111), (1.219162, -0.282852, 0.417919), (-1.219238, -0.282852, 0.417919), (-1.219238, -0.282853, -0.438112), (1.219162, -0.282853, -0.438112), (-1.219238, -0.262853, -0.438112), (1.219162, -0.262853, -0.438112), (-1.219238, -0.262853, -0.518111), (1.219162, -0.262853, -0.518111)]
+            bool[] primvars:sharp_face = [0, 0, 0, 0, 0, 0, 0, 0, 0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-7.832847, -0.095979), (-11.642849, -0.09598), (-11.642849, -0.127231), (-7.832847, -0.127231), (-11.642853, 0.508766), (-11.642855, 0.461893), (-7.832841, 0.461892), (-7.832842, 0.508767), (-11.642898, 0.526816), (-11.642898, 0.479943), (-7.832795, 0.479942), (-7.832796, 0.526816), (-9.840604, 0.559307), (-9.840604, 0.512433), (-9.809351, 0.512433), (-9.809351, 0.559307), (-8.88809, 0.577357), (-8.919341, 0.577357), (-8.919341, 0.530483), (-8.88809, 0.530483), (-7.832844, 0.535012), (-11.642851, 0.535012), (-11.642851, 0.503762), (-7.832844, 0.503762), (-9.809351, 0.559307), (-9.809351, 0.512433), (-8.88808, 0.512433), (-8.88808, 0.559307), (-11.642849, 0.825268), (-11.642849, -0.09598), (-7.832847, -0.095979), (-7.832847, 0.825268), (-8.919341, 0.530483), (-8.919341, 0.577357), (-9.840593, 0.577357), (-9.840593, 0.530483)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_CountertopI_8X2_0"
+        {
+            token outputs:surface.connect = </root/_materials/M_CountertopI_8X2_0/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_CountertopI_8X2_0/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/marbleBase2.jpg@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_CountertopI_8X2_0/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+

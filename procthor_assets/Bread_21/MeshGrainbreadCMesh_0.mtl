@@ -1,0 +1,11 @@
+newmtl M_GrainbreadCMesh_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.90441180 0.80106850 0.69160900
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.00000000
+illum 2
+map_Kd textures/GrainBread_AlbedoTransparency.png
+map_Bump textures/GrainBread_Normal.png

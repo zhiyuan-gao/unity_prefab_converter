@@ -1,0 +1,11 @@
+newmtl M_BootsGroup63270_001_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.76470590 0.56678200 0.43858132
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.00000000
+illum 2
+map_Kd textures/Boots_Boots_AlbedoTransparency.png
+map_Bump textures/Boots_Boots_Normal.png

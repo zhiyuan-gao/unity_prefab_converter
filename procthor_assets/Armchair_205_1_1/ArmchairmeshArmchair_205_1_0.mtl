@@ -1,0 +1,11 @@
+newmtl M_Armchair_205_1_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.43382353 0.13985430 0.13397491
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.00000000
+illum 2
+map_Kd textures/SofaChair_velvet.001_AlbedoTransparency.png
+map_Bump textures/SofaChair_velvet.001_Normal.png

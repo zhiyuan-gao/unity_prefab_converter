@@ -1,0 +1,70 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "MeshRobothorWallDecor_4_3_0_GeomSubset_0"
+    {
+        def Mesh "MeshRobothorWallDecor_4_3_0_GeomSubset_0"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4, 3, 3]
+            int[] faceVertexIndices = [0, 1, 3, 2, 28, 30, 29, 28, 31, 30]
+            rel material:binding = </root/_materials/M_RobothorWallDecor_4_3_0>
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0.000031585114, -0.99999994, -0.0004023888), (0.0000316745, -0.99999994, -0.00040284666), (-0.00003098536, -0.99999994, -0.00040333753), (0.000031585114, -0.99999994, -0.0004023888), (-0.000031075142, -0.99999994, -0.00040319256), (0.0000316745, -0.99999994, -0.00040284666)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(0.001043, 0.014596, -0.38576), (0.001435, 0.014596, -0.38576), (0.001043, 0.014978, -0.38576), (0.001435, 0.014978, -0.38576), (0.001043, 0.014596, -0.38576), (0.001435, 0.014596, -0.38576), (0.001043, 0.014978, -0.38576), (0.001435, 0.014978, -0.38576), (0.001043, 0.014596, -0.38576), (0.001435, 0.014596, -0.38576), (0.001043, 0.014978, -0.38576), (0.001435, 0.014978, -0.38576), (-0.259724, 0.000455, -0.192023), (-0.259724, 0.014919, -0.192018), (-0.259724, 0.014787, 0.194755), (-0.259724, 0.000323, 0.19475), (0.262107, 0.014919, -0.192018), (0.262107, 0.014787, 0.194755), (0.262107, 0.000455, -0.192023), (0.262107, 0.000323, 0.19475), (0.252248, 0.000326, 0.184154), (0.252248, 0.004006, 0.184155), (-0.249865, 0.004006, 0.184155), (-0.249865, 0.000326, 0.184154), (-0.249865, 0.000453, -0.181427), (0.252248, 0.000453, -0.181427), (0.252248, 0.004134, -0.181426), (-0.249865, 0.004134, -0.181426), (0.24922, 0.004133, -0.179352), (-0.246837, 0.004133, -0.179352), (-0.246837, 0.004007, 0.182082), (0.24922, 0.004007, 0.182082)]
+            bool[] primvars:sharp_face = [0, 0, 0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-9.379675, -9.755536), (-9.379675, -9.75594), (-9.379271, -9.75594), (-9.379271, -9.755536), (-9, 0), (-10, 1), (-10, 0), (-9, 0), (-9, 1), (-10, 1)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_RobothorWallDecor_4_3_0"
+        {
+            token outputs:surface.connect = </root/_materials/M_RobothorWallDecor_4_3_0/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_RobothorWallDecor_4_3_0/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/Wall_Decor_Photo_1V_AlbedoTransparency.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_RobothorWallDecor_4_3_0/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+

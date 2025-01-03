@@ -1,0 +1,70 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "DrawermeshDresserDrawer_220_2_2_GeomSubset_0"
+    {
+        def Mesh "DrawermeshDresserDrawer_220_2_2_GeomSubset_0"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [3, 3]
+            int[] faceVertexIndices = [0, 2, 1, 0, 3, 2]
+            rel material:binding = </root/_materials/M_DresserDrawer_220_2_0>
+            normal3f[] normals = [(0.000007903922, -1, 0), (0.000007903921, -1, 0), (0.00000790392, -0.99999994, 0), (0.000007903922, -1, 0), (0.000007903922, -0.99999994, 0), (0.000007903921, -1, 0)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(0.449321, -0.252697, -0.072282), (-0.436764, -0.252704, -0.072282), (-0.436764, -0.252704, 0.186038), (0.449321, -0.252697, 0.186039), (-0.50429, -0.21561, 0.189329), (-0.50429, -0.238819, 0.189329), (-0.50429, -0.238819, -0.077112), (-0.504291, -0.21561, -0.077112), (0.522951, -0.21561, -0.077112), (0.522951, -0.238823, -0.077112), (0.522951, -0.238823, 0.189329), (0.522951, -0.21561, 0.189329), (0.511877, -0.249122, -0.077112), (-0.493216, -0.249122, -0.077112), (-0.493216, -0.249122, 0.189329), (0.511877, -0.249122, 0.189329), (0.511877, -0.21561, 0.19465), (0.511877, -0.238819, 0.19465), (-0.493216, -0.238815, 0.19465), (-0.493215, -0.21561, 0.19465), (0.459567, 0.171936, 0.180272), (0.459566, 0.171936, -0.052264), (-0.440904, 0.171944, -0.052264), (-0.440904, 0.171944, 0.180272), (-0.493216, -0.21561, -0.082433), (-0.493215, -0.238815, -0.082433), (0.511877, -0.238819, -0.082433), (0.511877, -0.21561, -0.082433), (-0.493215, -0.205299, 0.189329), (0.511877, -0.205303, 0.189329), (-0.493216, -0.205299, -0.077112), (0.511877, -0.205303, -0.077112), (0.493024, -0.205303, 0.180272), (-0.474364, -0.205299, 0.180272), (0.493024, -0.205303, -0.068054), (-0.474364, -0.205299, -0.068054), (0.493025, 0.203076, -0.068054), (0.493025, 0.203076, 0.180272), (-0.474363, 0.20308, 0.180272), (-0.474363, 0.20308, -0.068054), (-0.440905, -0.174167, -0.052264), (-0.440905, -0.174167, 0.180272), (0.459566, -0.174167, 0.180272), (0.459566, -0.174167, -0.052264)]
+            bool[] primvars:sharp_face = [0, 0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(0, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_DresserDrawer_220_2_0"
+        {
+            token outputs:surface.connect = </root/_materials/M_DresserDrawer_220_2_0/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_DresserDrawer_220_2_0/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/FlowerDecal.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_DresserDrawer_220_2_0/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+

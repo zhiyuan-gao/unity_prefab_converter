@@ -1,0 +1,71 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "DrawermeshSideTableDrawer_216_3_1_GeomSubset_1"
+    {
+        def Mesh "DrawermeshSideTableDrawer_216_3_1_GeomSubset_1"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+            int[] faceVertexIndices = [12, 14, 13, 12, 15, 14, 9, 15, 12, 9, 8, 15, 8, 14, 15, 8, 10, 14, 10, 13, 14, 10, 11, 13, 11, 12, 13, 11, 9, 12]
+            rel material:binding = </root/_materials/M_SideTableDrawer_216_3_1>
+            normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -0.99999994, 0), (0, -1, 0), (0, -0.99999994, 0), (0, -1, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(0.219725, -0.275501, 0.073803), (0.219725, -0.275501, 0.228603), (-0.229141, -0.275501, 0.228603), (-0.229141, -0.275501, 0.073803), (0.207725, -0.2815, 0.085803), (0.207725, -0.2815, 0.216603), (-0.217141, -0.2815, 0.216603), (-0.217141, -0.2815, 0.085803), (0.056442, -0.2815, 0.163003), (0.056442, -0.2815, 0.139403), (-0.065859, -0.2815, 0.163003), (-0.065859, -0.2815, 0.139403), (0.056442, -0.2895, 0.139403), (-0.065859, -0.2895, 0.139403), (-0.065859, -0.2895, 0.163003), (0.056442, -0.2895, 0.163003), (0.219725, -0.251, 0.073803), (0.219725, -0.251, 0.228603), (-0.229141, -0.251, 0.228603), (-0.229141, -0.251, 0.073803), (0.219725, 0.195259, 0.228603), (0.219725, 0.195259, 0.073803), (-0.229141, 0.195259, 0.228603), (-0.229141, 0.195259, 0.073803), (-0.217141, -0.239, 0.228603), (0.207725, -0.239, 0.228603), (0.207725, 0.183259, 0.228603), (-0.217141, 0.183259, 0.228603), (-0.217141, -0.239, 0.088888), (0.207725, -0.239, 0.088888), (0.207725, 0.183259, 0.088888), (-0.217141, 0.183259, 0.088888)]
+            bool[] primvars:sharp_face = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(0.393963, 0.621715), (0.238273, 0.655773), (0.238273, 0.621715), (0.393963, 0.621715), (0.393963, 0.655773), (0.238273, 0.655773), (1.49791, 0.417371), (1.463852, 0.451429), (1.463852, 0.417371), (1.49791, 0.417371), (1.49791, 0.451429), (1.463852, 0.451429), (-0.170416, 0.580847), (-0.014725, 0.614904), (-0.170416, 0.614904), (-0.170416, 0.580847), (-0.014725, 0.580847), (-0.014725, 0.614904), (1.504721, 0.451429), (1.538779, 0.417371), (1.538779, 0.451429), (1.504721, 0.451429), (1.504721, 0.417371), (1.538779, 0.417371), (0.524355, 0.539978), (0.680046, 0.574035), (0.524355, 0.574035), (0.524355, 0.539978), (0.680046, 0.539978), (0.680046, 0.574035)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_SideTableDrawer_216_3_1"
+        {
+            token outputs:surface.connect = </root/_materials/M_SideTableDrawer_216_3_1/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor = (0.75735295, 0.63906455, 0.14478807)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float3 inputs:normal.connect = </root/_materials/M_SideTableDrawer_216_3_1/Image_Texture.outputs:rgb>
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/Copper_Normal.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_SideTableDrawer_216_3_1/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+

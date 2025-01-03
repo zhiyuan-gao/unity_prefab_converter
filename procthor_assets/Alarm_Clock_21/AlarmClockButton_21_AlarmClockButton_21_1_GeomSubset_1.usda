@@ -1,0 +1,71 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "AlarmClockButton_21_AlarmClockButton_21_1_GeomSubset_1"
+    {
+        def Mesh "AlarmClockButton_21_AlarmClockButton_21_1_GeomSubset_1"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [4, 5, 7, 6]
+            rel material:binding = </root/_materials/M_AlarmClockButton_21_1>
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.0005, -0.005721, -0.330648), (0.0005, -0.005721, -0.330648), (-0.0005, -0.004721, -0.330648), (0.0005, -0.004721, -0.330648), (-0.0005, -0.005721, -0.330648), (0.0005, -0.005721, -0.330648), (-0.0005, -0.004721, -0.330648), (0.0005, -0.004721, -0.330648), (-0.0005, -0.005721, -0.330648), (0.0005, -0.005721, -0.330648), (-0.0005, -0.004721, -0.330648), (0.0005, -0.004721, -0.330648), (-0.0005, -0.005721, -0.330648), (0.0005, -0.005721, -0.330648), (-0.0005, -0.004721, -0.330648), (0.0005, -0.004721, -0.330648), (-0.0005, -0.005721, -0.330648), (0.0005, -0.005721, -0.330648), (-0.0005, -0.004721, -0.330648), (0.0005, -0.004721, -0.330648), (-0.05237, 0.006868, 0.076926), (0.052849, 0.006868, 0.076926), (-0.056345, 0.01382, 0.080997), (-0.057051, 0.013532, 0.080453), (-0.057051, 0.017971, 0.079234), (-0.056345, 0.018002, 0.079849), (-0.051397, 0.008355, 0.081874), (-0.051256, 0.00916, 0.082276), (0.051736, 0.00916, 0.082276), (0.051876, 0.008355, 0.081874), (0.05753, 0.013532, 0.080453), (0.056825, 0.01382, 0.080997), (0.056825, 0.018002, 0.079849), (0.05753, 0.017971, 0.079234), (-0.051256, 0.022661, 0.078569), (-0.051397, 0.023149, 0.077812), (0.051876, 0.023149, 0.077812), (0.051736, 0.022661, 0.078569), (-0.05816, 0.012195, 0.075564), (-0.05816, 0.016762, 0.074397), (-0.05237, 0.022089, 0.073035), (0.052849, 0.022089, 0.073035), (0.058639, 0.012195, 0.075564), (0.058639, 0.016762, 0.074397), (-0.056464, 0.008429, 0.076527), (-0.054855, 0.010525, 0.081902), (-0.055395, 0.009872, 0.081458), (0.056943, 0.008429, 0.076527), (0.055334, 0.010525, 0.081902), (0.055874, 0.009872, 0.081458), (-0.055395, 0.021633, 0.078229), (-0.054855, 0.021297, 0.078944), (-0.056464, 0.020528, 0.073434), (0.055874, 0.021633, 0.078229), (0.055334, 0.021297, 0.078944), (0.056943, 0.020528, 0.073434), (-0.051256, 0.01382, 0.080997), (0.051736, 0.01382, 0.080997), (0.051736, 0.018002, 0.079849), (-0.051256, 0.018002, 0.079849), (-0.056464, 0.00925, 0.079688), (-0.05816, 0.012999, 0.078659), (-0.05816, 0.017545, 0.077411), (-0.056464, 0.021294, 0.076382), (-0.05237, 0.022846, 0.075956), (0.052849, 0.022846, 0.075956), (0.056943, 0.021294, 0.076382), (0.058639, 0.017545, 0.077411), (0.058639, 0.012999, 0.078659), (0.056943, 0.00925, 0.079688), (0.052849, 0.007697, 0.080115), (-0.05237, 0.007697, 0.080115)]
+            bool[] primvars:sharp_face = [0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-14.606205, -5.071916), (-14.606205, -6.067932), (-13.610725, -6.067932), (-13.610725, -5.071916)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_AlarmClockButton_21_1"
+        {
+            token outputs:surface.connect = </root/_materials/M_AlarmClockButton_21_1/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor = (0.1397059, 0.1397059, 0.1397059)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float3 inputs:normal.connect = </root/_materials/M_AlarmClockButton_21_1/Image_Texture.outputs:rgb>
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/Copper_Normal.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_AlarmClockButton_21_1/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+

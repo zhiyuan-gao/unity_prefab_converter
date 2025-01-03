@@ -1,0 +1,70 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "MeshRobothorWallDecorInset_4_3_0_GeomSubset_0"
+    {
+        def Mesh "MeshRobothorWallDecorInset_4_3_0_GeomSubset_0"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4, 3, 3]
+            int[] faceVertexIndices = [0, 1, 3, 2, 28, 30, 29, 28, 31, 30]
+            rel material:binding = </root/_materials/M_RobothorWallDecorInset_4_3_0>
+            normal3f[] normals = [(0, 0, 0.99999994), (0, 0, 0.99999994), (0, 0, 0.99999994), (0, 0, 0.99999994), (0.000004534878, -1, -0.0000044508315), (-3.6744885e-7, -1, 2.1924997e-7), (-8.602625e-7, -1, 4.974123e-7), (0.000004534878, -1, -0.0000044508315), (0.0000040420728, -1, 0.0000051673796), (-3.6744885e-7, -1, 2.1924997e-7)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.001035, 0.017048, -0.670971), (-0.000365, 0.017048, -0.670971), (-0.001035, 0.017718, -0.670971), (-0.000365, 0.017718, -0.670971), (-0.001035, 0.017048, -0.670971), (-0.000365, 0.017048, -0.670971), (-0.001035, 0.017718, -0.670971), (-0.000365, 0.017718, -0.670971), (-0.001035, 0.017048, -0.670971), (-0.000365, 0.017048, -0.670971), (-0.001035, 0.017718, -0.670971), (-0.000365, 0.017718, -0.670971), (-0.447307, -0.007318, -0.335937), (-0.447307, 0.017384, -0.335937), (-0.447307, 0.017384, 0.333829), (-0.447307, -0.007318, 0.333829), (0.446086, 0.017383, -0.335937), (0.446086, 0.017383, 0.333829), (0.446086, -0.007318, -0.335937), (0.446086, -0.007318, 0.333829), (0.438127, -0.007318, 0.322901), (0.438127, -0.001032, 0.322901), (-0.439348, -0.001032, 0.322901), (-0.439348, -0.007318, 0.322901), (-0.439348, -0.007318, -0.325008), (0.438127, -0.007318, -0.325008), (0.438127, -0.001032, -0.325008), (-0.439348, -0.001032, -0.325008), (0.361079, -0.001033, -0.245286), (-0.362299, -0.001032, -0.245286), (-0.3623, -0.001032, 0.243178), (0.361079, -0.001033, 0.243178)]
+            bool[] primvars:sharp_face = [0, 0, 0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-9.410954, -9.755466), (-9.410954, -9.75594), (-9.41048, -9.75594), (-9.41048, -9.755466), (-9, 0), (-10, 1), (-10, 0), (-9, 0), (-9, 1), (-10, 1)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_RobothorWallDecorInset_4_3_0"
+        {
+            token outputs:surface.connect = </root/_materials/M_RobothorWallDecorInset_4_3_0/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_RobothorWallDecorInset_4_3_0/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/aert_van_der_neer_-_moonlit_landscape_with_a_view_of_the_new_amstel_river_and_castle_kostverloren.jpg@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_RobothorWallDecorInset_4_3_0/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+

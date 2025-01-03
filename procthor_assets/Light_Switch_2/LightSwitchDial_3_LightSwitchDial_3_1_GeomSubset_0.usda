@@ -1,0 +1,71 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "LightSwitchDial_3_LightSwitchDial_3_1_GeomSubset_0"
+    {
+        def Mesh "LightSwitchDial_3_LightSwitchDial_3_1_GeomSubset_0"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 3, 2]
+            rel material:binding = </root/_materials/M_LightSwitchDial_3_0>
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.0005, -0.0005, 0), (0.0005, -0.0005, 0), (-0.0005, 0.0005, 0), (0.0005, 0.0005, 0), (-0.0005, -0.0005, 0), (0.0005, -0.0005, 0), (-0.0005, 0.0005, 0), (0.0005, 0.0005, 0), (-0.0005, -0.0005, 0), (0.0005, -0.0005, 0), (-0.0005, 0.0005, 0), (0.0005, 0.0005, 0), (-0.019663, -0.02595, -0.023486), (-0.017811, -0.026286, -0.024179), (-0.017802, -0.027597, -0.022689), (-0.017794, -0.027715, -0.020699), (-0.019658, -0.026991, -0.02096), (-0.020426, -0.025327, -0.021753), (0.019663, -0.02595, -0.023486), (0.020426, -0.025327, -0.021753), (0.019663, -0.026993, -0.020968), (0.017811, -0.027719, -0.020714), (0.01781, -0.027598, -0.022693), (0.017811, -0.026286, -0.024179), (-0.019663, -0.016566, 0.02752), (-0.017811, -0.017333, 0.027468), (-0.017801, -0.016686, 0.029344), (-0.017794, -0.015017, 0.030433), (-0.019658, -0.014884, 0.029674), (-0.020426, -0.01475, 0.027835), (0.019663, -0.016566, 0.02752), (0.020426, -0.01475, 0.027835), (0.019663, -0.014891, 0.029672), (0.017811, -0.015032, 0.030429), (0.01781, -0.01669, 0.029343), (0.017811, -0.017333, 0.027468), (-0.017828, -0.01747, 0.002895), (-0.017827, -0.017344, 0.004758), (-0.019665, -0.016572, 0.004648), (-0.020426, -0.014709, 0.004382), (-0.020426, -0.014836, 0.002527), (-0.020426, -0.015217, 0.000691), (-0.019665, -0.017076, 0.000956), (-0.017827, -0.017847, 0.001066), (0.017828, -0.01747, 0.002895), (0.017827, -0.017847, 0.001066), (0.019665, -0.017076, 0.000956), (0.020426, -0.015217, 0.000691), (0.020426, -0.014836, 0.002527), (0.020426, -0.014709, 0.004382), (0.019665, -0.016572, 0.004648), (0.017827, -0.017344, 0.004758), (-0.020426, 0.000792, 0.03174), (-0.019665, 0.001059, 0.033731), (-0.017827, 0.00117, 0.034555), (0.017827, 0.00117, 0.034555), (0.019665, 0.001059, 0.033731), (0.020426, 0.000792, 0.03174), (-0.017827, -0.011748, -0.032429), (-0.019665, -0.011638, -0.031604), (-0.020426, -0.011371, -0.029613), (0.020426, -0.011371, -0.029613), (0.019665, -0.011638, -0.031604), (0.017827, -0.011749, -0.032429), (-0.020426, -0.005713, -0.00067), (-0.020426, -0.005465, 0.001176), (-0.020426, -0.005217, 0.003023), (0.020426, -0.005217, 0.003023), (0.020426, -0.005465, 0.001176), (0.020426, -0.005713, -0.00067), (-0.019319, -0.027157, -0.022508), (0.019323, -0.027158, -0.022511), (-0.019319, -0.01631, 0.029052), (0.019323, -0.016314, 0.02905), (-0.019665, -0.016699, 0.002789), (0.019665, -0.016699, 0.002789)]
+            bool[] primvars:sharp_face = [0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(1.273886, 0.679263), (1.276867, 0.679263), (1.276867, 0.682245), (1.273886, 0.682245)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_LightSwitchDial_3_0"
+        {
+            token outputs:surface.connect = </root/_materials/M_LightSwitchDial_3_0/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor = (0.42647058, 0.42647058, 0.42647058)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float3 inputs:normal.connect = </root/_materials/M_LightSwitchDial_3_0/Image_Texture.outputs:rgb>
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/HammeredMetal_Normal.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_LightSwitchDial_3_0/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+

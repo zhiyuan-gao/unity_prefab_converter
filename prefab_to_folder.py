@@ -189,8 +189,9 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zhiyuan/allenai_ai2th
             rotation_unity = prefab_info[sub_obj]['Transform']["Rotation"]
             scale_unity = prefab_info[sub_obj]['Transform']["Scale"]
 
-            model_scale_factor = prefab_info[sub_obj]['ScaleFactor'] #scale factor of fbx itself, due to the different length unit.
-
+            #scale factor of fbx itself, due to the different length unit.
+            model_scale_factor = prefab_info[sub_obj].get('ScaleFactor', 1.0)
+            
             position_unity_vec = Matrix.Translation((
                 position_unity['x'],
                 position_unity['y'],

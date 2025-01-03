@@ -1,0 +1,11 @@
+newmtl M_AlarmClockHandMinute_10_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.94117650 0.94117650 0.94117650
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.52800000
+illum 2
+map_Kd textures/BrushedIron_AlbedoTransparency.png
+map_Bump textures/BrushedIron_Normal.png

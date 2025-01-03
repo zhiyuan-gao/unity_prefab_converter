@@ -1,0 +1,13 @@
+# Blender 4.1.0 MTL File: 'None'
+# www.blender.org
+
+newmtl M_AlarmClockButton_29_0
+Ns 19.999990
+Ka 0.528000 0.528000 0.528000
+Kd 0.352941 0.096557 0.010381
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Bump -bm 1.000000 textures/HammeredMetal_Normal.png

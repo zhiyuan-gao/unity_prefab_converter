@@ -1,0 +1,11 @@
+newmtl M_Doorway_7_0
+Ka 0.20000000 0.20000000 0.20000000
+Kd 0.52941180 0.30752596 0.30752596
+Ks 0.20000000 0.20000000 0.20000000
+Ke 0.00000000 0.00000000 0.00000000
+Ns 20.00000000
+Tr 1.00000000
+Pm 0.20900000
+illum 2
+map_Kd textures/TexturesCom_WoodFine0050_1_seamless_S.png
+map_Bump textures/HammeredMetal_Normal.png

@@ -1,0 +1,82 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "AlarmClockButton_19_AlarmClockButton_19_1_GeomSubset_2"
+    {
+        def Mesh "AlarmClockButton_19_AlarmClockButton_19_1_GeomSubset_2"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [8, 9, 11, 10]
+            rel material:binding = </root/_materials/M_AlarmClockButton_19_2>
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.0005, -0.0005, -0.306432), (0.0005, -0.0005, -0.306432), (-0.0005, 0.0005, -0.306432), (0.0005, 0.0005, -0.306432), (-0.0005, -0.0005, -0.306432), (0.0005, -0.0005, -0.306432), (-0.0005, 0.0005, -0.306432), (0.0005, 0.0005, -0.306432), (-0.0005, -0.0005, -0.306432), (0.0005, -0.0005, -0.306432), (-0.0005, 0.0005, -0.306432), (0.0005, 0.0005, -0.306432), (-0.0005, -0.0005, -0.306432), (0.0005, -0.0005, -0.306432), (-0.0005, 0.0005, -0.306432), (0.0005, 0.0005, -0.306432), (-0.0005, -0.0005, -0.306432), (0.0005, -0.0005, -0.306432), (-0.0005, 0.0005, -0.306432), (0.0005, 0.0005, -0.306432), (-0.067163, -0.023144, 0.055653), (-0.063805, -0.026742, 0.055653), (-0.063805, -0.023144, 0.057115), (0.063805, -0.023144, 0.057115), (0.063805, -0.026742, 0.055653), (0.067163, -0.023144, 0.055653), (-0.067163, 0.020538, 0.055653), (-0.063805, 0.020538, 0.057115), (-0.063805, 0.024137, 0.055653), (0.063805, 0.024137, 0.055653), (0.063805, 0.020538, 0.057115), (0.067163, 0.020538, 0.055653), (-0.063805, -0.026742, 0.042493), (-0.067163, -0.023144, 0.042493), (0.067163, -0.023144, 0.042493), (0.063805, -0.026742, 0.042493), (-0.067163, 0.020538, 0.042493), (-0.063805, 0.024137, 0.042493), (0.063805, 0.024137, 0.042493), (0.067163, 0.020538, 0.042493)]
+            bool[] primvars:sharp_face = [0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(-7.760818, -5.071917), (-7.760818, -6.067932), (-6.765338, -6.067932), (-6.765338, -5.071917)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_AlarmClockButton_19_2"
+        {
+            token outputs:surface.connect = </root/_materials/M_AlarmClockButton_19_2/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor.connect = </root/_materials/M_AlarmClockButton_19_2/Image_Texture.outputs:rgb>
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float3 inputs:normal.connect = </root/_materials/M_AlarmClockButton_19_2/Image_Texture_001.outputs:rgb>
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/BrushedIron_AlbedoTransparency.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_AlarmClockButton_19_2/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+
+            def Shader "Image_Texture_001"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/BrushedIron_Normal.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_AlarmClockButton_19_2/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+        }
+    }
+}
+

@@ -1,0 +1,71 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    upAxis = "Z"
+)
+
+def Xform "root"
+{
+    def Xform "LightSwitchDialA_26_LightSwitchDialA_26_1_GeomSubset_0"
+    {
+        def Mesh "LightSwitchDialA_26_LightSwitchDialA_26_1_GeomSubset_0"
+        {
+            uniform bool doubleSided = 1
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 3, 2]
+            rel material:binding = </root/_materials/M_LightSwitchDialA_26_0>
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.0005, 0.010768, 0), (0.0005, 0.010768, 0), (-0.0005, 0.011767, 0), (0.0005, 0.011767, 0), (-0.0005, 0.010768, 0), (0.0005, 0.010768, 0), (-0.0005, 0.011767, 0), (0.0005, 0.011767, 0), (-0.0005, 0.010768, 0), (0.0005, 0.010768, 0), (-0.0005, 0.011767, 0), (0.0005, 0.011767, 0), (0.000023, 0.01976, 0.039148), (-0.056839, 0.01976, 0.039148), (0.000024, 0.015238, 0.019368), (-0.056839, 0.015238, 0.019368), (0.000023, 0.010854, 0.000187), (-0.056839, 0.010854, 0.000187), (0.000023, 0.00621, -0.020128), (-0.056839, 0.00621, -0.020128), (0.000023, 0.001671, -0.039985), (-0.056839, 0.001671, -0.039985), (-0.055639, -0.002729, -0.059231), (-0.056963, -0.002323, -0.057456), (-0.057004, -0.019993, -0.048464), (-0.05566, -0.020405, -0.050019), (-0.055674, -0.021299, -0.04822), (0.000148, -0.002323, -0.057457), (-0.001176, -0.002729, -0.059231), (-0.001142, -0.0213, -0.048224), (-0.001177, -0.020395, -0.050031), (0.000188, -0.019994, -0.048468), (-0.056966, 0.025276, 0.06328), (-0.055647, 0.025651, 0.064922), (-0.055698, -0.007778, 0.063024), (-0.055674, -0.006282, 0.064431), (-0.057028, -0.006525, 0.062926), (0.000212, -0.006529, 0.062925), (-0.001118, -0.006313, 0.064437), (-0.001118, -0.007782, 0.063023), (-0.001168, 0.025651, 0.064922), (0.000152, 0.025276, 0.06328), (-0.055644, -0.022577, -0.031178), (-0.056959, -0.021278, -0.030976), (0.000143, -0.02128, -0.030985), (-0.001172, -0.022579, -0.031187), (0.000149, -0.011015, 0.043377), (-0.001168, -0.01226, 0.043633), (-0.055647, -0.01226, 0.043635), (-0.056964, -0.011014, 0.043379), (0.000149, -0.015196, 0.025038), (-0.001168, -0.016443, 0.025297), (-0.055647, -0.016441, 0.0253), (-0.056964, -0.015196, 0.025041), (0.000149, -0.018784, 0.007238), (-0.001168, -0.020044, 0.007423), (-0.055647, -0.020044, 0.007423), (-0.056964, -0.018784, 0.007238), (0.000147, -0.020859, -0.01198), (-0.001169, -0.02214, -0.011921), (-0.055647, -0.022137, -0.011914), (-0.056963, -0.020857, -0.011973)]
+            bool[] primvars:sharp_face = [0] (
+                interpolation = "uniform"
+            )
+            texCoord2f[] primvars:UVMap = [(1.068313, 0.706485), (1.068315, 0.704942), (1.069791, 0.704947), (1.06979, 0.706473)] (
+                interpolation = "faceVarying"
+            )
+        }
+    }
+
+    def Scope "_materials"
+    {
+        def Material "M_LightSwitchDialA_26_0"
+        {
+            token outputs:surface.connect = </root/_materials/M_LightSwitchDialA_26_0/Principled_BSDF.outputs:surface>
+
+            def Shader "Principled_BSDF"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:clearcoat = 0
+                float inputs:clearcoatRoughness = 0.03
+                color3f inputs:diffuseColor = (0.19852942, 0.19852942, 0.19852942)
+                float inputs:ior = 1.5
+                float inputs:metallic = 0
+                float3 inputs:normal.connect = </root/_materials/M_LightSwitchDialA_26_0/Image_Texture.outputs:rgb>
+                float inputs:opacity = 1
+                float inputs:roughness = 0.8585787
+                float inputs:specular = 0.2
+                token outputs:surface
+            }
+
+            def Shader "Image_Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/HammeredMetal_Normal.png@
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </root/_materials/M_LightSwitchDialA_26_0/uvmap.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "uvmap"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "UVMap"
+                float2 outputs:result
+            }
+        }
+    }
+}
+
