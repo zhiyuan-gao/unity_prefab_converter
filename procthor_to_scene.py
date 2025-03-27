@@ -22,15 +22,6 @@ from create_thick_wall import create_wall_info, sort_rectangle_vertices
 
 source_dir = os.path.dirname(os.path.realpath(__file__))
 
-ignore_objects = ["Painting"]
-
-ignore_walls = []
-
-include_doors = [
-    "DoorwayDouble",
-    "Doorway"
-]
-
 
 def snake_to_camel(snake_str):
     # Split the string by underscores, but keep numbers separated
@@ -156,8 +147,6 @@ class ProcthorImporter(Factory):
     def import_object(self, parent_body_name: str, obj: Dict[str, Any]) -> None:
         body_name = obj["id"].replace("|", "_").replace("_surface", "")
 
-        if any([ignore_object in body_name for ignore_object in ignore_objects]):
-            return None
 
         body_builder = self._world_builder.add_body(body_name=body_name, parent_body_name=house_name)
 
@@ -358,8 +347,9 @@ class ProcthorImporter(Factory):
 
         theta = -numpy.sign(p0p1_norm[2]) * numpy.arccos(numpy.dot(p0p1_norm, numpy.array([1, 0, 0])))
         rotY = numpy.degrees(theta)
-
-        rotation_mat = Rotation.from_euler("xyz", [0, rotY, 0],
+        
+        # somehow need a extra 180 degree rotation around z axis
+        rotation_mat = Rotation.from_euler("xyz", [0, rotY+180, 0],
                                            degrees=True)
 
         x_90_rotation_matrix = numpy.array([[1, 0, 0],

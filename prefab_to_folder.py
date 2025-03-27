@@ -320,6 +320,17 @@ def convert_prefab(asset_id, prefab_info, root_path='/home/zhiyuan/allenai_ai2th
                 obj.matrix_world = transfrom_box_center @ obj.matrix_world
                 bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
+
+            # create a mirror matrix along the X axis
+            # don't know why, but the object is mirrored along the X axis in Unity. Also mirror the texture later
+            mirror_x_matrix = Matrix.Scale(-1, 4, (1, 0, 0))
+
+            obj.matrix_world = obj.matrix_world @ mirror_x_matrix
+
+            bpy.context.view_layer.objects.active = obj
+            obj.select_set(True)
+            bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+
             if not obj.data.materials:
                 obj.data.materials.append(None)  
             for index, material in enumerate(obj.data.materials):
@@ -778,7 +789,7 @@ if __name__=="__main__":
                 print(f"Prefab {asset_id} not found in AllPrefabDetails.json")
 # 
     # from itertools import chain
-    # with open('/home/zgao/unity_prefab_converter/house_0.json', 'r') as file:
+    # with open('/home/zgao/unity_prefab_converter/house_8.json', 'r') as file:
     # # with open('/home/zgao/procthor/procthor/klbr/house_0.json', 'r') as file:
     #     test_house = json.load(file)
     # for obj in chain(test_house['objects'],test_house['doors'],test_house['windows']):
@@ -795,7 +806,7 @@ if __name__=="__main__":
 
 
     # Test the conversion for a single prefab  
-    # asset_id= 'Teddy_Bear_1'
+    # asset_id= 'Countertop_L_6x4'
     # asset_id = 'Box_20'
     # asset_id = 'Laptop_6'
     # # asset_id = 'Doorway_Double_9'
@@ -808,4 +819,3 @@ if __name__=="__main__":
 
     # prefab_info = all_prefab_details[asset_id]
     # process_pipeline(asset_id, prefab_info,root_path,shift_center=True)
-

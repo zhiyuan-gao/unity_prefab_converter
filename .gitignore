@@ -4,3 +4,6 @@ prefab_to_folder copy.py
 usd_sub_obj_test copy.py
 procthor_to_scene copy.py
 house_*/
+house_*.json
+blender_test.py
+add_physics_property.py
