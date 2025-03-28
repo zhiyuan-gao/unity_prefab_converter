@@ -18,7 +18,7 @@ from pxr import Usd, UsdGeom, UsdShade, Gf
 import random
 import argparse
 
-from create_thick_wall import create_wall_info, sort_rectangle_vertices
+from create_thick_wall import create_wall_info, sort_rectangle_vertices,triangulate_2d
 
 source_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -128,11 +128,11 @@ class ProcthorImporter(Factory):
         walls = self.house["walls"]
         doors = self.house["doors"]
         windows = self.house["windows"]
+        rooms= self.house["rooms"]
 
         for window_id, window in enumerate(windows):
             self.import_hole_cover(window, window_id, walls)
 
-        # walls_with_door = {}
         for door_id, door in enumerate(doors):
             self.import_hole_cover(door, door_id, walls)
 
@@ -142,12 +142,14 @@ class ProcthorImporter(Factory):
         for wall_id, wall in enumerate(structure["walls"]):
 
             self.import_wall(wall, wall_id)
+        
+        for room_id, room in enumerate(rooms):
+            self.import_floor(room, room_id)
 
 
     def import_object(self, parent_body_name: str, obj: Dict[str, Any]) -> None:
+
         body_name = obj["id"].replace("|", "_").replace("_surface", "")
-
-
         body_builder = self._world_builder.add_body(body_name=body_name, parent_body_name=house_name)
 
         position = obj.get("position", {"x": 0, "y": 0, "z": 0})
@@ -161,7 +163,6 @@ class ProcthorImporter(Factory):
                                             [0, 1, 0]])
         
         asset_id = obj["assetId"]
-        # asset_id = re.sub(r'(\d+)x(\d+)', r'\1_X_\2', asset_id)
 
         position_vec = numpy.dot(x_90_rotation_matrix, position_vec)
         rotation_quat = Rotation.from_matrix(
@@ -315,6 +316,82 @@ class ProcthorImporter(Factory):
                                                  geom_property=geom_property)
             geom_builder.add_mesh(mesh_name=f"SM_{body_name}", mesh_property=mesh_property)
 
+    def import_floor(self, room: Dict[str, Any], room_id: int) -> None:
+        """
+        Import a floor by extruding the floor polygon into a volume.
+        The floor's top surface will be at 0 height, and the bottom at -thickness.
+        """
+
+        body_name = f"Floor_{room_id}"
+        body_builder = self._world_builder.add_body(body_name=body_name, parent_body_name=house_name)
+
+        x_90_rotation_matrix = numpy.array([[1, 0, 0],
+                                            [0, 0, -1],
+                                            [0, 1, 0]])
+        rotation_quat = Rotation.from_matrix(x_90_rotation_matrix).as_quat()
+
+        body_builder.set_transform(quat=rotation_quat)
+
+        floorPolygon = room['floorPolygon']
+        # Build a list of 2D points (using x and z) for triangulation
+        points2d = [(v["x"], v["z"]) for v in floorPolygon]
+        # Get triangulated indices for the flat polygon (flat list, every three numbers form a triangle)
+        bottom_tri = triangulate_2d(points2d, clockWise=False)
+        n = len(points2d)
+        
+        # Build vertex lists for bottom and top faces
+        # Combine vertices for both faces: indices 0 ~ n-1 for bottom, n ~ 2n-1 for top
+        top_vertices = [Gf.Vec3f(v["x"], v["y"], v["z"]) for v in floorPolygon]
+        bottom_vertices = [Gf.Vec3f(v["x"], v["y"] - 0.1, v["z"]) for v in floorPolygon]
+        vertices = top_vertices + bottom_vertices
+
+        # Bottom face: use the triangulation result, order should ensure correct normal direction 
+        bottom_face_indices = bottom_tri  # The bottom face normal points downward (reverse if needed)
+        
+        # Top face: use the same triangulation result, but add n and reverse order to ensure upward normal
+        top_face_indices = []
+        for j in range(0, len(bottom_tri), 3):
+            a = bottom_tri[j] + n
+            b = bottom_tri[j + 1] + n
+            c = bottom_tri[j + 2] + n
+            top_face_indices.extend([c, b, a])
+        
+        # Sides: for each edge of the polygon, create two triangles forming a quad
+        side_indices = []
+        for j in range(n):
+            j_next = (j + 1) % n
+            # Quad vertex order: bottom j, bottom j_next, top j_next, top j
+            # Split into two triangles:
+            side_indices.extend([j, j_next, j_next + n])
+            side_indices.extend([j, j_next + n, j + n])
+        
+        # Combine all triangle indices
+        all_triangles = bottom_face_indices + top_face_indices + side_indices
+
+        numTriangles = len(all_triangles) // 3
+        faceVertexCounts = [3] * numTriangles
+  
+        mesh_file_name = f"SM_Floor_{room_id}"
+
+        vertices_array = numpy.array([ (v[0], v[1], v[2]) for v in vertices ], dtype=float)
+
+        # Convert face vertex counts and indices to numpy arrays
+        face_vertex_counts_array = numpy.array(faceVertexCounts, dtype=int)
+        face_vertex_indices_array = numpy.array(all_triangles, dtype=int)
+
+        mesh_property = MeshProperty(points=vertices_array,
+                                    normals=None,  # Optionally compute normals if needed
+                                    face_vertex_counts=face_vertex_counts_array,
+                                    face_vertex_indices=face_vertex_indices_array,
+                                    mesh_file_name=mesh_file_name)
+
+        geom_property = GeomProperty(geom_type=GeomType.MESH,
+                                    is_visible=True,
+                                    is_collidable=True)
+
+        geom_builder = body_builder.add_geom(geom_name=body_name, geom_property=geom_property)
+        geom_builder.add_mesh(mesh_name=f"SM_{body_name}", mesh_property=mesh_property)
+
 
     def import_hole_cover(self, hole_cover: Dict[str, Any],hole_cover_id: int, walls: List[Dict[str, Any]]) -> None:
 
@@ -347,7 +424,7 @@ class ProcthorImporter(Factory):
 
         theta = -numpy.sign(p0p1_norm[2]) * numpy.arccos(numpy.dot(p0p1_norm, numpy.array([1, 0, 0])))
         rotY = numpy.degrees(theta)
-        
+
         # somehow need a extra 180 degree rotation around z axis
         rotation_mat = Rotation.from_euler("xyz", [0, rotY+180, 0],
                                            degrees=True)

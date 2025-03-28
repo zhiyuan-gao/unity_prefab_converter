@@ -489,10 +489,85 @@ def create_thick_wall(stage, vertex, mesh_prim_path, thickness = 0.1):
 
     mesh.GetDoubleSidedAttr().Set(True)
 
+def triangulate_2d(points, clockWise=False):
+    """
+    Use the ear clipping algorithm to triangulate a 2D polygon.
+    
+    :param points: List of 2D points [(x, y), ...]
+    :param clockWise: If True, the output triangle vertex order is clockwise.
+    :return: A flat list where every three numbers form a triangle's vertex indices.
+    """
+    n = len(points)
+    if n < 3:
+        return []
+    indices = []
 
+    def area():
+        A = 0.0
+        for i in range(n):
+            j = (i + 1) % n
+            A += points[i][0] * points[j][1] - points[j][0] * points[i][1]
+        return A * 0.5
 
-def creat_thick_floor(stage, vertex, mesh_prim_path, transform_matrix, thickness = 0.05):
-    pass
+    A = area()
+    V = list(range(n))
+    if A < 0:
+        V = V[::-1]
+    
+    nv = n
+    count = 2 * nv
+
+    def insideTriangle(A_pt, B_pt, C_pt, P_pt):
+        ax, ay = C_pt[0] - B_pt[0], C_pt[1] - B_pt[1]
+        bx, by = A_pt[0] - C_pt[0], A_pt[1] - C_pt[1]
+        cx, cy = B_pt[0] - A_pt[0], B_pt[1] - A_pt[1]
+        apx, apy = P_pt[0] - A_pt[0], P_pt[1] - A_pt[1]
+        bpx, bpy = P_pt[0] - B_pt[0], P_pt[1] - B_pt[1]
+        cpx, cpy = P_pt[0] - C_pt[0], P_pt[1] - C_pt[1]
+        aCROSSbp = ax * bpy - ay * bpx
+        bCROSScp = bx * cpy - by * cpx
+        cCROSSap = cx * apy - cy * apx
+        return (aCROSSbp >= 0) and (bCROSScp >= 0) and (cCROSSap >= 0)
+
+    def snip(u, v, w, nv, V):
+        Ax, Ay = points[V[u]]
+        Bx, By = points[V[v]]
+        Cx, Cy = points[V[w]]
+        EPSILON = 1e-6
+        if ((Bx - Ax) * (Cy - Ay) - (By - Ay) * (Cx - Ax)) < EPSILON:
+            return False
+        for p in range(nv):
+            if p in (u, v, w):
+                continue
+            Px, Py = points[V[p]]
+            if insideTriangle((Ax, Ay), (Bx, By), (Cx, Cy), (Px, Py)):
+                return False
+        return True
+
+    u = nv - 1
+    while nv > 2:
+        if count <= 0:
+            break  # The polygon may be degenerate
+        v = (u + 1) % nv
+        w = (v + 1) % nv
+        if snip(u, v, w, nv, V):
+            a = V[u]
+            b = V[v]
+            c = V[w]
+            if not clockWise:
+                indices.extend([a, b, c])
+            else:
+                indices.extend([c, b, a])
+            V.pop(v)
+            nv -= 1
+            count = 2 * nv
+            u = (u - 1) % nv
+        else:
+            u = v
+            count -= 1
+
+    return indices
+
 
 if __name__ == "__main__":
 
@@ -554,30 +629,6 @@ if __name__ == "__main__":
 
             create_thick_wall(stage, sorted_points, new_mesh_path, thickness = thickness)
 
-        # floors_prim = stage.GetPrimAtPath("/World/Structure/Floor")
-        # for prim in floors_prim.GetAllChildren():
-        #     mesh_path = prim.GetPath().pathString
-        #     source_mesh_geom = UsdGeom.Xformable(prim)
-        #     transform_matrix = source_mesh_geom.GetLocalTransformation()
-        #     vertex = get_unique_vertices_and_indices(usd_file_path, mesh_path)
-        #     sorted_points = sort_rectangle_vertices(vertex)
-        #     new_mesh_path = mesh_path + "_thick"
-
-        #     create_thick_wall(stage, sorted_points, new_mesh_path, transform_matrix)
-        #     stage.RemovePrim(prim.GetPath())
-
-
-        # ceiling_prim = stage.GetPrimAtPath("/World/Structure/Ceiling")
-        # for prim in ceiling_prim.GetAllChildren():
-        #     mesh_path = prim.GetPath().pathString
-        #     source_mesh_geom = UsdGeom.Xformable(prim)
-        #     transform_matrix = source_mesh_geom.GetLocalTransformation()
-        #     vertex = get_unique_vertices_and_indices(usd_file_path, mesh_path)
-        #     sorted_points = sort_rectangle_vertices(vertex)
-        #     new_mesh_path = mesh_path + "_thick"
-
-        #     create_thick_wall(stage, sorted_points, new_mesh_path, transform_matrix)
-        #     stage.RemovePrim(prim.GetPath())
         stage.GetRootLayer().Export(new_file_path)
 
         print("wall mesh has been saved to ", new_file_path)
